@@ -15,8 +15,13 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window makeKeyAndVisible];
+    self.initialVC = [[SAAudioRecorderVC alloc] init];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.initialVC];
+    [self.window addSubview:self.navigationController.view];
     return YES;
 }
 

@@ -10,10 +10,13 @@
 		92C0046A1AB39E5500241F77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C004691AB39E5500241F77 /* main.m */; };
 		92C0046D1AB39E5500241F77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C0046C1AB39E5500241F77 /* AppDelegate.m */; };
 		92C004701AB39E5500241F77 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C0046F1AB39E5500241F77 /* ViewController.m */; };
-		92C004731AB39E5500241F77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92C004711AB39E5500241F77 /* Main.storyboard */; };
 		92C004751AB39E5500241F77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92C004741AB39E5500241F77 /* Images.xcassets */; };
 		92C004781AB39E5500241F77 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92C004761AB39E5500241F77 /* LaunchScreen.xib */; };
 		92C004841AB39E5600241F77 /* AudioRecorder2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C004831AB39E5600241F77 /* AudioRecorder2Tests.m */; };
+		92C004911AB39E8000241F77 /* SPAudioRecorderVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92C0048F1AB39E8000241F77 /* SPAudioRecorderVC.xib */; };
+		92C004951AB39F0000241F77 /* SAAudioRecorderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C004931AB39F0000241F77 /* SAAudioRecorderVC.m */; };
+		92C004961AB39F0000241F77 /* SAAudioRecorderVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92C004941AB39F0000241F77 /* SAAudioRecorderVC.xib */; };
+		92C004D91AB613AD00241F77 /* SPAudioRecorderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C004D81AB613AD00241F77 /* SPAudioRecorderVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,12 +37,17 @@
 		92C0046C1AB39E5500241F77 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		92C0046E1AB39E5500241F77 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		92C0046F1AB39E5500241F77 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		92C004721AB39E5500241F77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		92C004741AB39E5500241F77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		92C004771AB39E5500241F77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		92C0047D1AB39E5500241F77 /* AudioRecorder2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioRecorder2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C004821AB39E5500241F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92C004831AB39E5600241F77 /* AudioRecorder2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioRecorder2Tests.m; sourceTree = "<group>"; };
+		92C0048F1AB39E8000241F77 /* SPAudioRecorderVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPAudioRecorderVC.xib; sourceTree = "<group>"; };
+		92C004921AB39F0000241F77 /* SAAudioRecorderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAAudioRecorderVC.h; sourceTree = "<group>"; };
+		92C004931AB39F0000241F77 /* SAAudioRecorderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAAudioRecorderVC.m; sourceTree = "<group>"; };
+		92C004941AB39F0000241F77 /* SAAudioRecorderVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAAudioRecorderVC.xib; sourceTree = "<group>"; };
+		92C004D71AB613AD00241F77 /* SPAudioRecorderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAudioRecorderVC.h; sourceTree = "<group>"; };
+		92C004D81AB613AD00241F77 /* SPAudioRecorderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPAudioRecorderVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,10 +93,15 @@
 				92C0046C1AB39E5500241F77 /* AppDelegate.m */,
 				92C0046E1AB39E5500241F77 /* ViewController.h */,
 				92C0046F1AB39E5500241F77 /* ViewController.m */,
-				92C004711AB39E5500241F77 /* Main.storyboard */,
 				92C004741AB39E5500241F77 /* Images.xcassets */,
 				92C004761AB39E5500241F77 /* LaunchScreen.xib */,
 				92C004671AB39E5500241F77 /* Supporting Files */,
+				92C0048F1AB39E8000241F77 /* SPAudioRecorderVC.xib */,
+				92C004D71AB613AD00241F77 /* SPAudioRecorderVC.h */,
+				92C004D81AB613AD00241F77 /* SPAudioRecorderVC.m */,
+				92C004941AB39F0000241F77 /* SAAudioRecorderVC.xib */,
+				92C004921AB39F0000241F77 /* SAAudioRecorderVC.h */,
+				92C004931AB39F0000241F77 /* SAAudioRecorderVC.m */,
 			);
 			path = AudioRecorder2;
 			sourceTree = "<group>";
@@ -199,9 +212,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92C004731AB39E5500241F77 /* Main.storyboard in Resources */,
 				92C004781AB39E5500241F77 /* LaunchScreen.xib in Resources */,
+				92C004911AB39E8000241F77 /* SPAudioRecorderVC.xib in Resources */,
 				92C004751AB39E5500241F77 /* Images.xcassets in Resources */,
+				92C004961AB39F0000241F77 /* SAAudioRecorderVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,9 +233,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92C004D91AB613AD00241F77 /* SPAudioRecorderVC.m in Sources */,
 				92C004701AB39E5500241F77 /* ViewController.m in Sources */,
 				92C0046D1AB39E5500241F77 /* AppDelegate.m in Sources */,
 				92C0046A1AB39E5500241F77 /* main.m in Sources */,
+				92C004951AB39F0000241F77 /* SAAudioRecorderVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,14 +260,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		92C004711AB39E5500241F77 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				92C004721AB39E5500241F77 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		92C004761AB39E5500241F77 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -346,6 +354,7 @@
 				INFOPLIST_FILE = AudioRecorder2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -356,6 +365,7 @@
 				INFOPLIST_FILE = AudioRecorder2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -412,6 +422,7 @@
 				92C004891AB39E5600241F77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		92C0048A1AB39E5600241F77 /* Build configuration list for PBXNativeTarget "AudioRecorder2Tests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +431,7 @@
 				92C0048C1AB39E5600241F77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
