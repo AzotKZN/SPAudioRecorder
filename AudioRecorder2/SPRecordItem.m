@@ -14,7 +14,7 @@
     self = [super init];
     
     if (self) {
-        _recordURL = recordURL;
+        self.recordURL = recordURL;
     }
     
     return self;

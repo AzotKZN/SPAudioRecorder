@@ -7,11 +7,10 @@
 //
 
 #import "SAAudioRecorderVC.h"
-#import "SPRecordItem.h"
 #import "SPAudioRecorderVC.h"
 
 @interface SAAudioRecorderVC ()
-@property (nonatomic, strong) NSMutableArray *recordItems;
+@property (nonatomic, strong) NSMutableArray *recordsItems;
 @end
 
 @implementation SAAudioRecorderVC
@@ -21,6 +20,7 @@
     // Do any additional setup after loading the view from its nib.
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Создать" style:UIBarButtonItemStylePlain target:self action:@selector(createNewAudio:)];
     self.navigationItem.rightBarButtonItem = doneButton;
+    self.recordsItems = [NSMutableArray arrayWithObjects:@"qqq", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,12 +45,14 @@
     
 }
 
-- (IBAction)done:(UIStoryboardSegue *)segue
+- (void) addObject:(id)object
 {
-    SPAudioRecorderVC *carDetailVC = segue.sourceViewController;
-    SPRecordItem *car = [[SPRecordItem alloc] initWithName:carDetailVC.recordURL];
-    [self.recordItems addObject:car];
+   // NSMutableArray *recordsItems = [NSMutableArray new];
+
+   // DataCIMonitor* object = self.dataDict
+    [self.recordsItems addObject:object];
     [self.tableView reloadData];
+    NSLog(@"%lu", (unsigned long)[self.recordsItems count]);
 }
 
 
@@ -66,18 +68,18 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.recordItems count];
+    return [self.recordsItems count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"RecordCell";
+    static NSString *CellIdentifier = @"RecordCell11";
     
-    SPRecordItem *currentCar = [self.recordItems objectAtIndex:indexPath.row];
+    SPRecordItem *currentRecord = [self.recordsItems objectAtIndex:indexPath.row];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    cell.textLabel.text = currentCar.recordURL;
+    cell.textLabel.text = [currentRecord.recordURL absoluteString];
     
     return cell;
 }

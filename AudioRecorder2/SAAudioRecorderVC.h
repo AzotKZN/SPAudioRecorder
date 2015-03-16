@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SPRecordItem.h"
 @interface SAAudioRecorderVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, retain) UITableView *tableView;
-
+- (void) addObject:(SPRecordItem*) object;
 @end

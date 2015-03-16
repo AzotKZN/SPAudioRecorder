@@ -8,6 +8,8 @@
 
 #import "SPAudioRecorderVC.h"
 #import "SPRecordItem.h"
+#import "SAAudioRecorderVC.h"
+
 @interface SPAudioRecorderVC (){
     AVAudioRecorder *recorder;
     AVAudioPlayer *player;
@@ -101,8 +103,14 @@ UIBarButtonItem *doneButton;
     [audioSession setActive:NO error:nil];
     [recordPauseButton setHidden:YES];
     [self.recordingTimer invalidate];
-    [self getRecordURL];
-    [self performSegueWithIdentifier:@"doneSegue" sender:self];
+    
+    self.recordURL = recorder.url;
+    SPRecordItem* data = [[SPRecordItem alloc] initWithName:self.recordURL];
+    SAAudioRecorderVC *object = [[SAAudioRecorderVC alloc] init];
+    [object addObject:data];
+
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 - (IBAction)playTapped:(id)sender {
@@ -133,18 +141,12 @@ UIBarButtonItem *doneButton;
 
 - (void) getRecordURL {
     NSLog(@"%@", recorder.url);
+    self.recordURL = recorder.url;
 }
 
 - (void) recordingTimerUpdate:(id) sender
 {
     self.recordLengthLabel.text = [NSString stringWithFormat:@"%.2f", recorder.currentTime];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue
-                 sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"doneSegue"]) {
-        self.recordURL = recorder.url;
-    }
 }
 
 @end
