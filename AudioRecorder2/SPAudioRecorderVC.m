@@ -7,7 +7,7 @@
 //
 
 #import "SPAudioRecorderVC.h"
-
+#import "SPRecordItem.h"
 @interface SPAudioRecorderVC (){
     AVAudioRecorder *recorder;
     AVAudioPlayer *player;
@@ -101,7 +101,8 @@ UIBarButtonItem *doneButton;
     [audioSession setActive:NO error:nil];
     [recordPauseButton setHidden:YES];
     [self.recordingTimer invalidate];
-    NSLog(@"%@", recorder.url);
+    [self getRecordURL];
+    [self performSegueWithIdentifier:@"doneSegue" sender:self];
 }
 
 - (IBAction)playTapped:(id)sender {
@@ -130,10 +131,20 @@ UIBarButtonItem *doneButton;
     [alert show];
 }
 
+- (void) getRecordURL {
+    NSLog(@"%@", recorder.url);
+}
+
 - (void) recordingTimerUpdate:(id) sender
 {
     self.recordLengthLabel.text = [NSString stringWithFormat:@"%.2f", recorder.currentTime];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"doneSegue"]) {
+        self.recordURL = recorder.url;
+    }
+}
 
 @end

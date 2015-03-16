@@ -12,5 +12,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *recordPauseButton;
 @property (strong, nonatomic) IBOutlet UILabel *recordLengthLabel;
 
+
+@property (nonatomic, strong) NSURL *recordURL;
+
 @end
 

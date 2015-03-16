@@ -17,6 +17,7 @@
 		92C004951AB39F0000241F77 /* SAAudioRecorderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C004931AB39F0000241F77 /* SAAudioRecorderVC.m */; };
 		92C004961AB39F0000241F77 /* SAAudioRecorderVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92C004941AB39F0000241F77 /* SAAudioRecorderVC.xib */; };
 		92C004D91AB613AD00241F77 /* SPAudioRecorderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C004D81AB613AD00241F77 /* SPAudioRecorderVC.m */; };
+		92C004DC1AB63A5F00241F77 /* SPRecordItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C004DB1AB63A5F00241F77 /* SPRecordItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		92C004941AB39F0000241F77 /* SAAudioRecorderVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAAudioRecorderVC.xib; sourceTree = "<group>"; };
 		92C004D71AB613AD00241F77 /* SPAudioRecorderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAudioRecorderVC.h; sourceTree = "<group>"; };
 		92C004D81AB613AD00241F77 /* SPAudioRecorderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPAudioRecorderVC.m; sourceTree = "<group>"; };
+		92C004DA1AB63A5F00241F77 /* SPRecordItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRecordItem.h; sourceTree = "<group>"; };
+		92C004DB1AB63A5F00241F77 /* SPRecordItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRecordItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +105,8 @@
 				92C004941AB39F0000241F77 /* SAAudioRecorderVC.xib */,
 				92C004921AB39F0000241F77 /* SAAudioRecorderVC.h */,
 				92C004931AB39F0000241F77 /* SAAudioRecorderVC.m */,
+				92C004DA1AB63A5F00241F77 /* SPRecordItem.h */,
+				92C004DB1AB63A5F00241F77 /* SPRecordItem.m */,
 			);
 			path = AudioRecorder2;
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92C004DC1AB63A5F00241F77 /* SPRecordItem.m in Sources */,
 				92C004D91AB613AD00241F77 /* SPAudioRecorderVC.m in Sources */,
 				92C004701AB39E5500241F77 /* ViewController.m in Sources */,
 				92C0046D1AB39E5500241F77 /* AppDelegate.m in Sources */,

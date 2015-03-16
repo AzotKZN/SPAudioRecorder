@@ -7,9 +7,11 @@
 //
 
 #import "SAAudioRecorderVC.h"
+#import "SPRecordItem.h"
 #import "SPAudioRecorderVC.h"
-@interface SAAudioRecorderVC ()
 
+@interface SAAudioRecorderVC ()
+@property (nonatomic, strong) NSMutableArray *recordItems;
 @end
 
 @implementation SAAudioRecorderVC
@@ -42,5 +44,43 @@
     [[self navigationController] pushViewController:audioRecorderVC animated:YES];
     
 }
+
+- (IBAction)done:(UIStoryboardSegue *)segue
+{
+    SPAudioRecorderVC *carDetailVC = segue.sourceViewController;
+    SPRecordItem *car = [[SPRecordItem alloc] initWithName:carDetailVC.recordURL];
+    [self.recordItems addObject:car];
+    [self.tableView reloadData];
+}
+
+
+
+#pragma mark - TableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    return [self.recordItems count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"RecordCell";
+    
+    SPRecordItem *currentCar = [self.recordItems objectAtIndex:indexPath.row];
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    cell.textLabel.text = currentCar.recordURL;
+    
+    return cell;
+}
+
 
 @end

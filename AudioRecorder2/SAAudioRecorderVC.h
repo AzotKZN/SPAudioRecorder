@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SAAudioRecorderVC : UIViewController
+@interface SAAudioRecorderVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, retain) UITableView *tableView;
 
 @end
