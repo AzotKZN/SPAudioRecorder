@@ -10,17 +10,29 @@
 #import "SPAudioRecorderVC.h"
 
 @interface SAAudioRecorderVC ()
-@property (nonatomic, strong) NSMutableArray *recordsItems;
 @end
 
 @implementation SAAudioRecorderVC
+
+-(id)init
+{
+    self = [super init];
+    if (self) {
+        self.recordsItems = [NSMutableArray array];
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Создать" style:UIBarButtonItemStylePlain target:self action:@selector(createNewAudio:)];
     self.navigationItem.rightBarButtonItem = doneButton;
-    self.recordsItems = [NSMutableArray arrayWithObjects:@"qqq", nil];
+   // self.recordsItems = [NSMutableArray arrayWithObjects:nil];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+   // NSURL* test11 = @"http://stackoverflow.com/questions/26712758/perform-segue-from-xib-programmatically";
+    //self.recordsItems = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,9 +59,6 @@
 
 - (void) addObject:(id)object
 {
-   // NSMutableArray *recordsItems = [NSMutableArray new];
-
-   // DataCIMonitor* object = self.dataDict
     [self.recordsItems addObject:object];
     [self.tableView reloadData];
     NSLog(@"%lu", (unsigned long)[self.recordsItems count]);
@@ -67,21 +76,29 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"Второй вызов %lu", (unsigned long)[self.recordsItems count]);
+
     // Return the number of rows in the section.
     return [self.recordsItems count];
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"RecordCell11";
+    static NSString *CellIdentifier = @"Cell";
     
     SPRecordItem *currentRecord = [self.recordsItems objectAtIndex:indexPath.row];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    cell.textLabel.text = [currentRecord.recordURL absoluteString];
+    if (cell==nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        
+    }
     
-    return cell;
+        cell.textLabel.text = [currentRecord.recordURL absoluteString];;
+        return cell;
 }
 
 

@@ -109,7 +109,9 @@ UIBarButtonItem *doneButton;
     SAAudioRecorderVC *object = [[SAAudioRecorderVC alloc] init];
     [object addObject:data];
 
-    [self.navigationController popViewControllerAnimated:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController pushViewController:object animated:YES];
+
     
 }
 

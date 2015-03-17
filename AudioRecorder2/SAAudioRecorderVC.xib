@@ -22,12 +22,6 @@
                         <outlet property="delegate" destination="-1" id="wck-6U-TbO"/>
                     </connections>
                 </tableView>
-                <tableViewCell contentMode="scaleToFill" fixedFrame="YES" selectionStyle="default" indentationWidth="10" translatesAutoresizingMaskIntoConstraints="NO" id="tHU-XT-Fs6">
-                    <rect key="frame" x="-212" y="22" width="320" height="44"/>
-                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tHU-XT-Fs6" id="Cgy-Jr-P8C">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </tableViewCellContentView>
-                </tableViewCell>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
