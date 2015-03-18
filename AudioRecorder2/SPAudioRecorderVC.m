@@ -110,7 +110,18 @@ UIBarButtonItem *doneButton;
     self.recordURL = recorder.url;
     SPRecordItem* data = [[SPRecordItem alloc] initWithName:_recordURL];
     [self.recordsItemsArray addObject:_recordURL];
+    NSLog(@"%@", data);
+    
+  //  SPRecordItem* data = [[DataCIMonitor alloc] initWithServerResponse:dictDataCIMonitor];
+    
+    
+    
+    
+    
    [self.delegate myViewControllerDidFinish:self];
+    
+    
+    
     
     //SAAudioRecorderVC *object = [[SAAudioRecorderVC alloc] init];
    // [_object addObject:data];

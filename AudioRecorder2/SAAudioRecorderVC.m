@@ -88,7 +88,9 @@
 {
     static NSString *CellIdentifier = @"Cell";
     
-    SPRecordItem *currentRecord = [self.recordsItems objectAtIndex:indexPath.row];
+    //SPRecordItem *currentRecord = [self.recordsItems objectAtIndex:indexPath.row];
+    
+    NSArray *currentRecord = [self.recordsItems objectAtIndex:indexPath.row];
     
     //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -99,7 +101,7 @@
     }
     
        // cell.textLabel.text = [currentRecord.recordURL absoluteString];;
-    cell.textLabel.text = [currentRecord.recordURL absoluteString];
+    cell.textLabel.text = [currentRecord[indexPath.row] absoluteString];
         return cell;
 }
 
