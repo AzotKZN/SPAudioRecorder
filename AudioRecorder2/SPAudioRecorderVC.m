@@ -9,8 +9,8 @@
 #import "SPAudioRecorderVC.h"
 #import "SPRecordItem.h"
 #import "SAAudioRecorderVC.h"
-
-@interface SPAudioRecorderVC (){
+@interface SPAudioRecorderVC () <SAAudioRecorderVCDelegate>
+{
     AVAudioRecorder *recorder;
     AVAudioPlayer *player;
 }
@@ -57,6 +57,9 @@ UIBarButtonItem *doneButton;
     doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Готово" style:UIBarButtonItemStylePlain target:self action:@selector(doneTapped:)];
     self.navigationItem.rightBarButtonItem = doneButton;
     doneButton.enabled = NO;
+    
+    //_object = [[SAAudioRecorderVC alloc] init];
+
 }
 
 
@@ -105,14 +108,19 @@ UIBarButtonItem *doneButton;
     [self.recordingTimer invalidate];
     
     self.recordURL = recorder.url;
-    SPRecordItem* data = [[SPRecordItem alloc] initWithName:self.recordURL];
-    SAAudioRecorderVC *object = [[SAAudioRecorderVC alloc] init];
-    [object addObject:data];
-
-    //[self.navigationController popViewControllerAnimated:YES];
-    [self.navigationController pushViewController:object animated:YES];
-
+    SPRecordItem* data = [[SPRecordItem alloc] initWithName:_recordURL];
+    [self.recordsItemsArray addObject:_recordURL];
+   [self.delegate myViewControllerDidFinish:self];
     
+    //SAAudioRecorderVC *object = [[SAAudioRecorderVC alloc] init];
+   // [_object addObject:data];
+   // object.recordsItems = [@[@"Bob", @"Sue", @"Joe"] mutableCopy];
+   // object.delegate = self;
+   // [object.recordsItems addObject:object];
+    //[object.tableView reloadData];
+    
+    
+    //[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)playTapped:(id)sender {

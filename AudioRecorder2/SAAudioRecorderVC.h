@@ -8,9 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "SPRecordItem.h"
+
+@class SAAudioRecorderVC;
+
+@protocol SAAudioRecorderVCDelegate <NSObject>
+
+- (void)SAAudioRecorderVCDidFinish:(SAAudioRecorderVC *)saAudioRecorderVC;
+
+@end
+
 @interface SAAudioRecorderVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *recordsItems;
 
+@property (weak, nonatomic) id<SAAudioRecorderVCDelegate> delegate;
 - (void) addObject:(SPRecordItem*) object;
 @end

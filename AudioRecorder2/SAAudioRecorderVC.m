@@ -14,14 +14,14 @@
 
 @implementation SAAudioRecorderVC
 
--(id)init
-{
-    self = [super init];
-    if (self) {
-        self.recordsItems = [NSMutableArray array];
-    }
-    return self;
-}
+//-(id)init
+//{
+//    self = [super init];
+//    if (self) {
+//        self.recordsItems = [NSMutableArray array];
+//    }
+//    return self;
+//}
 
 
 - (void)viewDidLoad {
@@ -29,10 +29,10 @@
     // Do any additional setup after loading the view from its nib.
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Создать" style:UIBarButtonItemStylePlain target:self action:@selector(createNewAudio:)];
     self.navigationItem.rightBarButtonItem = doneButton;
-   // self.recordsItems = [NSMutableArray arrayWithObjects:nil];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
-   // NSURL* test11 = @"http://stackoverflow.com/questions/26712758/perform-segue-from-xib-programmatically";
-    //self.recordsItems = [[NSMutableArray alloc] init];
+    
+    if (!self.recordsItems)
+        self.recordsItems = [NSMutableArray array];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,10 +50,13 @@
 }
 */
 - (IBAction)createNewAudio:(id)sender {
-   // UINavigationController *nav = segue.destinationViewController;
     SPAudioRecorderVC *audioRecorderVC = [[SPAudioRecorderVC alloc] initWithNibName:@"SPAudioRecorderVC" bundle:nil];
-    
-    [[self navigationController] pushViewController:audioRecorderVC animated:YES];
+    audioRecorderVC.recordsItemsArray = [_recordsItems mutableCopy];
+    audioRecorderVC.delegate = self;
+
+
+    [self presentViewController:audioRecorderVC animated:YES completion:nil];
+    //[[self navigationController] pushViewController:audioRecorderVC animated:YES];
     
 }
 
@@ -63,8 +66,6 @@
     [self.tableView reloadData];
     NSLog(@"%lu", (unsigned long)[self.recordsItems count]);
 }
-
-
 
 #pragma mark - TableViewDataSource
 
@@ -97,9 +98,18 @@
         
     }
     
-        cell.textLabel.text = [currentRecord.recordURL absoluteString];;
+       // cell.textLabel.text = [currentRecord.recordURL absoluteString];;
+    cell.textLabel.text = [currentRecord.recordURL absoluteString];
         return cell;
 }
 
+- (void)myViewControllerDidFinish:(SPAudioRecorderVC *)myViewController {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.recordsItems addObject:myViewController.recordsItemsArray];
+    [self.tableView reloadData];
+    NSLog(@"Changed data: %@", self.recordsItems);
+    // Respond to data
+}
 
 @end
