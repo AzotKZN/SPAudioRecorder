@@ -8,7 +8,7 @@
 
 #import "SAAudioRecorderVC.h"
 #import "SPAudioRecorderVC.h"
-
+#import "SPAudioRcPlayer.h"
 @interface SAAudioRecorderVC ()
 @end
 
@@ -105,13 +105,28 @@
         return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"showViewController");
+    
+    SPAudioRcPlayer *playerView = [[SPAudioRcPlayer alloc] initWithNibName:@"SPAudioRcPlayer" bundle:nil];;
+    NSURL *currentRecordURL = [self.recordsItems objectAtIndex:indexPath.row][indexPath.row ];
+    // set data for the new screen
+    //[self.]
+    //playerView.recordItemArray = ;
+    playerView.recordItemURL = currentRecordURL;
+    //[playerView.recordItemArray addObject:currentRecord[indexPath.row]];
+    playerView.delegate = self;
+    
+    [self.navigationController pushViewController:playerView animated:YES];;
+
+}
+
 - (void)myViewControllerDidFinish:(SPAudioRecorderVC *)myViewController {
     
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.recordsItems addObject:myViewController.recordsItemsArray];
     [self.tableView reloadData];
-    NSLog(@"Changed data: %@", self.recordsItems);
+    // NSLog(@"Changed data: %@", self.recordsItems);
     // Respond to data
 }
-
 @end

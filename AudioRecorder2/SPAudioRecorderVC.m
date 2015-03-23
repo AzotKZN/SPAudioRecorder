@@ -33,7 +33,7 @@ UIBarButtonItem *doneButton;
     NSString *uuidString = [[NSProcessInfo processInfo] globallyUniqueString];
     NSArray *pathComponents = [NSArray arrayWithObjects:
                                [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
-                               (@"%@.m4a", uuidString),
+                               (@"%@.mp3", uuidString),
                                nil];
     NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
     
@@ -59,6 +59,8 @@ UIBarButtonItem *doneButton;
     doneButton.enabled = NO;
     
     //_object = [[SAAudioRecorderVC alloc] init];
+    
+    
 
 }
 
@@ -96,7 +98,7 @@ UIBarButtonItem *doneButton;
         [recordPauseButton setTitle:@"●" forState:UIControlStateNormal];
     }
     
-   // [stopButton setEnabled:YES];
+    [doneButton setEnabled:YES];
 }
 
 - (IBAction)doneTapped:(id)sender {
@@ -111,35 +113,7 @@ UIBarButtonItem *doneButton;
     SPRecordItem* data = [[SPRecordItem alloc] initWithName:_recordURL];
     [self.recordsItemsArray addObject:_recordURL];
     NSLog(@"%@", data);
-    
-  //  SPRecordItem* data = [[DataCIMonitor alloc] initWithServerResponse:dictDataCIMonitor];
-    
-    
-    
-    
-    
-   [self.delegate myViewControllerDidFinish:self];
-    
-    
-    
-    
-    //SAAudioRecorderVC *object = [[SAAudioRecorderVC alloc] init];
-   // [_object addObject:data];
-   // object.recordsItems = [@[@"Bob", @"Sue", @"Joe"] mutableCopy];
-   // object.delegate = self;
-   // [object.recordsItems addObject:object];
-    //[object.tableView reloadData];
-    
-    
-    //[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)playTapped:(id)sender {
-    if (!recorder.recording){
-        player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
-        [player setDelegate:self];
-        [player play];
-    }
+   [self.delegate audioRecorderVCDidFinish:self];
 }
 
 #pragma mark - AVAudioRecorderDelegate
@@ -167,7 +141,12 @@ UIBarButtonItem *doneButton;
 
 - (void) recordingTimerUpdate:(id) sender
 {
-    self.recordLengthLabel.text = [NSString stringWithFormat:@"%.2f", recorder.currentTime];
-}
+    
+    NSTimeInterval currentTime = recorder.currentTime;
+    
+    NSInteger minutes = floor(currentTime/60);
+    NSInteger seconds = trunc(currentTime - minutes * 60);
 
+    self.recordLengthLabel.text = [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
+}
 @end

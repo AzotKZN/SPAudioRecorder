@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "SAAudioRecorderVC.h"
-@class MyViewController;
-@protocol MyViewControllerDelegate <NSObject>
+@class AudioRecorderVC;
+@protocol AudioRecorderVCDelegate <NSObject>
 
-- (void)myViewControllerDidFinish:(MyViewController *)myViewController;
+- (void)audioRecorderVCDidFinish:(AudioRecorderVC *)audioRecorderVC;
 
 @end
 @interface SPAudioRecorderVC : UIViewController
@@ -22,6 +22,9 @@
 
 @property (nonatomic, strong) NSURL *recordURL;
 @property (strong, nonatomic) NSMutableArray *recordsItemsArray;
-@property (weak, nonatomic) id<MyViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<AudioRecorderVCDelegate> delegate;
+
+@property (strong,nonatomic) UITableView *annotationTable;
+
 @end
 
