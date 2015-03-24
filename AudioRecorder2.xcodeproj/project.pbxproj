@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92545E301AC1E34000A503D9 /* SPAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 92545E2F1AC1E34000A503D9 /* SPAnnotation.m */; };
 		92C0046A1AB39E5500241F77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C004691AB39E5500241F77 /* main.m */; };
 		92C0046D1AB39E5500241F77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C0046C1AB39E5500241F77 /* AppDelegate.m */; };
 		92C004701AB39E5500241F77 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C0046F1AB39E5500241F77 /* ViewController.m */; };
@@ -33,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		92545E2E1AC1E34000A503D9 /* SPAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAnnotation.h; sourceTree = "<group>"; };
+		92545E2F1AC1E34000A503D9 /* SPAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPAnnotation.m; sourceTree = "<group>"; };
 		92C004641AB39E5500241F77 /* AudioRecorder2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioRecorder2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C004681AB39E5500241F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92C004691AB39E5500241F77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -104,6 +107,8 @@
 				92C004741AB39E5500241F77 /* Images.xcassets */,
 				92C004761AB39E5500241F77 /* LaunchScreen.xib */,
 				92C004671AB39E5500241F77 /* Supporting Files */,
+				92545E2E1AC1E34000A503D9 /* SPAnnotation.h */,
+				92545E2F1AC1E34000A503D9 /* SPAnnotation.m */,
 				92C004DD1ABA335800241F77 /* SPAudioRcPlayer.h */,
 				92C004DE1ABA335800241F77 /* SPAudioRcPlayer.m */,
 				92C004DF1ABA335800241F77 /* SPAudioRcPlayer.xib */,
@@ -250,6 +255,7 @@
 				92C004E01ABA335800241F77 /* SPAudioRcPlayer.m in Sources */,
 				92C004DC1AB63A5F00241F77 /* SPRecordItem.m in Sources */,
 				92C004D91AB613AD00241F77 /* SPAudioRecorderVC.m in Sources */,
+				92545E301AC1E34000A503D9 /* SPAnnotation.m in Sources */,
 				92C004701AB39E5500241F77 /* ViewController.m in Sources */,
 				92C0046D1AB39E5500241F77 /* AppDelegate.m in Sources */,
 				92C0046A1AB39E5500241F77 /* main.m in Sources */,

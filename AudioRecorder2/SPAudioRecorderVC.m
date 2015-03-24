@@ -9,6 +9,8 @@
 #import "SPAudioRecorderVC.h"
 #import "SPRecordItem.h"
 #import "SAAudioRecorderVC.h"
+#import "SPAnnotationTableView.h"
+#import "SPAnnotation.h"
 @interface SPAudioRecorderVC () <SAAudioRecorderVCDelegate>
 {
     AVAudioRecorder *recorder;
@@ -16,7 +18,7 @@
 }
 
 @property (nonatomic, strong) NSTimer *recordingTimer;
-
+@property (nonatomic, strong) id object;
 @end
 
 @implementation SPAudioRecorderVC
@@ -60,6 +62,7 @@ UIBarButtonItem *doneButton;
     
     //_object = [[SAAudioRecorderVC alloc] init];
     
+    _object = [[SPAnnotation alloc] init];
     
 
 }
@@ -148,5 +151,39 @@ UIBarButtonItem *doneButton;
     NSInteger seconds = trunc(currentTime - minutes * 60);
 
     self.recordLengthLabel.text = [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
+}
+
+
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    //SPAnnotation *annotation = [[SPAnnotation alloc] init];
+    
+    
+    return [_object getItemTotalCount];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    // Return the number of rows in the section.
+    return 20;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if(cell == nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+   
+    cell.textLabel.text = @"Test";
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+    return cell;
 }
 @end

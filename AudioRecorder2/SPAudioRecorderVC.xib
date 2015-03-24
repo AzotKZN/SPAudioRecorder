@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SPAudioRecorderVC">
             <connections>
+                <outlet property="annotationTableView" destination="hti-58-Laa" id="S11-oB-r7X"/>
                 <outlet property="recordLengthLabel" destination="hgP-hJ-h7g" id="tKz-G3-GCV"/>
                 <outlet property="recordPauseButton" destination="lvl-PP-oH1" id="w2B-Zl-bna"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -42,10 +43,26 @@
                         <action selector="doneTapped:" destination="-1" eventType="touchUpInside" id="cBJ-ui-zUR"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="piu-Cr-ym1">
-                    <rect key="frame" x="0.0" y="236" width="375" height="334"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="Cell" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="hti-58-Laa" customClass="SPAnnotationTableView">
+                    <rect key="frame" x="0.0" y="167" width="375" height="334"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="zYK-aN-FNs"/>
+                        <outlet property="delegate" destination="-1" id="Tjd-Ls-BJr"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRk-M6-6Xj">
+                    <rect key="frame" x="8" y="127" width="30" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                    <state key="normal" title="+">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="imM-pO-6mO">
+                    <rect key="frame" x="46" y="134" width="305" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
