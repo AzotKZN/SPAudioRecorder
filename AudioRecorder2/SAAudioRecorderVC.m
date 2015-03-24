@@ -121,10 +121,10 @@
 
 }
 
-- (void)myViewControllerDidFinish:(SPAudioRecorderVC *)myViewController {
+- (void)audioRecorderVCDidFinish:(SPAudioRecorderVC *)audioRecorderVC {
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self.recordsItems addObject:myViewController.recordsItemsArray];
+    [self.recordsItems addObject:audioRecorderVC.recordsItemsArray];
     [self.tableView reloadData];
     // NSLog(@"Changed data: %@", self.recordsItems);
     // Respond to data
