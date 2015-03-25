@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SPAudioRcPlayer">
             <connections>
+                <outlet property="annotationTableView" destination="233-gq-1g9" id="tOz-du-JZQ"/>
                 <outlet property="navigationSlider" destination="Pi9-QM-kcs" id="kjn-fh-DLm"/>
                 <outlet property="playPauseButton" destination="5xv-MO-Jha" id="TnW-UE-RGc"/>
                 <outlet property="playTimer" destination="i59-c5-4rJ" id="QVd-Ue-TOd"/>

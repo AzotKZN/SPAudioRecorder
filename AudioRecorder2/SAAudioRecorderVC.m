@@ -110,11 +110,12 @@
     NSLog(@"showViewController");
     
     SPAudioRcPlayer *playerView = [[SPAudioRcPlayer alloc] initWithNibName:@"SPAudioRcPlayer" bundle:nil];;
-    NSURL *currentRecordURL = [self.recordsItems objectAtIndex:indexPath.row][indexPath.row ];
+   // NSURL *currentRecordURL = [self.recordsItems objectAtIndex:indexPath.row][indexPath.row ];
     // set data for the new screen
     //[self.]
     //playerView.recordItemArray = ;
-    playerView.recordItemURL = currentRecordURL;
+    SPRecordItem *currentRecord = self.recordsItems[indexPath.row];
+    playerView.recordItemURL = currentRecord.recordURL;
     //[playerView.recordItemArray addObject:currentRecord[indexPath.row]];
     playerView.delegate = self;
     

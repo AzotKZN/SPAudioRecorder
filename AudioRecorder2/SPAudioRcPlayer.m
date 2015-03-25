@@ -80,4 +80,36 @@
     _navigationSlider.value = player.currentTime;
 }
 
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    //return [_object getItemTotalCount:_annotationArray];
+    // Return the number of rows in the section.
+   // NSLog(@"%lu", (unsigned long)_annotationArray.count);
+    return 1;//_annotationArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // NSArray *rowData = [_object getItemIndexPath:indexPath.row];
+    
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if(cell == nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+   // cell.textLabel.text = _annotationArray[indexPath.row][0];
+    
+    // cell.detailTextLabel.text = _annotationArray[indexPath.row][1];
+    
+    return cell;
+}
+
 @end

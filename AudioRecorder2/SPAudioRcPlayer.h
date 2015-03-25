@@ -14,7 +14,10 @@
 - (void)spAudioRcPlayerVCDidFinish:(SPAudioRcPlayerVC *)spAudioRcPlayerVC;
 
 @end
-@interface SPAudioRcPlayer : UIViewController
+@interface SPAudioRcPlayer : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+    
+    IBOutlet UITableView *annotationTableView;
+}
 
 @property (strong, nonatomic) NSURL *recordItemURL;
 @property (strong, nonatomic) IBOutlet UIButton *playPauseButton;
