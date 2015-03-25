@@ -11,10 +11,10 @@
 @implementation SPAnnotation
 
 
-- (NSInteger) getItemTotalCount {
-    SPAudioRecorderVC *object = [[SPAudioRecorderVC alloc] init];
-    NSLog(@"%lu", (unsigned long)object.annotationArray.count);
-    return object.annotationArray.count;
+- (NSInteger) getItemTotalCount:(NSArray *)object {
+    //SPAudioRecorderVC *object = [[SPAudioRecorderVC alloc] init];
+    //NSLog(@"%lu", (unsigned long)object.annotationArray.count);
+    return 10;//object.annotationArray.count;
 }
 
 - (id) getItemIndexPath:(NSInteger *)indexPathRow {

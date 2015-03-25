@@ -60,12 +60,12 @@
     
 }
 
-- (void) addObject:(id)object
-{
-    [self.recordsItems addObject:object];
-    [self.tableView reloadData];
-    NSLog(@"%lu", (unsigned long)[self.recordsItems count]);
-}
+//- (void) addObject:(id)object
+//{
+//    [self.recordsItems addObject:object];
+//    [self.tableView reloadData];
+//    NSLog(@"%lu", (unsigned long)[self.recordsItems count]);
+//}
 
 #pragma mark - TableViewDataSource
 
@@ -87,10 +87,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
+    SPRecordItem *currentRecord = self.recordsItems[indexPath.row];
+
+   // SPRecordItem *currentRecord = [self.recordsItems objectAtIndex:indexPath.row];
     
-    //SPRecordItem *currentRecord = [self.recordsItems objectAtIndex:indexPath.row];
-    
-    NSArray *currentRecord = [self.recordsItems objectAtIndex:indexPath.row];
+    //NSArray *currentRecord = [self.recordsItems objectAtIndex:indexPath.row];
     
     //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -101,7 +102,7 @@
     }
     
        // cell.textLabel.text = [currentRecord.recordURL absoluteString];;
-    cell.textLabel.text = [currentRecord[indexPath.row] absoluteString];
+    cell.textLabel.text = [currentRecord.recordURL absoluteString];
         return cell;
 }
 
@@ -124,7 +125,7 @@
 - (void)audioRecorderVCDidFinish:(SPAudioRecorderVC *)audioRecorderVC {
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self.recordsItems addObject:audioRecorderVC.recordsItemsArray];
+    [self.recordsItems addObject:audioRecorderVC];
     [self.tableView reloadData];
     // NSLog(@"Changed data: %@", self.recordsItems);
     // Respond to data

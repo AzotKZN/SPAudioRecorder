@@ -12,7 +12,7 @@
 @class AudioRecorderVC;
 @protocol AudioRecorderVCDelegate <NSObject>
 
-- (void)audioRecorderVCDidFinish:(AudioRecorderVC *)audioRecorderVC;
+- (void)audioRecorderVCDidFinish:(SPRecordItem *)data;
 
 @end
 @interface SPAudioRecorderVC : UIViewController <UITableViewDelegate, UITableViewDataSource>{

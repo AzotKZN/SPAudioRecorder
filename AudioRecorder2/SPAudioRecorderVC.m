@@ -114,10 +114,15 @@ UIBarButtonItem *doneButton;
     [self.recordingTimer invalidate];
     
     self.recordURL = recorder.url;
-    SPRecordItem* data = [[SPRecordItem alloc] initWithName:_recordURL];
-    [self.recordsItemsArray addObject:_recordURL];
-    NSLog(@"%@", data);
-   [self.delegate audioRecorderVCDidFinish:self];
+    //SPRecordItem* data = [[SPRecordItem alloc] initWithName:itemData];
+    NSMutableDictionary *itemData = [NSMutableDictionary new];
+    [itemData setObject:_recordURL forKey:@"URL"];
+    [itemData setObject:_annotationArray forKey:@"annotation"];
+    SPRecordItem* data = [[SPRecordItem alloc] initWithName:itemData];
+    [self.recordsItemsArray addObject:data];
+   // [self.recordsItemsArray addObject:_recordURL];
+   // NSLog(@"%@", data);
+   [self.delegate audioRecorderVCDidFinish:data];
 }
 
 #pragma mark - AVAudioRecorderDelegate
@@ -151,7 +156,7 @@ UIBarButtonItem *doneButton;
 
     self.recordLengthLabel.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
 }
-
+#pragma mark - Add annotation
 - (IBAction)addAnnotation:(id)sender {
     NSTimeInterval currentTime = recorder.currentTime;
     
@@ -175,6 +180,7 @@ UIBarButtonItem *doneButton;
         NSString *annotationText = [alertView textFieldAtIndex:0].text;
         NSString *annotationTime = [alertView message];
         [self.annotationArray addObject:@[annotationTime, annotationText]];
+        
         [_annotationTableView reloadData];
     }
 }
@@ -188,7 +194,7 @@ UIBarButtonItem *doneButton;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
+    //return [_object getItemTotalCount:_annotationArray];
     // Return the number of rows in the section.
     NSLog(@"%lu", (unsigned long)_annotationArray.count);
     return _annotationArray.count;

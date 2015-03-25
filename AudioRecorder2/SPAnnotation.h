@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "SPAudioRecorderVC.h"
 @interface SPAnnotation : NSObject <UITableViewDataSource>
-- (NSInteger) getItemTotalCount;
+- (NSInteger) getItemTotalCount:(NSArray *)object;
 - (id) getItemIndexPath:(NSInteger *)indexPathRow;
 @end

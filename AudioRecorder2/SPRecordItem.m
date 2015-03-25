@@ -9,12 +9,13 @@
 #import "SPRecordItem.h"
 
 @implementation SPRecordItem
-- (id)initWithName:(NSURL *)recordURL;
+- (id)initWithName:(NSDictionary*)item;
 {
     self = [super init];
     
     if (self) {
-        self.recordURL = recordURL;
+        self.recordURL = [item objectForKey:@"URL"];;
+        self.recordAnnotation = nil;
     }
     
     return self;
