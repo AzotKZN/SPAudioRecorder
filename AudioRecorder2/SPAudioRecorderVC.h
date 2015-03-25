@@ -28,7 +28,9 @@
 @property (weak, nonatomic) id<AudioRecorderVCDelegate> delegate;
 
 @property (strong, nonatomic) IBOutlet UITableView *annotationTableView;
+@property (strong, nonatomic) IBOutlet UITextField *annotationTextField;
+@property (strong, nonatomic) IBOutlet UIButton *addAnnotationButton;
 
-
+@property (nonatomic, strong) NSMutableArray *annotationArray;
 @end
 

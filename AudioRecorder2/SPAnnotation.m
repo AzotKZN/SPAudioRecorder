@@ -12,10 +12,14 @@
 
 
 - (NSInteger) getItemTotalCount {
-    return 10;
+    SPAudioRecorderVC *object = [[SPAudioRecorderVC alloc] init];
+    NSLog(@"%lu", (unsigned long)object.annotationArray.count);
+    return object.annotationArray.count;
 }
 
-- (id) getItemIndexPath {
+- (id) getItemIndexPath:(NSInteger *)indexPathRow {
+    SPAudioRecorderVC *object = [[SPAudioRecorderVC alloc] init];
+   // id *jkcjwjwef = object.annotationArray[indexPathRow];
     return nil;
 }
 

@@ -9,7 +9,6 @@
 #import "SPAudioRecorderVC.h"
 #import "SPRecordItem.h"
 #import "SAAudioRecorderVC.h"
-#import "SPAnnotationTableView.h"
 #import "SPAnnotation.h"
 @interface SPAudioRecorderVC () <SAAudioRecorderVCDelegate>
 {
@@ -19,6 +18,8 @@
 
 @property (nonatomic, strong) NSTimer *recordingTimer;
 @property (nonatomic, strong) id object;
+
+
 @end
 
 @implementation SPAudioRecorderVC
@@ -63,7 +64,7 @@ UIBarButtonItem *doneButton;
     //_object = [[SAAudioRecorderVC alloc] init];
     
     _object = [[SPAnnotation alloc] init];
-    
+    _annotationArray = [[NSMutableArray alloc] init];
 
 }
 
@@ -138,52 +139,75 @@ UIBarButtonItem *doneButton;
 }
 
 - (void) getRecordURL {
-    NSLog(@"%@", recorder.url);
     self.recordURL = recorder.url;
 }
 
 - (void) recordingTimerUpdate:(id) sender
 {
-    
     NSTimeInterval currentTime = recorder.currentTime;
     
     NSInteger minutes = floor(currentTime/60);
     NSInteger seconds = trunc(currentTime - minutes * 60);
 
-    self.recordLengthLabel.text = [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
+    self.recordLengthLabel.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
 }
 
+- (IBAction)addAnnotation:(id)sender {
+    NSTimeInterval currentTime = recorder.currentTime;
+    
+    NSInteger minutes = floor(currentTime/60);
+    NSInteger seconds = trunc(currentTime - minutes * 60);
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Добавление аннотации"
+                                                     message:[NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds]
+                                                    delegate:self
+                                                    cancelButtonTitle:@"Отмена"
+                                                    otherButtonTitles:@"Сохранить!", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    
+    if([title isEqualToString:@"Сохранить!"])
+    {
+        NSString *annotationText = [alertView textFieldAtIndex:0].text;
+        NSString *annotationTime = [alertView message];
+        [self.annotationArray addObject:@[annotationTime, annotationText]];
+        [_annotationTableView reloadData];
+    }
+}
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //SPAnnotation *annotation = [[SPAnnotation alloc] init];
-    
-    
-    return [_object getItemTotalCount];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
     // Return the number of rows in the section.
-    return 20;
+    NSLog(@"%lu", (unsigned long)_annotationArray.count);
+    return _annotationArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+   // NSArray *rowData = [_object getItemIndexPath:indexPath.row];
+    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if(cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-   
-    cell.textLabel.text = @"Test";
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+   }
+    cell.textLabel.text = _annotationArray[indexPath.row][0];
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+    cell.detailTextLabel.text = _annotationArray[indexPath.row][1];
+
     return cell;
 }
 @end
