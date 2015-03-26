@@ -115,7 +115,10 @@
     //[self.]
     //playerView.recordItemArray = ;
     SPRecordItem *currentRecord = self.recordsItems[indexPath.row];
-    playerView.recordItemURL = currentRecord.recordURL;
+    playerView.currentRecord = currentRecord;
+    playerView.recordItemIndex = indexPath.row;
+    //playerView.recordItemURL = currentRecord.recordURL;
+    //playerView.annotationArray = currentRecord.recordAnnotation;
     //[playerView.recordItemArray addObject:currentRecord[indexPath.row]];
     playerView.delegate = self;
     

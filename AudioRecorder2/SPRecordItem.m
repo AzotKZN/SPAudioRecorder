@@ -14,8 +14,8 @@
     self = [super init];
     
     if (self) {
-        self.recordURL = [item objectForKey:@"URL"];;
-        self.recordAnnotation = nil;
+        self.recordURL = [item objectForKey:@"URL"];
+        self.recordAnnotation = [item objectForKey:@"annotation"];
     }
     
     return self;

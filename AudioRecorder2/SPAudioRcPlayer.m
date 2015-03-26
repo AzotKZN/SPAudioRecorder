@@ -7,7 +7,7 @@
 //
 
 #import "SPAudioRcPlayer.h"
-
+#import "SAAudioRecorderVC.h"
 @interface SPAudioRcPlayer (){
     AVAudioPlayer *player;
 }
@@ -20,8 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSURL *soundURL = _recordItemURL;
-    player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:nil];
+    player = [[AVAudioPlayer alloc] initWithContentsOfURL:_currentRecord.recordURL error:nil];
 
     NSTimeInterval currentTime =player.duration;
 
@@ -29,6 +28,8 @@
     NSInteger seconds = trunc(currentTime - minutes * 60);
     _recordDuration.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
     _navigationSlider.maximumValue = player.duration;
+    _annotationArray = _currentRecord.recordAnnotation;
+    [_annotationTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,8 +39,7 @@
 
 - (IBAction)playTapped:(id)sender {
     if (!player.playing) {
-    NSURL *soundURL = _recordItemURL;
-    NSLog(@"---%@",_recordItemURL);
+    NSURL *soundURL = _currentRecord.recordURL;
     player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:nil];
     [player setDelegate:self];
     [_playPauseButton setTitle:@"ll" forState:UIControlStateNormal];
@@ -80,6 +80,36 @@
     _navigationSlider.value = player.currentTime;
 }
 
+#pragma mark - Add annotation
+- (IBAction)addAnnotation:(id)sender {
+    NSTimeInterval currentTime = player.currentTime;
+    
+    NSInteger minutes = floor(currentTime/60);
+    NSInteger seconds = trunc(currentTime - minutes * 60);
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Добавление аннотации"
+                                                     message:[NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds]
+                                                    delegate:self
+                                           cancelButtonTitle:@"Отмена"
+                                           otherButtonTitles:@"Сохранить!", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    
+    if([title isEqualToString:@"Сохранить!"])
+    {
+        NSString *annotationText = [alertView textFieldAtIndex:0].text;
+        NSString *annotationTime = [alertView message];
+        [self.annotationArray addObject:@[annotationTime, annotationText]];
+        
+        [_annotationTableView reloadData];
+    }
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -89,10 +119,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //return [_object getItemTotalCount:_annotationArray];
-    // Return the number of rows in the section.
-   // NSLog(@"%lu", (unsigned long)_annotationArray.count);
-    return 1;//_annotationArray.count;
+    return _annotationArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -105,11 +132,25 @@
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-   // cell.textLabel.text = _annotationArray[indexPath.row][0];
+    cell.textLabel.text = _annotationArray[indexPath.row][0];
     
-    // cell.detailTextLabel.text = _annotationArray[indexPath.row][1];
+    cell.detailTextLabel.text = _annotationArray[indexPath.row][1];
     
     return cell;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.isMovingFromParentViewController || self.isBeingDismissed) {
+        [player pause];
+        SAAudioRecorderVC *object = [[SAAudioRecorderVC alloc] init];
+        NSMutableDictionary *itemData = [NSMutableDictionary new];
+        [itemData setObject:_currentRecord.recordURL forKey:@"URL"];
+        [itemData setObject:_annotationArray forKey:@"annotation"];
+        SPRecordItem* data = [[SPRecordItem alloc] initWithName:itemData];
+        NSMutableArray* itemArray = object.recordsItems;
+        [itemArray replaceObjectAtIndex:_recordItemIndex withObject:data];
+    }
 }
 
 @end

@@ -8,20 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "SPRecordItem.h"
 @class SPAudioRcPlayerVC;
 @protocol SPAudioRcPlayerVCDelegate <NSObject>
 
 - (void)spAudioRcPlayerVCDidFinish:(SPAudioRcPlayerVC *)spAudioRcPlayerVC;
 
 @end
-@interface SPAudioRcPlayer : UIViewController <UITableViewDelegate, UITableViewDataSource>{
-    
+@interface SPAudioRcPlayer : UIViewController <UITableViewDelegate, UITableViewDataSource>
+{
     IBOutlet UITableView *annotationTableView;
 }
-
+@property (strong, nonatomic) SPRecordItem *currentRecord;
 @property (strong, nonatomic) NSURL *recordItemURL;
+@property (strong, nonatomic) NSMutableArray *annotationArray;
+@property (strong, nonatomic) IBOutlet UITableView *annotationTableView;
+@property (assign, nonatomic) int *recordItemIndex;
+
 @property (strong, nonatomic) IBOutlet UIButton *playPauseButton;
-@property (strong, nonatomic) IBOutlet UILabel *playTimer;
+@property (strong, nonatomic)  IBOutlet UILabel *playTimer;
 @property (strong, nonatomic) IBOutlet UILabel *recordDuration;
 @property (strong, nonatomic) IBOutlet UISlider *navigationSlider;
 

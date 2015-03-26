@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SPAudioRcPlayer">
             <connections>
-                <outlet property="annotationTableView" destination="233-gq-1g9" id="tOz-du-JZQ"/>
+                <outlet property="annotationTableView" destination="ii2-iA-bZp" id="rYR-zZ-NXj"/>
                 <outlet property="navigationSlider" destination="Pi9-QM-kcs" id="kjn-fh-DLm"/>
                 <outlet property="playPauseButton" destination="5xv-MO-Jha" id="TnW-UE-RGc"/>
                 <outlet property="playTimer" destination="i59-c5-4rJ" id="QVd-Ue-TOd"/>
@@ -20,8 +20,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xv-MO-Jha">
-                    <rect key="frame" x="298" y="82" width="46" height="30"/>
-                    <state key="normal" title="Button">
+                    <rect key="frame" x="280" y="72" width="40" height="40"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="41"/>
+                    <state key="normal" title="►">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -31,12 +32,6 @@
                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Pi9-QM-kcs">
                     <rect key="frame" x="56" y="120" width="266" height="31"/>
                 </slider>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLo-Ut-mZt">
-                    <rect key="frame" x="8" y="124" width="47" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i59-c5-4rJ">
                     <rect key="frame" x="120" y="72" width="170" height="45"/>
                     <fontDescription key="fontDescription" type="system" pointSize="31"/>
@@ -49,10 +44,30 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="233-gq-1g9" customClass="SPAnnotationTableView">
-                    <rect key="frame" x="0.0" y="246" width="375" height="334"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ii2-iA-bZp">
+                    <rect key="frame" x="0.0" y="248" width="375" height="334"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="TTe-iW-u3s"/>
+                        <outlet property="delegate" destination="-1" id="kvd-zB-UNk"/>
+                    </connections>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjU-HR-XCN">
+                    <rect key="frame" x="167" y="598" width="41" height="48"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="51"/>
+                    <state key="normal" title="+">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="addAnnotation:" destination="-1" eventType="touchUpInside" id="hx7-tu-luH"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLo-Ut-mZt">
+                    <rect key="frame" x="8" y="124" width="47" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
