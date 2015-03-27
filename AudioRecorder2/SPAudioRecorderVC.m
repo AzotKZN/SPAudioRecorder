@@ -9,7 +9,6 @@
 #import "SPAudioRecorderVC.h"
 #import "SPRecordItem.h"
 #import "SAAudioRecorderVC.h"
-#import "SPAnnotation.h"
 @interface SPAudioRecorderVC () <SAAudioRecorderVCDelegate>
 {
     AVAudioRecorder *recorder;
@@ -63,9 +62,9 @@ UIBarButtonItem *doneButton;
     
     //_object = [[SAAudioRecorderVC alloc] init];
     
-    _object = [[SPAnnotation alloc] init];
     _annotationArray = [[NSMutableArray alloc] init];
 
+    annotationTableView.allowsSelection = NO;
 }
 
 
@@ -114,22 +113,20 @@ UIBarButtonItem *doneButton;
     [self.recordingTimer invalidate];
     
     self.recordURL = recorder.url;
-    //SPRecordItem* data = [[SPRecordItem alloc] initWithName:itemData];
+
     NSMutableDictionary *itemData = [NSMutableDictionary new];
     [itemData setObject:_recordURL forKey:@"URL"];
     [itemData setObject:_annotationArray forKey:@"annotation"];
     SPRecordItem* data = [[SPRecordItem alloc] initWithName:itemData];
     [self.recordsItemsArray addObject:data];
-   // [self.recordsItemsArray addObject:_recordURL];
-   // NSLog(@"%@", data);
-   [self.delegate audioRecorderVCDidFinish:data];
+
+    [self.delegate audioRecorderVCDidFinish:data];
 }
 
 #pragma mark - AVAudioRecorderDelegate
 
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
     [recordPauseButton setTitle:@"Записывать" forState:UIControlStateNormal];
-   // [stopButton setEnabled:NO];
 }
 
 #pragma mark - AVAudioPlayerDelegate
@@ -194,16 +191,12 @@ UIBarButtonItem *doneButton;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //return [_object getItemTotalCount:_annotationArray];
-    // Return the number of rows in the section.
-    NSLog(@"%lu", (unsigned long)_annotationArray.count);
     return _annotationArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   // NSArray *rowData = [_object getItemIndexPath:indexPath.row];
-    
+
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     

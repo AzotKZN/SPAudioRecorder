@@ -30,6 +30,8 @@
     _navigationSlider.maximumValue = player.duration;
     _annotationArray = _currentRecord.recordAnnotation;
     [_annotationTableView reloadData];
+    
+    [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,6 +45,7 @@
     player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:nil];
     [player setDelegate:self];
     [_playPauseButton setTitle:@"ll" forState:UIControlStateNormal];
+    [player setCurrentTime:_navigationSlider.value];
     [player play];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                       target:self
@@ -64,7 +67,6 @@
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
-    NSLog(@"Finsh playing");
     [_playPauseButton setTitle:@"►" forState:UIControlStateNormal];
 }
 
@@ -78,6 +80,14 @@
 
 - (void)updateSlider {
     _navigationSlider.value = player.currentTime;
+}
+
+- (IBAction)sliderChanged:(UISlider *)sender {
+    // Fast skip the music when user scroll the UISlider
+    [player stop];
+    [player setCurrentTime:_navigationSlider.value];
+    [player prepareToPlay];
+    [player play];
 }
 
 #pragma mark - Add annotation

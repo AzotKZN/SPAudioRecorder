@@ -60,13 +60,6 @@
     
 }
 
-//- (void) addObject:(id)object
-//{
-//    [self.recordsItems addObject:object];
-//    [self.tableView reloadData];
-//    NSLog(@"%lu", (unsigned long)[self.recordsItems count]);
-//}
-
 #pragma mark - TableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -77,11 +70,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"Второй вызов %lu", (unsigned long)[self.recordsItems count]);
-
-    // Return the number of rows in the section.
     return [self.recordsItems count];
-
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -107,22 +96,17 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"showViewController");
+
     
     SPAudioRcPlayer *playerView = [[SPAudioRcPlayer alloc] initWithNibName:@"SPAudioRcPlayer" bundle:nil];;
-   // NSURL *currentRecordURL = [self.recordsItems objectAtIndex:indexPath.row][indexPath.row ];
-    // set data for the new screen
-    //[self.]
-    //playerView.recordItemArray = ;
+   
     SPRecordItem *currentRecord = self.recordsItems[indexPath.row];
     playerView.currentRecord = currentRecord;
     playerView.recordItemIndex = indexPath.row;
-    //playerView.recordItemURL = currentRecord.recordURL;
-    //playerView.annotationArray = currentRecord.recordAnnotation;
-    //[playerView.recordItemArray addObject:currentRecord[indexPath.row]];
+    
     playerView.delegate = self;
     
-    [self.navigationController pushViewController:playerView animated:YES];;
+    [self.navigationController pushViewController:playerView animated:YES];
 
 }
 
@@ -131,7 +115,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.recordsItems addObject:audioRecorderVC];
     [self.tableView reloadData];
-    // NSLog(@"Changed data: %@", self.recordsItems);
-    // Respond to data
+    
 }
 @end
