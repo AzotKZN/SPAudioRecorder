@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
 
@@ -22,6 +24,7 @@
     self.initialVC = [[SAAudioRecorderVC alloc] init];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.initialVC];
     [self.window addSubview:self.navigationController.view];
+    [Fabric with:@[CrashlyticsKit]];
     return YES;
 }
 

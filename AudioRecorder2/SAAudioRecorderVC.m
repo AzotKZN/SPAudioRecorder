@@ -54,10 +54,9 @@
     audioRecorderVC.recordsItemsArray = [_recordsItems mutableCopy];
     audioRecorderVC.delegate = self;
 
+    audioRecorderVC.backgroundImage.image = [self makeImage];
 
     [self presentViewController:audioRecorderVC animated:YES completion:nil];
-    //[[self navigationController] pushViewController:audioRecorderVC animated:YES];
-    
 }
 
 #pragma mark - TableViewDataSource
@@ -113,8 +112,24 @@
 - (void)audioRecorderVCDidFinish:(SPAudioRecorderVC *)audioRecorderVC {
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self.recordsItems addObject:audioRecorderVC];
-    [self.tableView reloadData];
+    if (audioRecorderVC!=nil) {
+        [self.recordsItems addObject:audioRecorderVC];
+        [self.tableView reloadData];
+    }
     
+}
+
+-(UIImage*) makeImage {
+    
+    UIGraphicsBeginImageContext(self.view.bounds.size);
+    
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+   // viewImage = [viewImage applyBlurWithCrop:CGRectMake(0, 0, CGRectGetWidth(patternView.frame), CGRectGetHeight(patternView.frame)) resize:CGSizeMake(CGRectGetWidth(patternView.frame), CGRectGetHeight(patternView.frame)) blurRadius:2 tintColor:[UIColor colorWithWhite:.17f alpha:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")?.76:.87f] saturationDeltaFactor:1.8 maskImage:nil];
+    
+    return viewImage;
 }
 @end

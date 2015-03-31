@@ -21,7 +21,8 @@
 }
 @property (strong, nonatomic) IBOutlet UIButton *recordPauseButton;
 @property (strong, nonatomic) IBOutlet UILabel *recordLengthLabel;
-//@property (strong, nonatomic) IBOutlet SAAudioRecorderVC *object;
+@property (strong, nonatomic) IBOutlet UILabel *recordLengthBottomLabel;
+
 
 @property (nonatomic, strong) NSURL *recordURL;
 @property (strong, nonatomic) NSMutableArray *recordsItemsArray;
@@ -32,5 +33,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *addAnnotationButton;
 
 @property (nonatomic, strong) NSMutableArray *annotationArray;
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
+
+@property (strong, nonatomic) IBOutlet UIButton *doneButton;
 @end
 

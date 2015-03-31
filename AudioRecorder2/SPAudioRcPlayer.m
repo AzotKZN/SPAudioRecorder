@@ -86,6 +86,7 @@
     // Fast skip the music when user scroll the UISlider
     [player stop];
     [player setCurrentTime:_navigationSlider.value];
+    NSLog(@"%f", _navigationSlider.value);
     [player prepareToPlay];
     [player play];
 }
@@ -149,6 +150,39 @@
     return cell;
 }
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *currentAnnotationTime = _annotationArray[indexPath.row][0];
+    NSInteger *tempIntTime = [self timeConvertToSeconds:currentAnnotationTime];
+    float currentAnnTime = [[NSNumber numberWithInt: tempIntTime] floatValue];
+    
+    [player stop];
+    [player setCurrentTime:currentAnnTime];
+    [player prepareToPlay];
+    [player play];
+    [_playPauseButton setTitle:@"ll" forState:UIControlStateNormal];
+    _playTimer.text = _annotationArray[indexPath.row][0];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                  target:self
+                                                selector:@selector(updateTime)
+                                                userInfo:nil
+                                                 repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
+                                                  target:self
+                                                selector:@selector(updateSlider)
+                                                userInfo:nil
+                                                 repeats:YES];
+}
+
+- (NSInteger *)timeConvertToSeconds:(NSString *)currentAnnotationTime {
+    NSArray *subStrings = [currentAnnotationTime componentsSeparatedByString:@":"]; //or rather @" - "
+    NSString *minutes = [subStrings objectAtIndex:0];
+    NSString *seconds = [subStrings objectAtIndex:1];
+    
+    NSInteger *secondsOfStart = [minutes integerValue]*60 + [seconds integerValue];
+    
+    return secondsOfStart;
+}
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (self.isMovingFromParentViewController || self.isBeingDismissed) {

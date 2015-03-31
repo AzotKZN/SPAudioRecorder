@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92851E171ACA0B8600C6AE96 /* backgroundPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E161ACA0B8600C6AE96 /* backgroundPaper.png */; };
+		92851E191ACA10E000C6AE96 /* microphoneIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E181ACA10E000C6AE96 /* microphoneIcon.png */; };
+		92851E221ACA9ADB00C6AE96 /* addAnnotationButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E211ACA9ADB00C6AE96 /* addAnnotationButton.png */; };
+		92851E271ACAB06900C6AE96 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92851E251ACAB06900C6AE96 /* Crashlytics.framework */; };
+		92851E281ACAB06900C6AE96 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92851E261ACAB06900C6AE96 /* Fabric.framework */; };
 		92C0046A1AB39E5500241F77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C004691AB39E5500241F77 /* main.m */; };
 		92C0046D1AB39E5500241F77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C0046C1AB39E5500241F77 /* AppDelegate.m */; };
 		92C004701AB39E5500241F77 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C0046F1AB39E5500241F77 /* ViewController.m */; };
@@ -33,6 +38,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		92851E161ACA0B8600C6AE96 /* backgroundPaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundPaper.png; sourceTree = "<group>"; };
+		92851E181ACA10E000C6AE96 /* microphoneIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microphoneIcon.png; sourceTree = "<group>"; };
+		92851E211ACA9ADB00C6AE96 /* addAnnotationButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addAnnotationButton.png; sourceTree = "<group>"; };
+		92851E251ACAB06900C6AE96 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		92851E261ACAB06900C6AE96 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		92C004641AB39E5500241F77 /* AudioRecorder2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioRecorder2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C004681AB39E5500241F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92C004691AB39E5500241F77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -63,6 +73,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92851E271ACAB06900C6AE96 /* Crashlytics.framework in Frameworks */,
+				92851E281ACAB06900C6AE96 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +88,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		92851E151ACA0B6600C6AE96 /* resourse */ = {
+			isa = PBXGroup;
+			children = (
+				92851E181ACA10E000C6AE96 /* microphoneIcon.png */,
+				92851E211ACA9ADB00C6AE96 /* addAnnotationButton.png */,
+				92851E161ACA0B8600C6AE96 /* backgroundPaper.png */,
+			);
+			name = resourse;
+			sourceTree = "<group>";
+		};
 		92C0045B1AB39E5500241F77 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +137,8 @@
 				92C004941AB39F0000241F77 /* SAAudioRecorderVC.xib */,
 				92C004DA1AB63A5F00241F77 /* SPRecordItem.h */,
 				92C004DB1AB63A5F00241F77 /* SPRecordItem.m */,
+				92851E251ACAB06900C6AE96 /* Crashlytics.framework */,
+				92851E261ACAB06900C6AE96 /* Fabric.framework */,
 			);
 			path = AudioRecorder2;
 			sourceTree = "<group>";
@@ -122,6 +146,7 @@
 		92C004671AB39E5500241F77 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				92851E151ACA0B6600C6AE96 /* resourse */,
 				92C004681AB39E5500241F77 /* Info.plist */,
 				92C004691AB39E5500241F77 /* main.m */,
 			);
@@ -155,6 +180,7 @@
 				92C004601AB39E5500241F77 /* Sources */,
 				92C004611AB39E5500241F77 /* Frameworks */,
 				92C004621AB39E5500241F77 /* Resources */,
+				92851E231ACAB03D00C6AE96 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -227,8 +253,11 @@
 			files = (
 				92C004781AB39E5500241F77 /* LaunchScreen.xib in Resources */,
 				92C004911AB39E8000241F77 /* SPAudioRecorderVC.xib in Resources */,
+				92851E221ACA9ADB00C6AE96 /* addAnnotationButton.png in Resources */,
 				92C004751AB39E5500241F77 /* Images.xcassets in Resources */,
 				92C004961AB39F0000241F77 /* SAAudioRecorderVC.xib in Resources */,
+				92851E191ACA10E000C6AE96 /* microphoneIcon.png in Resources */,
+				92851E171ACA0B8600C6AE96 /* backgroundPaper.png in Resources */,
 				92C004E11ABA335800241F77 /* SPAudioRcPlayer.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,6 +270,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		92851E231ACAB03D00C6AE96 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run c47b8b5613bc690dae87da304c12ab62763cda40 0cf41771852869eb3064130ad4edf54b089492dd17889dbecd713df29e10751d";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		92C004601AB39E5500241F77 /* Sources */ = {
@@ -367,6 +412,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AudioRecorder2",
+				);
 				INFOPLIST_FILE = AudioRecorder2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -378,6 +427,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AudioRecorder2",
+				);
 				INFOPLIST_FILE = AudioRecorder2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

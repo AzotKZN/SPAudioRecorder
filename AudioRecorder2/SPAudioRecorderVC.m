@@ -23,7 +23,7 @@
 
 @implementation SPAudioRecorderVC
 @synthesize recordPauseButton;
-UIBarButtonItem *doneButton;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -56,9 +56,9 @@ UIBarButtonItem *doneButton;
     recorder.meteringEnabled = YES;
     [recorder prepareToRecord];
     
-    doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Готово" style:UIBarButtonItemStylePlain target:self action:@selector(doneTapped:)];
-    self.navigationItem.rightBarButtonItem = doneButton;
-    doneButton.enabled = NO;
+    //_doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Готово" style:UIBarButtonItemStylePlain target:self action:@selector(doneTapped:)];
+    //self.navigationItem.rightBarButtonItem = _doneButton;
+    _doneButton.enabled = NO;
     
     //_object = [[SAAudioRecorderVC alloc] init];
     
@@ -66,7 +66,6 @@ UIBarButtonItem *doneButton;
 
     annotationTableView.allowsSelection = NO;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -82,7 +81,7 @@ UIBarButtonItem *doneButton;
     }
     
     if (!recorder.recording) {
-        doneButton.enabled = YES;
+        _doneButton.enabled = YES;
         AVAudioSession *session = [AVAudioSession sharedInstance];
         [session setActive:YES error:nil];
         
@@ -101,7 +100,7 @@ UIBarButtonItem *doneButton;
         [recordPauseButton setTitle:@"●" forState:UIControlStateNormal];
     }
     
-    [doneButton setEnabled:YES];
+    [_doneButton setEnabled:YES];
 }
 
 - (IBAction)doneTapped:(id)sender {
@@ -121,6 +120,10 @@ UIBarButtonItem *doneButton;
     [self.recordsItemsArray addObject:data];
 
     [self.delegate audioRecorderVCDidFinish:data];
+}
+
+- (IBAction)cancelTapped:(id)sender {
+    [self.delegate audioRecorderVCDidFinish:nil];
 }
 
 #pragma mark - AVAudioRecorderDelegate
@@ -152,6 +155,7 @@ UIBarButtonItem *doneButton;
     NSInteger seconds = trunc(currentTime - minutes * 60);
 
     self.recordLengthLabel.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
+    self.recordLengthBottomLabel.text = _recordLengthLabel.text;
 }
 #pragma mark - Add annotation
 - (IBAction)addAnnotation:(id)sender {
@@ -209,4 +213,5 @@ UIBarButtonItem *doneButton;
 
     return cell;
 }
+
 @end
