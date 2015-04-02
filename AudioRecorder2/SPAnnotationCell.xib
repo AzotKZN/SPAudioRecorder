@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,10 +12,10 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OLE-xs-EKU" id="OLo-qj-gdD">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="cellPoint.png" translatesAutoresizingMaskIntoConstraints="NO" id="9o2-gs-AAP">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cellPoint.png" translatesAutoresizingMaskIntoConstraints="NO" id="9o2-gs-AAP">
                         <rect key="frame" x="8" y="31" width="6" height="6"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="222:22" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y04-NM-2ch">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="222:22" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y04-NM-2ch">
                         <rect key="frame" x="22" y="18" width="86" height="34"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="86" id="1uC-Wj-XUK"/>
@@ -26,25 +25,18 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Люди будут писать свои замечания по ходу совещания, а так же остальное" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2a-QP-7PY">
-                        <rect key="frame" x="98" y="6" width="217" height="61"/>
+                        <rect key="frame" x="98" y="-1" width="214" height="75"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="Y04-NM-2ch" secondAttribute="bottom" constant="11" id="5Ya-fp-fOH"/>
-                    <constraint firstItem="Y04-NM-2ch" firstAttribute="centerY" secondItem="9o2-gs-AAP" secondAttribute="centerY" id="CN6-B7-jaU"/>
-                    <constraint firstItem="Y04-NM-2ch" firstAttribute="leading" secondItem="OLo-qj-gdD" secondAttribute="leading" constant="22" id="Vlf-Te-gPd"/>
-                    <constraint firstItem="Y04-NM-2ch" firstAttribute="top" secondItem="OLo-qj-gdD" secondAttribute="topMargin" constant="9" id="g2Q-3J-eve"/>
-                    <constraint firstItem="Y04-NM-2ch" firstAttribute="leading" secondItem="9o2-gs-AAP" secondAttribute="trailing" constant="8" symbolic="YES" id="hYo-ze-JVl"/>
-                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="currentAnnotationText" destination="i2a-QP-7PY" id="05L-AO-feN"/>
                 <outlet property="currentAnnotationTime" destination="Y04-NM-2ch" id="kdA-hZ-Qv8"/>
             </connections>
-            <point key="canvasLocation" x="300" y="226.5"/>
+            <point key="canvasLocation" x="300" y="223"/>
         </tableViewCell>
     </objects>
     <resources>

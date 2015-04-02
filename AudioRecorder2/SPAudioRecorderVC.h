@@ -19,7 +19,7 @@
     
     IBOutlet UITableView *annotationTableView;
 }
-@property (strong, nonatomic) IBOutlet UIButton *recordPauseButton;
+@property (strong, nonatomic) IBOutlet UIButton *recordButton;
 @property (strong, nonatomic) IBOutlet UILabel *recordLengthLabel;
 @property (strong, nonatomic) IBOutlet UILabel *recordLengthBottomLabel;
 @property (strong, nonatomic) IBOutlet UILabel *recordStatus;

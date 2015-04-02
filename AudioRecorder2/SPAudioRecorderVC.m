@@ -25,7 +25,7 @@
 @end
 
 @implementation SPAudioRecorderVC
-@synthesize recordPauseButton;
+@synthesize recordButton;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -73,6 +73,7 @@
     _currentTime.text = [format stringFromDate:dateToday];
     
     self.annotationTableView.backgroundColor = [UIColor clearColor];
+    _playPauseButton.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,13 +83,11 @@
 
 #pragma mark Actions
 
-- (IBAction)recordPauseTapped:(id)sender {
+- (IBAction)recordTapped:(id)sender {
     // Stop the audio player before recording
-    if (player.playing) {
-        [player stop];
-    }
     
     if (!recorder.recording) {
+        _playPauseButton.hidden = NO;
         _doneButton.enabled = YES;
         AVAudioSession *session = [AVAudioSession sharedInstance];
         [session setActive:YES error:nil];
@@ -101,19 +100,36 @@
         _recordStatus.textColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1.0];
         //Start timer
         self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(recordingTimerUpdate:) userInfo:nil repeats:YES];
+        recordButton.hidden = YES;
+        _playPauseButton.hidden = NO;
         
-        
-    } else {
-        
+        [_doneButton setEnabled:YES];
+    }
+    
+}
+
+- (IBAction)pauseTapped:(id)sender {
+    if (player.playing) {
+        [player stop];
+        _playPauseButton.hidden = NO;
+    }
+    
+    if (recorder.recording) {
         // Pause recording
         [recorder pause];
         UIImage *playBtnImg = [UIImage imageNamed:@"playButton.png"];
         [_playPauseButton setImage:playBtnImg forState:UIControlStateNormal];
         _recordStatus.text = @"пауза";
         _recordStatus.textColor = [UIColor colorWithRed:0.435 green:0.443 blue:0.475 alpha:1.0];
+        recordButton.hidden = NO;
+    } else {
+        _recordStatus.text = @"проигрывание";
+        recordButton.hidden = YES;
+        UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
+        [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
+        
     }
     
-    [_doneButton setEnabled:YES];
 }
 
 - (IBAction)doneTapped:(id)sender {
@@ -121,7 +137,7 @@
     
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setActive:NO error:nil];
-    [recordPauseButton setHidden:YES];
+    [recordButton setHidden:YES];
     [self.recordingTimer invalidate];
     
     self.recordURL = recorder.url;
@@ -144,8 +160,6 @@
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    
-    [recordPauseButton setTitle:@"Записывать" forState:UIControlStateNormal];
 }
 
 #pragma mark - AVAudioPlayerDelegate
@@ -228,10 +242,24 @@
 
     cell.currentAnnotationTime.text = _annotationArray[indexPath.row][0];
     cell.currentAnnotationText.text = _annotationArray[indexPath.row][1];
+    cell.currentAnnotationText.lineBreakMode = UILineBreakModeWordWrap;
+    cell.currentAnnotationText.numberOfLines = 0;
     
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellText = _annotationArray[indexPath.row][1];
+
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f]};
+    CGRect rect = [cellText boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:attributes
+                                              context:nil];
+
+    return rect.size.height + 30;
+}
 @end

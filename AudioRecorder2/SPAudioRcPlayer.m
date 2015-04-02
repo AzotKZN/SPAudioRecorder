@@ -186,6 +186,20 @@
                                                  repeats:YES];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellText = _annotationArray[indexPath.row][1];
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f]};
+    CGRect rect = [cellText boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX)
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:attributes
+                                         context:nil];
+    
+    return rect.size.height + 30;
+}
+
+
 - (NSInteger *)timeConvertToSeconds:(NSString *)currentAnnotationTime {
     NSArray *subStrings = [currentAnnotationTime componentsSeparatedByString:@":"];
     NSString *minutes = [subStrings objectAtIndex:0];
