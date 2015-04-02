@@ -12,6 +12,13 @@
 		92851E221ACA9ADB00C6AE96 /* addAnnotationButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E211ACA9ADB00C6AE96 /* addAnnotationButton.png */; };
 		92851E271ACAB06900C6AE96 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92851E251ACAB06900C6AE96 /* Crashlytics.framework */; };
 		92851E281ACAB06900C6AE96 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92851E261ACAB06900C6AE96 /* Fabric.framework */; };
+		92851E2C1ACACA4100C6AE96 /* SPAnnotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92851E2B1ACACA4100C6AE96 /* SPAnnotationCell.xib */; };
+		92851E2E1ACACCB800C6AE96 /* cellPoint.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E2D1ACACCB800C6AE96 /* cellPoint.png */; };
+		92851E311ACAD3B300C6AE96 /* SPAnnotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92851E301ACAD3B300C6AE96 /* SPAnnotationCell.m */; };
+		92851E341ACC122C00C6AE96 /* pauseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E321ACC122C00C6AE96 /* pauseButton.png */; };
+		92851E351ACC122C00C6AE96 /* playButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E331ACC122C00C6AE96 /* playButton.png */; };
+		92851E391ACC133F00C6AE96 /* recordButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E381ACC133F00C6AE96 /* recordButton.png */; };
+		92851E3B1ACC222600C6AE96 /* microphoneIconGrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E3A1ACC222600C6AE96 /* microphoneIconGrey.png */; };
 		92C0046A1AB39E5500241F77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C004691AB39E5500241F77 /* main.m */; };
 		92C0046D1AB39E5500241F77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C0046C1AB39E5500241F77 /* AppDelegate.m */; };
 		92C004701AB39E5500241F77 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C0046F1AB39E5500241F77 /* ViewController.m */; };
@@ -43,6 +50,14 @@
 		92851E211ACA9ADB00C6AE96 /* addAnnotationButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addAnnotationButton.png; sourceTree = "<group>"; };
 		92851E251ACAB06900C6AE96 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		92851E261ACAB06900C6AE96 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		92851E2B1ACACA4100C6AE96 /* SPAnnotationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPAnnotationCell.xib; sourceTree = "<group>"; };
+		92851E2D1ACACCB800C6AE96 /* cellPoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellPoint.png; sourceTree = "<group>"; };
+		92851E2F1ACAD3B300C6AE96 /* SPAnnotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAnnotationCell.h; sourceTree = "<group>"; };
+		92851E301ACAD3B300C6AE96 /* SPAnnotationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPAnnotationCell.m; sourceTree = "<group>"; };
+		92851E321ACC122C00C6AE96 /* pauseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseButton.png; sourceTree = "<group>"; };
+		92851E331ACC122C00C6AE96 /* playButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playButton.png; sourceTree = "<group>"; };
+		92851E381ACC133F00C6AE96 /* recordButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordButton.png; sourceTree = "<group>"; };
+		92851E3A1ACC222600C6AE96 /* microphoneIconGrey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microphoneIconGrey.png; sourceTree = "<group>"; };
 		92C004641AB39E5500241F77 /* AudioRecorder2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioRecorder2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C004681AB39E5500241F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92C004691AB39E5500241F77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -91,11 +106,26 @@
 		92851E151ACA0B6600C6AE96 /* resourse */ = {
 			isa = PBXGroup;
 			children = (
+				92851E2D1ACACCB800C6AE96 /* cellPoint.png */,
 				92851E181ACA10E000C6AE96 /* microphoneIcon.png */,
 				92851E211ACA9ADB00C6AE96 /* addAnnotationButton.png */,
 				92851E161ACA0B8600C6AE96 /* backgroundPaper.png */,
+				92851E321ACC122C00C6AE96 /* pauseButton.png */,
+				92851E331ACC122C00C6AE96 /* playButton.png */,
+				92851E381ACC133F00C6AE96 /* recordButton.png */,
+				92851E3A1ACC222600C6AE96 /* microphoneIconGrey.png */,
 			);
 			name = resourse;
+			sourceTree = "<group>";
+		};
+		92851E2A1ACAC9FC00C6AE96 /* AnnotationCell */ = {
+			isa = PBXGroup;
+			children = (
+				92851E2B1ACACA4100C6AE96 /* SPAnnotationCell.xib */,
+				92851E2F1ACAD3B300C6AE96 /* SPAnnotationCell.h */,
+				92851E301ACAD3B300C6AE96 /* SPAnnotationCell.m */,
+			);
+			name = AnnotationCell;
 			sourceTree = "<group>";
 		};
 		92C0045B1AB39E5500241F77 = {
@@ -126,8 +156,9 @@
 				92C004741AB39E5500241F77 /* Images.xcassets */,
 				92C004761AB39E5500241F77 /* LaunchScreen.xib */,
 				92C004671AB39E5500241F77 /* Supporting Files */,
-				92C004DD1ABA335800241F77 /* SPAudioRcPlayer.h */,
+				92851E2A1ACAC9FC00C6AE96 /* AnnotationCell */,
 				92C004DE1ABA335800241F77 /* SPAudioRcPlayer.m */,
+				92C004DD1ABA335800241F77 /* SPAudioRcPlayer.h */,
 				92C004DF1ABA335800241F77 /* SPAudioRcPlayer.xib */,
 				92C004D71AB613AD00241F77 /* SPAudioRecorderVC.h */,
 				92C004D81AB613AD00241F77 /* SPAudioRecorderVC.m */,
@@ -251,13 +282,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92851E2E1ACACCB800C6AE96 /* cellPoint.png in Resources */,
 				92C004781AB39E5500241F77 /* LaunchScreen.xib in Resources */,
 				92C004911AB39E8000241F77 /* SPAudioRecorderVC.xib in Resources */,
+				92851E2C1ACACA4100C6AE96 /* SPAnnotationCell.xib in Resources */,
 				92851E221ACA9ADB00C6AE96 /* addAnnotationButton.png in Resources */,
 				92C004751AB39E5500241F77 /* Images.xcassets in Resources */,
 				92C004961AB39F0000241F77 /* SAAudioRecorderVC.xib in Resources */,
+				92851E3B1ACC222600C6AE96 /* microphoneIconGrey.png in Resources */,
+				92851E351ACC122C00C6AE96 /* playButton.png in Resources */,
 				92851E191ACA10E000C6AE96 /* microphoneIcon.png in Resources */,
+				92851E391ACC133F00C6AE96 /* recordButton.png in Resources */,
 				92851E171ACA0B8600C6AE96 /* backgroundPaper.png in Resources */,
+				92851E341ACC122C00C6AE96 /* pauseButton.png in Resources */,
 				92C004E11ABA335800241F77 /* SPAudioRcPlayer.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,6 +335,7 @@
 				92C004701AB39E5500241F77 /* ViewController.m in Sources */,
 				92C0046D1AB39E5500241F77 /* AppDelegate.m in Sources */,
 				92C0046A1AB39E5500241F77 /* main.m in Sources */,
+				92851E311ACAD3B300C6AE96 /* SPAnnotationCell.m in Sources */,
 				92C004951AB39F0000241F77 /* SAAudioRecorderVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,6 +457,7 @@
 				INFOPLIST_FILE = AudioRecorder2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "664950e4-db70-4df9-ba59-03aad0fad7b3";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -434,6 +473,7 @@
 				INFOPLIST_FILE = AudioRecorder2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "664950e4-db70-4df9-ba59-03aad0fad7b3";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

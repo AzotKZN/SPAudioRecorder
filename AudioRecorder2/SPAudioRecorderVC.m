@@ -9,6 +9,7 @@
 #import "SPAudioRecorderVC.h"
 #import "SPRecordItem.h"
 #import "SAAudioRecorderVC.h"
+#import "SPAnnotationCell.h"
 @interface SPAudioRecorderVC () <SAAudioRecorderVCDelegate>
 {
     AVAudioRecorder *recorder;
@@ -17,6 +18,8 @@
 
 @property (nonatomic, strong) NSTimer *recordingTimer;
 @property (nonatomic, strong) id object;
+@property (strong, nonatomic) IBOutlet UILabel *todayDate;
+@property (strong, nonatomic) IBOutlet UILabel *currentTime;
 
 
 @end
@@ -56,15 +59,20 @@
     recorder.meteringEnabled = YES;
     [recorder prepareToRecord];
     
-    //_doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Готово" style:UIBarButtonItemStylePlain target:self action:@selector(doneTapped:)];
-    //self.navigationItem.rightBarButtonItem = _doneButton;
     _doneButton.enabled = NO;
-    
-    //_object = [[SAAudioRecorderVC alloc] init];
-    
+
     _annotationArray = [[NSMutableArray alloc] init];
 
     annotationTableView.allowsSelection = NO;
+    
+    NSDate *dateToday =[NSDate date];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"d MMMM yyyy, cccc"];
+    _todayDate.text = [format stringFromDate:dateToday];
+    [format setDateFormat:@"в HH:mm"];
+    _currentTime.text = [format stringFromDate:dateToday];
+    
+    self.annotationTableView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,8 +95,10 @@
         
         // Start recording
         [recorder record];
-        [recordPauseButton setTitle:@"ll" forState:UIControlStateNormal];
-        
+        UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
+        [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
+        _recordStatus.text = @"идет запись";
+        _recordStatus.textColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1.0];
         //Start timer
         self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(recordingTimerUpdate:) userInfo:nil repeats:YES];
         
@@ -97,7 +107,10 @@
         
         // Pause recording
         [recorder pause];
-        [recordPauseButton setTitle:@"●" forState:UIControlStateNormal];
+        UIImage *playBtnImg = [UIImage imageNamed:@"playButton.png"];
+        [_playPauseButton setImage:playBtnImg forState:UIControlStateNormal];
+        _recordStatus.text = @"пауза";
+        _recordStatus.textColor = [UIColor colorWithRed:0.435 green:0.443 blue:0.475 alpha:1.0];
     }
     
     [_doneButton setEnabled:YES];
@@ -129,6 +142,9 @@
 #pragma mark - AVAudioRecorderDelegate
 
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
     [recordPauseButton setTitle:@"Записывать" forState:UIControlStateNormal];
 }
 
@@ -200,17 +216,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if(cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-   }
-    cell.textLabel.text = _annotationArray[indexPath.row][0];
-    
-    cell.detailTextLabel.text = _annotationArray[indexPath.row][1];
+    //поиск ячейки
+    SPAnnotationCell *cell = (SPAnnotationCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        //если ячейка не найдена - создаем новую
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SPAnnotationCell"owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
 
+    cell.currentAnnotationTime.text = _annotationArray[indexPath.row][0];
+    cell.currentAnnotationText.text = _annotationArray[indexPath.row][1];
+    
+    cell.backgroundColor = [UIColor clearColor];
+    
     return cell;
 }
 

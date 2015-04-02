@@ -8,6 +8,7 @@
 
 #import "SPAudioRcPlayer.h"
 #import "SAAudioRecorderVC.h"
+#import "SPAnnotationCell.h"
 @interface SPAudioRcPlayer (){
     AVAudioPlayer *player;
 }
@@ -32,6 +33,7 @@
     [_annotationTableView reloadData];
     
     [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
+    self.annotationTableView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,7 +46,8 @@
     NSURL *soundURL = _currentRecord.recordURL;
     player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:nil];
     [player setDelegate:self];
-    [_playPauseButton setTitle:@"ll" forState:UIControlStateNormal];
+    UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
+    [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
     [player setCurrentTime:_navigationSlider.value];
     [player play];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
@@ -60,14 +63,17 @@
     } else
     {
         [player pause];
-        [_playPauseButton setTitle:@"►" forState:UIControlStateNormal];
+        UIImage *playBtnImg = [UIImage imageNamed:@"playButton.png"];
+        [_playPauseButton setImage:playBtnImg forState:UIControlStateNormal];
+
 
     }
 }
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
-    [_playPauseButton setTitle:@"►" forState:UIControlStateNormal];
+    UIImage *playBtnImg = [UIImage imageNamed:@"playButton.png"];
+    [_playPauseButton setImage:playBtnImg forState:UIControlStateNormal];
 }
 
 - (void)updateTime {
@@ -138,14 +144,19 @@
     // NSArray *rowData = [_object getItemIndexPath:indexPath.row];
     
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if(cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    //поиск ячейки
+    SPAnnotationCell *cell = (SPAnnotationCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        //если ячейка не найдена - создаем новую
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SPAnnotationCell"owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
-    cell.textLabel.text = _annotationArray[indexPath.row][0];
     
-    cell.detailTextLabel.text = _annotationArray[indexPath.row][1];
+    cell.currentAnnotationTime.text = _annotationArray[indexPath.row][0];
+    cell.currentAnnotationText.text = _annotationArray[indexPath.row][1];
+    
+    cell.backgroundColor = [UIColor clearColor];
     
     return cell;
 }
@@ -160,7 +171,8 @@
     [player setCurrentTime:currentAnnTime];
     [player prepareToPlay];
     [player play];
-    [_playPauseButton setTitle:@"ll" forState:UIControlStateNormal];
+    UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
+    [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
     _playTimer.text = _annotationArray[indexPath.row][0];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                   target:self
@@ -175,7 +187,7 @@
 }
 
 - (NSInteger *)timeConvertToSeconds:(NSString *)currentAnnotationTime {
-    NSArray *subStrings = [currentAnnotationTime componentsSeparatedByString:@":"]; //or rather @" - "
+    NSArray *subStrings = [currentAnnotationTime componentsSeparatedByString:@":"];
     NSString *minutes = [subStrings objectAtIndex:0];
     NSString *seconds = [subStrings objectAtIndex:1];
     

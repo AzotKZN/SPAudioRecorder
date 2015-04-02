@@ -9,10 +9,14 @@
                 <outlet property="addAnnotationButton" destination="vta-M9-3JK" id="Wce-QJ-pIV"/>
                 <outlet property="annotationTableView" destination="hti-58-Laa" id="S11-oB-r7X"/>
                 <outlet property="backgroundImage" destination="Bw2-hX-sCa" id="Gp7-ch-p3D"/>
+                <outlet property="currentTime" destination="49i-zO-n1T" id="Thh-29-PPk"/>
                 <outlet property="doneButton" destination="xm3-zH-dRD" id="J92-5w-Brz"/>
+                <outlet property="playPauseButton" destination="xcZ-Pa-uva" id="KvC-zC-MwP"/>
                 <outlet property="recordLengthBottomLabel" destination="Rg0-jl-bBN" id="rqE-xr-tYn"/>
                 <outlet property="recordLengthLabel" destination="hgP-hJ-h7g" id="tKz-G3-GCV"/>
                 <outlet property="recordPauseButton" destination="lvl-PP-oH1" id="w2B-Zl-bna"/>
+                <outlet property="recordStatus" destination="MUl-IZ-2zA" id="2Oo-qE-Nw3"/>
+                <outlet property="todayDate" destination="ttd-Ru-v7l" id="pYY-nH-ZfA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,14 +28,8 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="backgroundPaper.png" translatesAutoresizingMaskIntoConstraints="NO" id="Bw2-hX-sCa">
                     <rect key="frame" x="0.0" y="-5" width="375" height="672"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgP-hJ-h7g">
-                    <rect key="frame" x="145" y="71" width="101" height="45"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="31"/>
-                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="Cell" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="hti-58-Laa">
-                    <rect key="frame" x="0.0" y="133" width="375" height="350"/>
+                    <rect key="frame" x="1" y="181" width="319" height="302"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="zYK-aN-FNs"/>
@@ -39,17 +37,17 @@
                     </connections>
                 </tableView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="microphoneIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="7f4-SW-WKb">
-                    <rect key="frame" x="8" y="24" width="51" height="51"/>
+                    <rect key="frame" x="8" y="24" width="45" height="45"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="20 Сентября 2015, Понедельник" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttd-Ru-v7l">
-                    <rect key="frame" x="67" y="24" width="285" height="29"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                    <rect key="frame" x="60" y="24" width="200" height="29"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="в 10:33" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49i-zO-n1T">
-                    <rect key="frame" x="67" y="45" width="200" height="30"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
+                    <rect key="frame" x="60" y="48" width="200" height="21"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -66,15 +64,15 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="статус записи" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUl-IZ-2zA">
-                    <rect key="frame" x="155" y="104" width="91" height="21"/>
+                    <rect key="frame" x="221" y="106" width="91" height="21"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="12"/>
-                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="текст" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfK-a8-boU">
                     <rect key="frame" x="201" y="507" width="89" height="33"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="31"/>
-                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rg0-jl-bBN">
@@ -84,7 +82,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vta-M9-3JK">
-                    <rect key="frame" x="128" y="491" width="65" height="65"/>
+                    <rect key="frame" x="135" y="499" width="50" height="50"/>
                     <state key="normal" title="Button" image="addAnnotationButton.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -101,10 +99,9 @@
                         <action selector="cancelTapped:" destination="-1" eventType="touchUpInside" id="ieP-69-MPg"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvl-PP-oH1">
-                    <rect key="frame" x="263" y="79" width="37" height="36"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="55"/>
-                    <state key="normal" title="●">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvl-PP-oH1">
+                    <rect key="frame" x="267" y="126" width="45" height="45"/>
+                    <state key="normal" image="recordButton.png">
                         <color key="titleColor" red="0.80602904040000001" green="0.0" blue="0.10467735359999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -112,6 +109,18 @@
                         <action selector="recordPauseTapped:" destination="-1" eventType="touchUpInside" id="4vp-rR-qL0"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcZ-Pa-uva">
+                    <rect key="frame" x="267" y="24" width="45" height="45"/>
+                    <state key="normal" title="Button" image="playButton.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgP-hJ-h7g">
+                    <rect key="frame" x="211" y="73" width="101" height="45"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="31"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -122,5 +131,7 @@
         <image name="addAnnotationButton.png" width="102" height="102"/>
         <image name="backgroundPaper.png" width="573" height="993"/>
         <image name="microphoneIcon.png" width="72" height="72"/>
+        <image name="playButton.png" width="72" height="72"/>
+        <image name="recordButton.png" width="78" height="78"/>
     </resources>
 </document>

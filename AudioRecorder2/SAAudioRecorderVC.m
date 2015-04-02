@@ -54,8 +54,6 @@
     audioRecorderVC.recordsItemsArray = [_recordsItems mutableCopy];
     audioRecorderVC.delegate = self;
 
-    audioRecorderVC.backgroundImage.image = [self makeImage];
-
     [self presentViewController:audioRecorderVC animated:YES completion:nil];
 }
 
@@ -77,19 +75,13 @@
     static NSString *CellIdentifier = @"Cell";
     SPRecordItem *currentRecord = self.recordsItems[indexPath.row];
 
-   // SPRecordItem *currentRecord = [self.recordsItems objectAtIndex:indexPath.row];
-    
-    //NSArray *currentRecord = [self.recordsItems objectAtIndex:indexPath.row];
-    
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell==nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         
     }
-    
-       // cell.textLabel.text = [currentRecord.recordURL absoluteString];;
+
     cell.textLabel.text = [currentRecord.recordURL absoluteString];
         return cell;
 }
@@ -117,19 +109,5 @@
         [self.tableView reloadData];
     }
     
-}
-
--(UIImage*) makeImage {
-    
-    UIGraphicsBeginImageContext(self.view.bounds.size);
-    
-    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-   // viewImage = [viewImage applyBlurWithCrop:CGRectMake(0, 0, CGRectGetWidth(patternView.frame), CGRectGetHeight(patternView.frame)) resize:CGSizeMake(CGRectGetWidth(patternView.frame), CGRectGetHeight(patternView.frame)) blurRadius:2 tintColor:[UIColor colorWithWhite:.17f alpha:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")?.76:.87f] saturationDeltaFactor:1.8 maskImage:nil];
-    
-    return viewImage;
 }
 @end
