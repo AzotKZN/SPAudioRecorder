@@ -127,8 +127,7 @@
         recordButton.hidden = YES;
         UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
         [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
-        
-    }
+             }
     
 }
 
