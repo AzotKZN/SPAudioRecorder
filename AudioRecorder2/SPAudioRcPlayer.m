@@ -22,6 +22,7 @@
     [super viewDidLoad];
 
     player = [[AVAudioPlayer alloc] initWithContentsOfURL:_currentRecord.recordURL error:nil];
+    player.delegate = self;
 
     NSTimeInterval currentTime =player.duration;
 
@@ -196,7 +197,7 @@
                                       attributes:attributes
                                          context:nil];
     
-    return rect.size.height + 30;
+    return rect.size.height + 40;
 }
 
 
