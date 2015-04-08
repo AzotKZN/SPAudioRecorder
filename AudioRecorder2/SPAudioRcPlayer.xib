@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -37,15 +38,6 @@
                     <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="в 10:33" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5J-5y-0Ih">
-                    <rect key="frame" x="75" y="29" width="200" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="200" id="cIg-cf-qct"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
-                    <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xv-MO-Jha">
                     <rect key="frame" x="265" y="67" width="45" height="45"/>
                     <constraints>
@@ -74,7 +66,7 @@
                         <constraint firstAttribute="width" constant="49" id="WEi-bU-FeL"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ii2-iA-bZp">
@@ -97,13 +89,13 @@
                         <action selector="addAnnotation:" destination="-1" eventType="touchUpInside" id="hx7-tu-luH"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="microphoneIconGrey.png" translatesAutoresizingMaskIntoConstraints="NO" id="1GI-8n-bY6">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="microphoneIconGrey.png" translatesAutoresizingMaskIntoConstraints="NO" id="1GI-8n-bY6">
                     <rect key="frame" x="21" y="15" width="35" height="35"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Звукозапись" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36b-7H-87h">
                     <rect key="frame" x="8" y="45" width="62" height="21"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="9"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLo-Ut-mZt">
@@ -112,7 +104,16 @@
                         <constraint firstAttribute="width" constant="47" id="cBf-wJ-FPu"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="в 10:33" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5J-5y-0Ih">
+                    <rect key="frame" x="75" y="29" width="200" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="cIg-cf-qct"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                    <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -130,6 +131,7 @@
                 <constraint firstItem="nd1-R4-dcK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-5" id="Pe7-xs-cqw"/>
                 <constraint firstItem="R5J-5y-0Ih" firstAttribute="bottom" secondItem="1GI-8n-bY6" secondAttribute="bottom" id="Q4n-2c-lLQ"/>
                 <constraint firstItem="eai-F5-p96" firstAttribute="baseline" secondItem="jLo-Ut-mZt" secondAttribute="firstBaseline" id="SeL-hn-moF"/>
+                <constraint firstItem="1GI-8n-bY6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="21" id="Tp3-Vv-G4p"/>
                 <constraint firstItem="R5J-5y-0Ih" firstAttribute="leading" secondItem="oBB-8h-eAi" secondAttribute="leading" id="XKk-vR-gPU"/>
                 <constraint firstItem="ii2-iA-bZp" firstAttribute="top" secondItem="Pi9-QM-kcs" secondAttribute="bottom" constant="75" id="Xsd-aR-mEq"/>
                 <constraint firstItem="eai-F5-p96" firstAttribute="top" secondItem="R5J-5y-0Ih" secondAttribute="bottom" constant="46" id="Ym8-mQ-ncU"/>
@@ -138,6 +140,7 @@
                 <constraint firstItem="ii2-iA-bZp" firstAttribute="top" secondItem="jLo-Ut-mZt" secondAttribute="bottom" constant="56" id="bci-Ya-awl"/>
                 <constraint firstItem="nd1-R4-dcK" firstAttribute="trailing" secondItem="ii2-iA-bZp" secondAttribute="trailing" id="cl8-3m-Kbx"/>
                 <constraint firstItem="5xv-MO-Jha" firstAttribute="trailing" secondItem="oBB-8h-eAi" secondAttribute="trailing" id="ggb-9Z-bAd"/>
+                <constraint firstAttribute="centerY" secondItem="1GI-8n-bY6" secondAttribute="centerY" constant="251.5" id="iue-07-Yzw"/>
                 <constraint firstItem="ii2-iA-bZp" firstAttribute="centerX" secondItem="cjU-HR-XCN" secondAttribute="centerX" id="jzn-DY-bBi"/>
                 <constraint firstItem="Pi9-QM-kcs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="kIa-MQ-SA3"/>
                 <constraint firstItem="5xv-MO-Jha" firstAttribute="leading" secondItem="nd1-R4-dcK" secondAttribute="trailing" constant="-55" id="kPk-zG-WJU"/>
