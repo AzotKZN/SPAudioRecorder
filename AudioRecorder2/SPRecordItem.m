@@ -16,6 +16,9 @@
     if (self) {
         self.recordURL = [item objectForKey:@"URL"];
         self.recordAnnotation = [item objectForKey:@"annotation"];
+        self.recordDate = [item objectForKey:@"recordDate"];
+        self.recordTime = [item objectForKey:@"recordTime"];
+
     }
     
     return self;

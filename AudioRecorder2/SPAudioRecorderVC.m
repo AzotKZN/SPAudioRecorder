@@ -29,7 +29,8 @@
 @synthesize recordButton;
 @synthesize microphone;
 @synthesize outputFileURL;
-
+@synthesize currentTime;
+@synthesize todayDate;
 #pragma mark - Initialization
 -(id)init {
     self = [super init];
@@ -107,9 +108,9 @@
     NSDate *dateToday =[NSDate date];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"d MMMM yyyy, cccc"];
-    _todayDate.text = [format stringFromDate:dateToday];
+    todayDate.text = [format stringFromDate:dateToday];
     [format setDateFormat:@"в HH:mm"];
-    _currentTime.text = [format stringFromDate:dateToday];
+    currentTime.text = [format stringFromDate:dateToday];
     
     self.annotationTableView.backgroundColor = [UIColor clearColor];
     _playPauseButton.hidden = YES;
@@ -194,6 +195,9 @@
     NSMutableDictionary *itemData = [NSMutableDictionary new];
     [itemData setObject:_recordURL forKey:@"URL"];
     [itemData setObject:_annotationArray forKey:@"annotation"];
+    [itemData setObject:currentTime.text forKey:@"recordTime"];
+    [itemData setObject:todayDate.text forKey:@"recordDate"];
+
     SPRecordItem* data = [[SPRecordItem alloc] initWithName:itemData];
     [self.recordsItemsArray addObject:data];
 

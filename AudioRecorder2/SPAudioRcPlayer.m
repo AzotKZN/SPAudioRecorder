@@ -52,6 +52,9 @@
     _annotationArray = _currentRecord.recordAnnotation;
     [_annotationTableView reloadData];
     
+    _recordDate.text = _currentRecord.recordDate;
+    _recordTime.text = _currentRecord.recordTime;
+    
     [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
     self.annotationTableView.backgroundColor = [UIColor clearColor];
     [self.annotationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];

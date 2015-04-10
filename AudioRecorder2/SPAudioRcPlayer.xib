@@ -12,7 +12,9 @@
                 <outlet property="navigationSlider" destination="Pi9-QM-kcs" id="kjn-fh-DLm"/>
                 <outlet property="playPauseButton" destination="5xv-MO-Jha" id="TnW-UE-RGc"/>
                 <outlet property="playTimer" destination="i59-c5-4rJ" id="QVd-Ue-TOd"/>
+                <outlet property="recordDate" destination="oBB-8h-eAi" id="4yQ-pD-u4U"/>
                 <outlet property="recordDuration" destination="eai-F5-p96" id="m2Z-jw-TE6"/>
+                <outlet property="recordTime" destination="R5J-5y-0Ih" id="GHP-4Z-Hgr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
