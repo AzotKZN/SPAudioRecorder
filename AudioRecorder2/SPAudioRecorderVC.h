@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "SAAudioRecorderVC.h"
+#import "EZAudio.h"
 @class AudioRecorderVC;
 @protocol AudioRecorderVCDelegate <NSObject>
 
 - (void)audioRecorderVCDidFinish:(SPRecordItem *)data;
 
 @end
-@interface SPAudioRecorderVC : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+@interface SPAudioRecorderVC : UIViewController <UITableViewDelegate, UITableViewDataSource, EZMicrophoneDelegate>{
     
     IBOutlet UITableView *annotationTableView;
 }
@@ -36,7 +37,13 @@
 
 @property (nonatomic, strong) NSMutableArray *annotationArray;
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
+@property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlot;
 
 @property (strong, nonatomic) IBOutlet UIButton *doneButton;
+
+@property (nonatomic,strong) EZRecorder *recorder;
+@property (nonatomic,strong) EZMicrophone *microphone;
+@property (nonatomic,assign) BOOL isRecording;
+
 @end
 

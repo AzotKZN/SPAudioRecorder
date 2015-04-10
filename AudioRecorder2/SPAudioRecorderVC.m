@@ -20,27 +20,65 @@
 @property (nonatomic, strong) id object;
 @property (strong, nonatomic) IBOutlet UILabel *todayDate;
 @property (strong, nonatomic) IBOutlet UILabel *currentTime;
+@property (strong, nonatomic) IBOutlet NSURL *outputFileURL;
 
 
 @end
 
 @implementation SPAudioRecorderVC
 @synthesize recordButton;
+@synthesize microphone;
+@synthesize outputFileURL;
 
+#pragma mark - Initialization
+-(id)init {
+    self = [super init];
+    if(self){
+        [self initializeViewController];
+    }
+    return self;
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if(self){
+        [self initializeViewController];
+    }
+    return self;
+}
+
+#pragma mark - Initialize View Controller Here
+-(void)initializeViewController {
+    // Create an instance of the microphone and tell it to use this view controller instance as the delegate
+    self.microphone = [EZMicrophone microphoneWithDelegate:self];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view, typically from a nib.
     
     // Disable Stop/Play button when application launches
    // [stopButton setEnabled:NO];
     
+    self.audioPlot.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+    self.audioPlot.opaque = NO;
+    // Waveform color
+    self.audioPlot.color           = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
+    // Plot type
+    self.audioPlot.plotType        = EZPlotTypeRolling;
+    // Fill
+    self.audioPlot.shouldFill      = YES;
+    // Mirror
+    self.audioPlot.shouldMirror    = YES;
+    
+
     // Set the audio file
     NSString *uuidString = [[NSProcessInfo processInfo] globallyUniqueString];
     NSArray *pathComponents = [NSArray arrayWithObjects:
                                [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
                                (@"%@.mp3", uuidString),
                                nil];
-    NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
     
     // Setup audio session
     AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -64,7 +102,8 @@
     _annotationArray = [[NSMutableArray alloc] init];
 
     annotationTableView.allowsSelection = NO;
-    
+    [self.annotationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+
     NSDate *dateToday =[NSDate date];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"d MMMM yyyy, cccc"];
@@ -85,8 +124,9 @@
 
 - (IBAction)recordTapped:(id)sender {
     // Stop the audio player before recording
-    
+
     if (!recorder.recording) {
+
         _playPauseButton.hidden = NO;
         _doneButton.enabled = YES;
         AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -94,6 +134,12 @@
         
         // Start recording
         [recorder record];
+        
+        
+        //Start the microphone
+        self.microphone = [EZMicrophone microphoneWithDelegate:self];
+        [self.microphone startFetchingAudio];
+        
         UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
         [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
         _recordStatus.text = @"идет запись";
@@ -122,18 +168,22 @@
         _recordStatus.text = @"пауза";
         _recordStatus.textColor = [UIColor colorWithRed:0.435 green:0.443 blue:0.475 alpha:1.0];
         recordButton.hidden = NO;
+        [self.microphone stopFetchingAudio];
     } else {
         _recordStatus.text = @"проигрывание";
         recordButton.hidden = YES;
         UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
         [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
+        [player play];
+        
              }
     
 }
 
 - (IBAction)doneTapped:(id)sender {
     [recorder stop];
-    
+    [self.microphone stopFetchingAudio];
+
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setActive:NO error:nil];
     [recordButton setHidden:YES];
@@ -246,6 +296,9 @@
     
     cell.backgroundColor = [UIColor clearColor];
     
+    UIImageView *separator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dottedLine.png"]];
+    [cell.contentView addSubview: separator];
+    
     return cell;
 }
 
@@ -258,7 +311,38 @@
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:attributes
                                               context:nil];
-
     return rect.size.height + 40;
 }
+#pragma mark Histogram
+
+#pragma mark - EZMicrophoneDelegate
+#warning Thread Safety
+// Note that any callback that provides streamed audio data (like streaming microphone input) happens on a separate audio thread that should not be blocked. When we feed audio data into any of the UI components we need to explicity create a GCD block on the main thread to properly get the UI to work.
+-(void)microphone:(EZMicrophone *)microphone
+ hasAudioReceived:(float **)buffer
+   withBufferSize:(UInt32)bufferSize
+withNumberOfChannels:(UInt32)numberOfChannels {
+    // Getting audio data as an array of float buffer arrays. What does that mean? Because the audio is coming in as a stereo signal the data is split into a left and right channel. So buffer[0] corresponds to the float* data for the left channel while buffer[1] corresponds to the float* data for the right channel.
+    
+    // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
+    dispatch_async(dispatch_get_main_queue(),^{
+        // All the audio plot needs is the buffer data (float*) and the size. Internally the audio plot will handle all the drawing related code, history management, and freeing its own resources. Hence, one badass line of code gets you a pretty plot :)
+        [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
+    });
+}
+
+-(void)microphone:(EZMicrophone *)microphone
+    hasBufferList:(AudioBufferList *)bufferList
+   withBufferSize:(UInt32)bufferSize
+withNumberOfChannels:(UInt32)numberOfChannels {
+    _isRecording = YES;
+    // Getting audio data as a buffer list that can be directly fed into the EZRecorder. This is happening on the audio thread - any UI updating needs a GCD main queue block. This will keep appending data to the tail of the audio file.
+    if( self.isRecording ){
+        [self.recorder appendDataFromBufferList:bufferList
+                                 withBufferSize:bufferSize];
+    }
+    
+}
+
+
 @end

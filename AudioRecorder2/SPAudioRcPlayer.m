@@ -12,15 +12,34 @@
 @interface SPAudioRcPlayer (){
     AVAudioPlayer *player;
 }
+
 @property (nonatomic, strong) NSTimer *timer;
+
+@property (nonatomic,strong) EZAudioFile *audioFile;
 
 @end
 
-@implementation SPAudioRcPlayer
 
+@implementation SPAudioRcPlayer
+@synthesize audioPlot = _audioPlot;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Waveform color
+    self.audioPlot.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+    self.audioPlot.opaque = NO;
 
+    self.audioPlot.plotType        = EZPlotTypeBuffer;
+    // Fill
+    self.audioPlot.shouldFill      = YES;
+    // Mirror
+    self.audioPlot.shouldMirror    = YES;
+    
+    self.audioPlot.color           = [UIColor colorWithRed:0 green:0 blue:0.604 alpha:1];
+    self.audioFile = [EZAudioFile audioFileWithURL:_currentRecord.recordURL
+                                       andDelegate:self];
+    [self createWave];
+    
     player = [[AVAudioPlayer alloc] initWithContentsOfURL:_currentRecord.recordURL error:nil];
     player.delegate = self;
 
@@ -35,6 +54,8 @@
     
     [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
     self.annotationTableView.backgroundColor = [UIColor clearColor];
+    [self.annotationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,7 +67,7 @@
     if (!player.playing) {
     NSURL *soundURL = _currentRecord.recordURL;
     player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:nil];
-    [player setDelegate:self];
+        player.delegate = self;
     UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
     [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
     [player setCurrentTime:_navigationSlider.value];
@@ -63,11 +84,8 @@
                                                      repeats:YES];
     } else
     {
-        [player pause];
         UIImage *playBtnImg = [UIImage imageNamed:@"playButton.png"];
         [_playPauseButton setImage:playBtnImg forState:UIControlStateNormal];
-
-
     }
 }
 
@@ -159,6 +177,9 @@
     
     cell.backgroundColor = [UIColor clearColor];
     
+    UIImageView *separator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dottedLine.png"]];
+    [cell.contentView addSubview: separator];
+    
     return cell;
 }
 
@@ -222,6 +243,14 @@
         NSMutableArray* itemArray = object.recordsItems;
         [itemArray replaceObjectAtIndex:_recordItemIndex withObject:data];
     }
+}
+
+- (void) createWave {
+    [self.audioFile getWaveformDataWithCompletionBlock:^(float *waveformData, UInt32 length) {
+        self.audioPlot.plotType        = EZPlotTypeBuffer;
+        [self.audioPlot updateBuffer:waveformData withBufferSize:length];
+    }];
+
 }
 
 @end

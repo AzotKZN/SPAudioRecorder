@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="addAnnotationButton" destination="vta-M9-3JK" id="Wce-QJ-pIV"/>
                 <outlet property="annotationTableView" destination="hti-58-Laa" id="S11-oB-r7X"/>
+                <outlet property="audioPlot" destination="8Mc-PI-SnE" id="O0R-Wl-mXg"/>
                 <outlet property="backgroundImage" destination="Bw2-hX-sCa" id="Gp7-ch-p3D"/>
                 <outlet property="currentTime" destination="49i-zO-n1T" id="Thh-29-PPk"/>
                 <outlet property="doneButton" destination="xm3-zH-dRD" id="J92-5w-Brz"/>
@@ -34,6 +35,11 @@
                     <rect key="frame" x="8" y="24" width="45" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <view contentMode="scaleToFill" id="8Mc-PI-SnE" customClass="EZAudioPlot">
+                    <rect key="frame" x="17" y="77" width="240" height="87"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hti-58-Laa">
                     <rect key="frame" x="1" y="181" width="319" height="302"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

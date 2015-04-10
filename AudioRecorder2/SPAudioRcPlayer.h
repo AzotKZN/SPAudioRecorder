@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "SPRecordItem.h"
+#import "EZAudio.h"
 @class SPAudioRcPlayerVC;
 @protocol SPAudioRcPlayerVCDelegate <NSObject>
 
@@ -31,6 +32,8 @@
 @property (strong, nonatomic) IBOutlet UISlider *navigationSlider;
 
 @property (weak, nonatomic) id<SPAudioRcPlayerVCDelegate> delegate;
+
+@property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlot;
 @end
 
 
