@@ -21,6 +21,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *todayDate;
 @property (strong, nonatomic) IBOutlet UILabel *currentTime;
 @property (strong, nonatomic) IBOutlet NSURL *outputFileURL;
+@property (strong, nonatomic) IBOutlet UILabel *recordingLengthLabel;
+@property (strong, nonatomic) IBOutlet UILabel *recordingStatusLabel;
 
 
 @end
@@ -143,8 +145,12 @@
         
         UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
         [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
-        _recordStatus.text = @"идет запись";
-        _recordStatus.textColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1.0];
+        _recordStatus.hidden = YES;
+        _recordingStatusLabel.hidden = NO;
+        _recordingStatusLabel.text = @"идет запись";
+        _recordStatus.hidden = YES;
+        _recordLengthLabel.hidden = YES;
+        _recordingLengthLabel.hidden = NO;
         //Start timer
         self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(recordingTimerUpdate:) userInfo:nil repeats:YES];
         recordButton.hidden = YES;
@@ -167,6 +173,10 @@
         UIImage *playBtnImg = [UIImage imageNamed:@"playButton.png"];
         [_playPauseButton setImage:playBtnImg forState:UIControlStateNormal];
         _recordStatus.text = @"пауза";
+        _recordingStatusLabel.hidden = YES;
+        _recordingLengthLabel.hidden = YES;
+        _recordStatus.hidden = NO;
+        _recordLengthLabel.hidden = NO;
         _recordStatus.textColor = [UIColor colorWithRed:0.435 green:0.443 blue:0.475 alpha:1.0];
         recordButton.hidden = NO;
         [self.microphone stopFetchingAudio];
@@ -239,6 +249,7 @@
 
     self.recordLengthLabel.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
     self.recordLengthBottomLabel.text = _recordLengthLabel.text;
+    self.recordingLengthLabel.text = _recordLengthLabel.text;
 }
 #pragma mark - Add annotation
 - (IBAction)addAnnotation:(id)sender {
@@ -302,8 +313,22 @@
     
     cell.backgroundColor = [UIColor clearColor];
     
-    //UIImageView *separator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dottedLine.png"]];
-    //[cell.contentView addSubview: separator];
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+
+
+    NSString *cellText = _annotationArray[indexPath.row][1];
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f]};
+    CGRect rect = [cellText boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX)
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:attributes
+                                         context:nil];
+
+    
+    UIImageView *aLine = [[UIImageView alloc] initWithFrame:CGRectMake(10, rect.size.height + 30, screenWidth - 30, 3)];
+    [aLine setImage:[UIImage imageNamed:@"dottedLine.png"]];
+    [cell.contentView addSubview:aLine];
     
     return cell;
 }
@@ -317,7 +342,7 @@
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:attributes
                                               context:nil];
-    return rect.size.height + 40;
+    return rect.size.height + 30;
 }
 #pragma mark Histogram
 

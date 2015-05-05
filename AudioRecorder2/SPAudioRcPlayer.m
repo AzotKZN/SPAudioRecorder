@@ -180,8 +180,18 @@
     
     cell.backgroundColor = [UIColor clearColor];
     
-   // UIImageView *separator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dottedLine.png"]];
-    //[cell.contentView addSubview: separator];
+    //делим на мультистроки
+    cell.currentAnnotationText.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.currentAnnotationText.numberOfLines = 0;
+    
+    cell.backgroundColor = [UIColor clearColor];
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    
+    UIImageView *aLine = [[UIImageView alloc] initWithFrame:CGRectMake(10, cell.frame.size.height, screenWidth - 30, 3)];
+    [aLine setImage:[UIImage imageNamed:@"dottedLine.png"]];
+    [cell.contentView addSubview:aLine];
     
     return cell;
 }
