@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		063B00521AD8346700AC3B13 /* dottedLine.png in Resources */ = {isa = PBXBuildFile; fileRef = 063B00511AD8346700AC3B13 /* dottedLine.png */; };
 		11AD695B19B961AA7BBDBC5B /* libPods-AudioRecorder2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DEF51A837A2F072698F5BD /* libPods-AudioRecorder2.a */; };
 		92851E171ACA0B8600C6AE96 /* backgroundPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E161ACA0B8600C6AE96 /* backgroundPaper.png */; };
 		92851E191ACA10E000C6AE96 /* microphoneIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E181ACA10E000C6AE96 /* microphoneIcon.png */; };
@@ -47,7 +46,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		063B00511AD8346700AC3B13 /* dottedLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dottedLine.png; path = ../../dottedLine.png; sourceTree = "<group>"; };
 		0E06D065670D6731076CBCF9 /* Pods-AudioRecorder2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioRecorder2.release.xcconfig"; path = "Pods/Target Support Files/Pods-AudioRecorder2/Pods-AudioRecorder2.release.xcconfig"; sourceTree = "<group>"; };
 		17E9F0C32D33E1F1AD9EA020 /* Pods-AudioRecorder2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioRecorder2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AudioRecorder2/Pods-AudioRecorder2.debug.xcconfig"; sourceTree = "<group>"; };
 		56DEF51A837A2F072698F5BD /* libPods-AudioRecorder2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AudioRecorder2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,7 +135,6 @@
 				92851E321ACC122C00C6AE96 /* pauseButton.png */,
 				92851E331ACC122C00C6AE96 /* playButton.png */,
 				92851E381ACC133F00C6AE96 /* recordButton.png */,
-				063B00511AD8346700AC3B13 /* dottedLine.png */,
 				92851E3A1ACC222600C6AE96 /* microphoneIconGrey.png */,
 			);
 			name = resourse;
@@ -320,7 +317,6 @@
 				92C004751AB39E5500241F77 /* Images.xcassets in Resources */,
 				92C004961AB39F0000241F77 /* SAAudioRecorderVC.xib in Resources */,
 				92851E3B1ACC222600C6AE96 /* microphoneIconGrey.png in Resources */,
-				063B00521AD8346700AC3B13 /* dottedLine.png in Resources */,
 				92851E351ACC122C00C6AE96 /* playButton.png in Resources */,
 				92851E191ACA10E000C6AE96 /* microphoneIcon.png in Resources */,
 				92851E391ACC133F00C6AE96 /* recordButton.png in Resources */,
@@ -381,7 +377,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run c47b8b5613bc690dae87da304c12ab62763cda40 0cf41771852869eb3064130ad4edf54b089492dd17889dbecd713df29e10751d";
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 

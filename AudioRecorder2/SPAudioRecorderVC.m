@@ -295,13 +295,15 @@
 
     cell.currentAnnotationTime.text = _annotationArray[indexPath.row][0];
     cell.currentAnnotationText.text = _annotationArray[indexPath.row][1];
-    cell.currentAnnotationText.lineBreakMode = UILineBreakModeWordWrap;
+    
+    //делим на мультистроки
+    cell.currentAnnotationText.lineBreakMode = NSLineBreakByWordWrapping;
     cell.currentAnnotationText.numberOfLines = 0;
     
     cell.backgroundColor = [UIColor clearColor];
     
-    UIImageView *separator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dottedLine.png"]];
-    [cell.contentView addSubview: separator];
+    //UIImageView *separator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dottedLine.png"]];
+    //[cell.contentView addSubview: separator];
     
     return cell;
 }

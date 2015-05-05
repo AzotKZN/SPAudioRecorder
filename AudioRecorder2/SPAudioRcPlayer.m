@@ -180,8 +180,8 @@
     
     cell.backgroundColor = [UIColor clearColor];
     
-    UIImageView *separator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dottedLine.png"]];
-    [cell.contentView addSubview: separator];
+   // UIImageView *separator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dottedLine.png"]];
+    //[cell.contentView addSubview: separator];
     
     return cell;
 }
