@@ -58,12 +58,22 @@
     [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
     self.annotationTableView.backgroundColor = [UIColor clearColor];
     [self.annotationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-   
+    [self setupAppearance];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)setupAppearance {
+    UIImage *minImage = [[UIImage imageNamed:@"playButton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+    UIImage *maxImage = [[UIImage imageNamed:@"recordButton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+    UIImage *thumbImage = [UIImage imageNamed:@"cellPoint.png"];
+    
+    [[UISlider appearance] setMaximumTrackImage:maxImage forState:UIControlStateNormal];
+    [[UISlider appearance] setMinimumTrackImage:minImage forState:UIControlStateNormal];
+    [[UISlider appearance] setThumbImage:thumbImage forState:UIControlStateNormal];
 }
 
 - (IBAction)playTapped:(id)sender {
@@ -189,9 +199,20 @@
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     
-    UIImageView *aLine = [[UIImageView alloc] initWithFrame:CGRectMake(10, cell.frame.size.height, screenWidth - 30, 3)];
+    
+    NSString *cellText = _annotationArray[indexPath.row][1];
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f]};
+    CGRect rect = [cellText boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX)
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:attributes
+                                         context:nil];
+    
+    
+    UIImageView *aLine = [[UIImageView alloc] initWithFrame:CGRectMake(10, rect.size.height + 30, screenWidth - 30, 3)];
     [aLine setImage:[UIImage imageNamed:@"dottedLine.png"]];
     [cell.contentView addSubview:aLine];
+
     
     return cell;
 }
@@ -232,6 +253,17 @@
                                          context:nil];
     
     return rect.size.height + 40;
+}
+
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_annotationArray removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                         withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
 

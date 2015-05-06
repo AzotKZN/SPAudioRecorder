@@ -344,6 +344,17 @@
                                               context:nil];
     return rect.size.height + 30;
 }
+
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_annotationArray removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                         withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
 #pragma mark Histogram
 
 #pragma mark - EZMicrophoneDelegate
