@@ -14,16 +14,6 @@
 
 @implementation SAAudioRecorderVC
 
-//-(id)init
-//{
-//    self = [super init];
-//    if (self) {
-//        self.recordsItems = [NSMutableArray array];
-//    }
-//    return self;
-//}
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.

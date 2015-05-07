@@ -10,6 +10,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "SPRecordItem.h"
 #import "EZAudio.h"
+#import "EZAudioPlotGL.h"
+
 @class SPAudioRcPlayerVC;
 @protocol SPAudioRcPlayerVCDelegate <NSObject>
 
@@ -29,13 +31,19 @@
 @property (strong, nonatomic) IBOutlet UIButton *playPauseButton;
 @property (strong, nonatomic)  IBOutlet UILabel *playTimer;
 @property (strong, nonatomic) IBOutlet UILabel *recordDuration;
-@property (strong, nonatomic) IBOutlet UISlider *navigationSlider;
+
 @property (weak, nonatomic) IBOutlet UILabel *recordTime;
 @property (weak, nonatomic) IBOutlet UILabel *recordDate;
 
 @property (weak, nonatomic) id<SPAudioRcPlayerVCDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlot;
+@property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlotV2;
+
+
+
+@property (nonatomic, strong) UIImage *notPlayingHistogram;
+@property (nonatomic, strong) UIImage *playedHistogram;
 @end
 
 

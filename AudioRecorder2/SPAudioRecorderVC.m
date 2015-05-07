@@ -73,7 +73,8 @@
     self.audioPlot.shouldFill      = YES;
     // Mirror
     self.audioPlot.shouldMirror    = YES;
-    
+    self.audioPlot.gain = 4.0;
+
 
     // Set the audio file
     NSString *uuidString = [[NSProcessInfo processInfo] globallyUniqueString];
@@ -170,8 +171,9 @@
     if (recorder.recording) {
         // Pause recording
         [recorder pause];
-        UIImage *playBtnImg = [UIImage imageNamed:@"playButton.png"];
-        [_playPauseButton setImage:playBtnImg forState:UIControlStateNormal];
+//        UIImage *playBtnImg = [UIImage imageNamed:@"playButton.png"];
+//        [_playPauseButton setImage:playBtnImg forState:UIControlStateNormal];
+        _playPauseButton.hidden = YES;
         _recordStatus.text = @"пауза";
         _recordingStatusLabel.hidden = YES;
         _recordingLengthLabel.hidden = YES;
@@ -180,12 +182,12 @@
         _recordStatus.textColor = [UIColor colorWithRed:0.435 green:0.443 blue:0.475 alpha:1.0];
         recordButton.hidden = NO;
         [self.microphone stopFetchingAudio];
-    } else {
-        _recordStatus.text = @"проигрывание";
-        recordButton.hidden = YES;
-        UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
-        [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
-        [player play];
+//    } else {
+//        _recordStatus.text = @"проигрывание";
+//        recordButton.hidden = YES;
+//        UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
+//        [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
+//        [player play];
         
              }
     
@@ -275,7 +277,7 @@
         NSString *annotationText = [alertView textFieldAtIndex:0].text;
         NSString *annotationTime = [alertView message];
         [self.annotationArray addObject:@[annotationTime, annotationText]];
-        
+     //ToDo добавить сортировку
         [_annotationTableView reloadData];
     }
 }

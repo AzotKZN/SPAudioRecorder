@@ -9,6 +9,7 @@
 #import "SPAudioRcPlayer.h"
 #import "SAAudioRecorderVC.h"
 #import "SPAnnotationCell.h"
+#import <QuartzCore/QuartzCore.h>
 @interface SPAudioRcPlayer (){
     AVAudioPlayer *player;
 }
@@ -16,6 +17,9 @@
 @property (nonatomic, strong) NSTimer *timer;
 
 @property (nonatomic,strong) EZAudioFile *audioFile;
+
+@property (nonatomic,strong) UISlider *navigationSlider;
+
 
 @end
 
@@ -36,6 +40,20 @@
     self.audioPlot.shouldMirror    = YES;
     
     self.audioPlot.color           = [UIColor colorWithRed:0 green:0 blue:0.604 alpha:1];
+    self.audioPlot.gain = 4.0;
+    //V2
+    self.audioPlotV2.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+    self.audioPlotV2.opaque = NO;
+    
+    self.audioPlotV2.plotType        = EZPlotTypeBuffer;
+    // Fill
+    self.audioPlotV2.shouldFill      = YES;
+    // Mirror
+    self.audioPlotV2.shouldMirror    = YES;
+    
+    self.audioPlotV2.color           = [UIColor colorWithRed:0.412 green:0.412 blue:0.412 alpha:1] /*#696969*/;
+    self.audioPlotV2.gain = 4.0;
+    
     self.audioFile = [EZAudioFile audioFileWithURL:_currentRecord.recordURL
                                        andDelegate:self];
     [self createWave];
@@ -48,32 +66,35 @@
     NSInteger minutes = floor(currentTime/60);
     NSInteger seconds = trunc(currentTime - minutes * 60);
     _recordDuration.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
-    _navigationSlider.maximumValue = player.duration;
+    
     _annotationArray = _currentRecord.recordAnnotation;
     [_annotationTableView reloadData];
     
     _recordDate.text = _currentRecord.recordDate;
     _recordTime.text = _currentRecord.recordTime;
     
-    [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
     self.annotationTableView.backgroundColor = [UIColor clearColor];
-    [self.annotationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self setupAppearance];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+#pragma mark - Slider seting
 -(void)setupAppearance {
-    UIImage *minImage = [[UIImage imageNamed:@"playButton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-    UIImage *maxImage = [[UIImage imageNamed:@"recordButton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
-    UIImage *thumbImage = [UIImage imageNamed:@"cellPoint.png"];
+    UIImage *minImage = [_notPlayingHistogram resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    UIImage *maxImage = [_playedHistogram resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    UIImage *thumbImage = [UIImage imageNamed:@"sliderPicker.png"];
     
     [[UISlider appearance] setMaximumTrackImage:maxImage forState:UIControlStateNormal];
     [[UISlider appearance] setMinimumTrackImage:minImage forState:UIControlStateNormal];
     [[UISlider appearance] setThumbImage:thumbImage forState:UIControlStateNormal];
+    
+    _navigationSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 135, 260, 40)];
+    _navigationSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
+    _navigationSlider.maximumValue = player.duration;
+    [self.view addSubview:_navigationSlider];
 }
 
 - (IBAction)playTapped:(id)sender {
@@ -85,7 +106,7 @@
     [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
     [player setCurrentTime:_navigationSlider.value];
     [player play];
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
                                                       target:self
                                                     selector:@selector(updateTime)
                                                     userInfo:nil
@@ -99,6 +120,7 @@
     {
         UIImage *playBtnImg = [UIImage imageNamed:@"playButton.png"];
         [_playPauseButton setImage:playBtnImg forState:UIControlStateNormal];
+        [player pause];
     }
 }
 
@@ -122,11 +144,17 @@
 
 - (IBAction)sliderChanged:(UISlider *)sender {
     // Fast skip the music when user scroll the UISlider
+    if (player.playing){
     [player stop];
     [player setCurrentTime:_navigationSlider.value];
-    NSLog(@"%f", _navigationSlider.value);
     [player prepareToPlay];
     [player play];
+    }
+    else
+    {
+    [player stop];
+    [player setCurrentTime:_navigationSlider.value];
+    }
 }
 
 #pragma mark - Add annotation
@@ -173,8 +201,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // NSArray *rowData = [_object getItemIndexPath:indexPath.row];
-    
     static NSString *CellIdentifier = @"Cell";
     
     //поиск ячейки
@@ -289,13 +315,33 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         [itemArray replaceObjectAtIndex:_recordItemIndex withObject:data];
     }
 }
-
+//рисуем гистограмму
 - (void) createWave {
     [self.audioFile getWaveformDataWithCompletionBlock:^(float *waveformData, UInt32 length) {
         self.audioPlot.plotType        = EZPlotTypeBuffer;
+        self.audioPlotV2.plotType        = EZPlotTypeBuffer;
+
         [self.audioPlot updateBuffer:waveformData withBufferSize:length];
+        [self.audioPlotV2 updateBuffer:waveformData withBufferSize:length];
+
+        _notPlayingHistogram = [self imageWithView:_audioPlot];
+        _playedHistogram = [self imageWithView:_audioPlotV2];
+
+        [self setupAppearance];
+
     }];
-
+    
 }
-
+//делаем скриншот определенной области
+- (UIImage *) imageWithView:(UIView *)view
+{
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return img;
+}
 @end
