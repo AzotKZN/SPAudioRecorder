@@ -40,7 +40,7 @@
 @property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlot;
 @property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlotV2;
 
-
+@property (weak, nonatomic) IBOutlet UILabel *sliderCurrentTime;
 
 @property (nonatomic, strong) UIImage *notPlayingHistogram;
 @property (nonatomic, strong) UIImage *playedHistogram;

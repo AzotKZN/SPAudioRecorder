@@ -20,7 +20,6 @@
 
 @property (nonatomic,strong) UISlider *navigationSlider;
 
-
 @end
 
 
@@ -74,6 +73,8 @@
     _recordTime.text = _currentRecord.recordTime;
     
     self.annotationTableView.backgroundColor = [UIColor clearColor];
+    annotationTableView.allowsSelection = NO;
+    [self.annotationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -140,7 +141,11 @@
 
 - (void)updateSlider {
     _navigationSlider.value = player.currentTime;
-}
+    float xLabelPosition = [self xPositionFromSliderValue:self.navigationSlider];
+    float yLabelPosition = _sliderCurrentTime.center.y;
+    _sliderCurrentTime.text = _playTimer.text;
+    _sliderCurrentTime.center = CGPointMake(xLabelPosition+18, yLabelPosition);
+    }
 
 - (IBAction)sliderChanged:(UISlider *)sender {
     // Fast skip the music when user scroll the UISlider
@@ -155,6 +160,16 @@
     [player stop];
     [player setCurrentTime:_navigationSlider.value];
     }
+}
+
+- (float)xPositionFromSliderValue:(UISlider *)aSlider;
+{
+    float sliderRange = aSlider.frame.size.width - aSlider.currentThumbImage.size.width;
+    float sliderOrigin = aSlider.frame.origin.x + (aSlider.currentThumbImage.size.width / 2.0);
+    
+    float sliderValueToPixels = (((aSlider.value-aSlider.minimumValue)/(aSlider.maximumValue-aSlider.minimumValue)) * sliderRange) + sliderOrigin;
+    
+    return sliderValueToPixels;
 }
 
 #pragma mark - Add annotation
@@ -278,7 +293,7 @@
                                       attributes:attributes
                                          context:nil];
     
-    return rect.size.height + 40;
+    return rect.size.height + 30;
 }
 
 - (void)tableView:(UITableView *)tableView

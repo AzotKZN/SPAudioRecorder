@@ -12,8 +12,6 @@
 		92851E171ACA0B8600C6AE96 /* backgroundPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E161ACA0B8600C6AE96 /* backgroundPaper.png */; };
 		92851E191ACA10E000C6AE96 /* microphoneIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E181ACA10E000C6AE96 /* microphoneIcon.png */; };
 		92851E221ACA9ADB00C6AE96 /* addAnnotationButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E211ACA9ADB00C6AE96 /* addAnnotationButton.png */; };
-		92851E271ACAB06900C6AE96 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92851E251ACAB06900C6AE96 /* Crashlytics.framework */; };
-		92851E281ACAB06900C6AE96 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92851E261ACAB06900C6AE96 /* Fabric.framework */; };
 		92851E2C1ACACA4100C6AE96 /* SPAnnotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92851E2B1ACACA4100C6AE96 /* SPAnnotationCell.xib */; };
 		92851E2E1ACACCB800C6AE96 /* cellPoint.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E2D1ACACCB800C6AE96 /* cellPoint.png */; };
 		92851E311ACAD3B300C6AE96 /* SPAnnotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92851E301ACAD3B300C6AE96 /* SPAnnotationCell.m */; };
@@ -21,6 +19,8 @@
 		92851E351ACC122C00C6AE96 /* playButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E331ACC122C00C6AE96 /* playButton.png */; };
 		92851E391ACC133F00C6AE96 /* recordButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E381ACC133F00C6AE96 /* recordButton.png */; };
 		92851E3B1ACC222600C6AE96 /* microphoneIconGrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E3A1ACC222600C6AE96 /* microphoneIconGrey.png */; };
+		92A496451AFD3A1100AFFB03 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A496431AFD3A1100AFFB03 /* Fabric.framework */; };
+		92A496461AFD3A1100AFFB03 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A496441AFD3A1100AFFB03 /* Crashlytics.framework */; };
 		92C0046A1AB39E5500241F77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C004691AB39E5500241F77 /* main.m */; };
 		92C0046D1AB39E5500241F77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C0046C1AB39E5500241F77 /* AppDelegate.m */; };
 		92C004701AB39E5500241F77 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C0046F1AB39E5500241F77 /* ViewController.m */; };
@@ -55,8 +55,6 @@
 		92851E161ACA0B8600C6AE96 /* backgroundPaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundPaper.png; sourceTree = "<group>"; };
 		92851E181ACA10E000C6AE96 /* microphoneIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microphoneIcon.png; sourceTree = "<group>"; };
 		92851E211ACA9ADB00C6AE96 /* addAnnotationButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addAnnotationButton.png; sourceTree = "<group>"; };
-		92851E251ACAB06900C6AE96 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		92851E261ACAB06900C6AE96 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		92851E2B1ACACA4100C6AE96 /* SPAnnotationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPAnnotationCell.xib; sourceTree = "<group>"; };
 		92851E2D1ACACCB800C6AE96 /* cellPoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellPoint.png; sourceTree = "<group>"; };
 		92851E2F1ACAD3B300C6AE96 /* SPAnnotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAnnotationCell.h; sourceTree = "<group>"; };
@@ -65,6 +63,8 @@
 		92851E331ACC122C00C6AE96 /* playButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playButton.png; sourceTree = "<group>"; };
 		92851E381ACC133F00C6AE96 /* recordButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recordButton.png; sourceTree = "<group>"; };
 		92851E3A1ACC222600C6AE96 /* microphoneIconGrey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microphoneIconGrey.png; sourceTree = "<group>"; };
+		92A496431AFD3A1100AFFB03 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		92A496441AFD3A1100AFFB03 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		92C004641AB39E5500241F77 /* AudioRecorder2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioRecorder2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C004681AB39E5500241F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92C004691AB39E5500241F77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -96,9 +96,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92851E271ACAB06900C6AE96 /* Crashlytics.framework in Frameworks */,
-				92851E281ACAB06900C6AE96 /* Fabric.framework in Frameworks */,
 				11AD695B19B961AA7BBDBC5B /* libPods-AudioRecorder2.a in Frameworks */,
+				92A496461AFD3A1100AFFB03 /* Crashlytics.framework in Frameworks */,
+				92A496451AFD3A1100AFFB03 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +115,8 @@
 		2A5B97E07F6120F6587ED326 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				92A496431AFD3A1100AFFB03 /* Fabric.framework */,
+				92A496441AFD3A1100AFFB03 /* Crashlytics.framework */,
 				56DEF51A837A2F072698F5BD /* libPods-AudioRecorder2.a */,
 			);
 			name = Frameworks;
@@ -198,8 +200,6 @@
 				92C004941AB39F0000241F77 /* SAAudioRecorderVC.xib */,
 				92C004DA1AB63A5F00241F77 /* SPRecordItem.h */,
 				92C004DB1AB63A5F00241F77 /* SPRecordItem.m */,
-				92851E251ACAB06900C6AE96 /* Crashlytics.framework */,
-				92851E261ACAB06900C6AE96 /* Fabric.framework */,
 			);
 			path = AudioRecorder2;
 			sourceTree = "<group>";
@@ -385,7 +385,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "./Fabric.framework/run c47b8b5613bc690dae87da304c12ab62763cda40 0cf41771852869eb3064130ad4edf54b089492dd17889dbecd713df29e10751d";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -516,9 +516,11 @@
 			baseConfigurationReference = 17E9F0C32D33E1F1AD9EA020 /* Pods-AudioRecorder2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioRecorder2",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AudioRecorder2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -534,9 +536,11 @@
 			baseConfigurationReference = 0E06D065670D6731076CBCF9 /* Pods-AudioRecorder2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioRecorder2",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AudioRecorder2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
