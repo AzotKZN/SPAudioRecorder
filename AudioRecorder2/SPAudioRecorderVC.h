@@ -35,7 +35,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *annotationTextField;
 @property (strong, nonatomic) IBOutlet UIButton *addAnnotationButton;
 
-@property (nonatomic, strong) NSMutableArray *annotationArray;
+@property (nonatomic, strong) NSMutableDictionary *annotationDict;
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlot;
 

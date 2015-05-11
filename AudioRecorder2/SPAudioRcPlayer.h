@@ -24,7 +24,8 @@
 }
 @property (strong, nonatomic) SPRecordItem *currentRecord;
 @property (strong, nonatomic) NSURL *recordItemURL;
-@property (strong, nonatomic) NSMutableArray *annotationArray;
+
+@property (nonatomic, strong) NSMutableDictionary *annotationDict;
 @property (strong, nonatomic) IBOutlet UITableView *annotationTableView;
 @property (assign, nonatomic) int *recordItemIndex;
 

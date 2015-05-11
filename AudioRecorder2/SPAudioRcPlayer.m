@@ -66,7 +66,7 @@
     NSInteger seconds = trunc(currentTime - minutes * 60);
     _recordDuration.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
     
-    _annotationArray = _currentRecord.recordAnnotation;
+    _annotationDict = _currentRecord.recordAnnotation;
     [_annotationTableView reloadData];
     
     _recordDate.text = _currentRecord.recordDate;
@@ -102,7 +102,7 @@
     if (!player.playing) {
     NSURL *soundURL = _currentRecord.recordURL;
     player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:nil];
-        player.delegate = self;
+    player.delegate = self;
     UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
     [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
     [player setCurrentTime:_navigationSlider.value];
@@ -195,8 +195,8 @@
     {
         NSString *annotationText = [alertView textFieldAtIndex:0].text;
         NSString *annotationTime = [alertView message];
-        [self.annotationArray addObject:@[annotationTime, annotationText]];
-        
+        [self.annotationDict setObject:annotationText forKey:annotationTime];
+
         [_annotationTableView reloadData];
     }
 }
@@ -211,7 +211,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _annotationArray.count;
+    return _annotationDict.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -225,9 +225,10 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SPAnnotationCell"owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    
-    cell.currentAnnotationTime.text = _annotationArray[indexPath.row][0];
-    cell.currentAnnotationText.text = _annotationArray[indexPath.row][1];
+
+    NSArray *dictonarySortAllKeys =  [[_annotationDict allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+    cell.currentAnnotationTime.text = dictonarySortAllKeys[indexPath.row];
+    cell.currentAnnotationText.text = [_annotationDict objectForKey:dictonarySortAllKeys[indexPath.row]];
     
     cell.backgroundColor = [UIColor clearColor];
     
@@ -240,9 +241,8 @@
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     
-    
-    NSString *cellText = _annotationArray[indexPath.row][1];
-    
+    NSString *cellText = [_annotationDict objectForKey:dictonarySortAllKeys[indexPath.row]];
+
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f]};
     CGRect rect = [cellText boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX)
                                          options:NSStringDrawingUsesLineFragmentOrigin
@@ -260,7 +260,9 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *currentAnnotationTime = _annotationArray[indexPath.row][0];
+    NSArray *dictonarySortAllKeys =  [[_annotationDict allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+
+    NSString *currentAnnotationTime = dictonarySortAllKeys[indexPath.row];
     NSInteger *tempIntTime = [self timeConvertToSeconds:currentAnnotationTime];
     float currentAnnTime = [[NSNumber numberWithInt: tempIntTime] floatValue];
     
@@ -270,7 +272,7 @@
     [player play];
     UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
     [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
-    _playTimer.text = _annotationArray[indexPath.row][0];
+    _playTimer.text = dictonarySortAllKeys[indexPath.row];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                   target:self
                                                 selector:@selector(updateTime)
@@ -285,7 +287,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellText = _annotationArray[indexPath.row][1];
+    NSArray *dictonarySortAllKeys =  [[_annotationDict allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+
+    NSString *cellText = [_annotationDict objectForKey:dictonarySortAllKeys[indexPath.row]];
     
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f]};
     CGRect rect = [cellText boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX)
@@ -300,8 +304,9 @@
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSArray *dictonarySortAllKeys =  [[_annotationDict allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_annotationArray removeObjectAtIndex:indexPath.row];
+        [_annotationDict removeObjectForKey:dictonarySortAllKeys[indexPath.row]];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                          withRowAnimation:UITableViewRowAnimationFade];
     }
@@ -324,7 +329,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         SAAudioRecorderVC *object = [[SAAudioRecorderVC alloc] init];
         NSMutableDictionary *itemData = [NSMutableDictionary new];
         [itemData setObject:_currentRecord.recordURL forKey:@"URL"];
-        [itemData setObject:_annotationArray forKey:@"annotation"];
+        [itemData setObject:_annotationDict forKey:@"annotation"];
         SPRecordItem* data = [[SPRecordItem alloc] initWithName:itemData];
         NSMutableArray* itemArray = object.recordsItems;
         [itemArray replaceObjectAtIndex:_recordItemIndex withObject:data];

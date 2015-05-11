@@ -103,8 +103,6 @@
     
     _doneButton.enabled = NO;
 
-    _annotationArray = [[NSMutableArray alloc] init];
-
     annotationTableView.allowsSelection = NO;
     [self.annotationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
@@ -117,6 +115,9 @@
     
     self.annotationTableView.backgroundColor = [UIColor clearColor];
     _playPauseButton.hidden = YES;
+    
+    self.annotationDict
+    = [[NSMutableDictionary alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -206,7 +207,7 @@
 
     NSMutableDictionary *itemData = [NSMutableDictionary new];
     [itemData setObject:_recordURL forKey:@"URL"];
-    [itemData setObject:_annotationArray forKey:@"annotation"];
+    [itemData setObject:_annotationDict forKey:@"annotation"];
     [itemData setObject:currentTime.text forKey:@"recordTime"];
     [itemData setObject:todayDate.text forKey:@"recordDate"];
 
@@ -276,7 +277,7 @@
     {
         NSString *annotationText = [alertView textFieldAtIndex:0].text;
         NSString *annotationTime = [alertView message];
-        [self.annotationArray addObject:@[annotationTime, annotationText]];
+        [self.annotationDict setObject:annotationText forKey:annotationTime];
      //ToDo добавить сортировку
         [_annotationTableView reloadData];
     }
@@ -291,7 +292,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _annotationArray.count;
+    return _annotationDict.count;
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -306,8 +308,9 @@
         cell = [nib objectAtIndex:0];
     }
 
-    cell.currentAnnotationTime.text = _annotationArray[indexPath.row][0];
-    cell.currentAnnotationText.text = _annotationArray[indexPath.row][1];
+    NSArray *dictonarySortAllKeys =  [[_annotationDict allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+    cell.currentAnnotationTime.text = dictonarySortAllKeys[indexPath.row];
+    cell.currentAnnotationText.text = [_annotationDict objectForKey:dictonarySortAllKeys[indexPath.row]];
     
     //делим на мультистроки
     cell.currentAnnotationText.lineBreakMode = NSLineBreakByWordWrapping;
@@ -318,8 +321,7 @@
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
 
-
-    NSString *cellText = _annotationArray[indexPath.row][1];
+    NSString *cellText = [_annotationDict objectForKey:dictonarySortAllKeys[indexPath.row]];
     
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f]};
     CGRect rect = [cellText boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX)
@@ -337,7 +339,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellText = _annotationArray[indexPath.row][1];
+    NSArray *dictonarySortAllKeys =  [[_annotationDict allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+    NSString *cellText = [_annotationDict objectForKey:dictonarySortAllKeys[indexPath.row]];
 
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f]};
     CGRect rect = [cellText boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX)
@@ -351,8 +354,9 @@
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSArray *dictonarySortAllKeys =  [[_annotationDict allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_annotationArray removeObjectAtIndex:indexPath.row];
+        [_annotationDict removeObjectForKey:dictonarySortAllKeys[indexPath.row]];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                          withRowAnimation:UITableViewRowAnimationFade];
     }

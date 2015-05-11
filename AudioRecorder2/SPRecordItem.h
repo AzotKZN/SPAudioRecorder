@@ -10,7 +10,7 @@
 
 @interface SPRecordItem : NSObject
 @property (nonatomic, strong) NSURL *recordURL;
-@property (nonatomic, strong) NSMutableArray *recordAnnotation;
+@property (nonatomic, strong) NSMutableDictionary *recordAnnotation;
 @property (nonatomic, strong) NSString *recordDate;
 @property (nonatomic, strong) NSString *recordTime;
 
