@@ -107,14 +107,9 @@
     [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
     [player setCurrentTime:_navigationSlider.value];
     [player play];
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
                                                       target:self
-                                                    selector:@selector(updateTime)
-                                                    userInfo:nil
-                                                     repeats:YES];
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
-                                                      target:self
-                                                    selector:@selector(updateSlider)
+                                                    selector:@selector(updateValueSliderAndTime)
                                                     userInfo:nil
                                                      repeats:YES];
     } else
@@ -131,21 +126,27 @@
     [_playPauseButton setImage:playBtnImg forState:UIControlStateNormal];
 }
 
-- (void)updateTime {
+- (void)updateValueSliderAndTime {
     NSTimeInterval currentTime =player.currentTime;
     
     NSInteger minutes = floor(currentTime/60);
     NSInteger seconds = trunc(currentTime - minutes * 60);
     _playTimer.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
-}
-
-- (void)updateSlider {
+    
     _navigationSlider.value = player.currentTime;
     float xLabelPosition = [self xPositionFromSliderValue:self.navigationSlider];
     float yLabelPosition = _sliderCurrentTime.center.y;
     _sliderCurrentTime.text = _playTimer.text;
     _sliderCurrentTime.center = CGPointMake(xLabelPosition+18, yLabelPosition);
-    }
+}
+
+//- (void)updateSlider {
+//    _navigationSlider.value = player.currentTime;
+//    float xLabelPosition = [self xPositionFromSliderValue:self.navigationSlider];
+//    float yLabelPosition = _sliderCurrentTime.center.y;
+//    _sliderCurrentTime.text = _playTimer.text;
+//    _sliderCurrentTime.center = CGPointMake(xLabelPosition+18, yLabelPosition);
+//    }
 
 - (IBAction)sliderChanged:(UISlider *)sender {
     // Fast skip the music when user scroll the UISlider
@@ -154,11 +155,21 @@
     [player setCurrentTime:_navigationSlider.value];
     [player prepareToPlay];
     [player play];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
+                                                      target:self
+                                                    selector:@selector(updateValueSliderAndTime)
+                                                    userInfo:nil
+                                                     repeats:YES];
     }
     else
     {
     [player stop];
     [player setCurrentTime:_navigationSlider.value];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
+                                                      target:self
+                                                    selector:@selector(updateValueSliderAndTime)
+                                                    userInfo:nil
+                                                     repeats:YES];
     }
 }
 
@@ -273,14 +284,9 @@
     UIImage *pauseBtnImg = [UIImage imageNamed:@"pauseButton.png"];
     [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
     _playTimer.text = dictonarySortAllKeys[indexPath.row];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                  target:self
-                                                selector:@selector(updateTime)
-                                                userInfo:nil
-                                                 repeats:YES];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
                                                   target:self
-                                                selector:@selector(updateSlider)
+                                                selector:@selector(updateValueSliderAndTime)
                                                 userInfo:nil
                                                  repeats:YES];
 }
