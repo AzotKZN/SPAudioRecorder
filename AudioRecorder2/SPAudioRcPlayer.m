@@ -91,7 +91,8 @@
     [[UISlider appearance] setMinimumTrackImage:minImage forState:UIControlStateNormal];
     [[UISlider appearance] setThumbImage:thumbImage forState:UIControlStateNormal];
     
-    _navigationSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 135, 260, 40)];
+    float frameWidth = self.view.frame.size.width - 60;
+    _navigationSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 141, frameWidth, 40)];
     _navigationSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
     _navigationSlider.maximumValue = player.duration;
@@ -261,7 +262,7 @@
                                          context:nil];
     
     
-    UIImageView *aLine = [[UIImageView alloc] initWithFrame:CGRectMake(10, rect.size.height + 30, screenWidth - 30, 3)];
+    UIImageView *aLine = [[UIImageView alloc] initWithFrame:CGRectMake(10, rect.size.height + 30, screenWidth, 3)];
     [aLine setImage:[UIImage imageNamed:@"dottedLine.png"]];
     [cell.contentView addSubview:aLine];
 

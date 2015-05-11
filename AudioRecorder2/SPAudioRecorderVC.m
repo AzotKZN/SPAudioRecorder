@@ -330,7 +330,7 @@
                                          context:nil];
 
     
-    UIImageView *aLine = [[UIImageView alloc] initWithFrame:CGRectMake(10, rect.size.height + 30, screenWidth - 30, 3)];
+    UIImageView *aLine = [[UIImageView alloc] initWithFrame:CGRectMake(10, rect.size.height + 30, screenWidth, 3)];
     [aLine setImage:[UIImage imageNamed:@"dottedLine.png"]];
     [cell.contentView addSubview:aLine];
     
