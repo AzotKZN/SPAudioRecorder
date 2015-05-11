@@ -17,8 +17,11 @@
 
 @end
 
-@interface SAAudioRecorderVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SAAudioRecorderVC : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+IBOutlet UITableView *tblRecord;
+}
 @property (nonatomic, retain) UITableView *tableView;
+
 @property (nonatomic, strong) NSMutableArray *recordsItems;
 
 @property (weak, nonatomic) id<SAAudioRecorderVCDelegate> delegate;

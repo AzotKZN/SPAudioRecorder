@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAAudioRecorderVC">
             <connections>
+                <outlet property="tblRecord" destination="A6A-Tt-jSS" id="1ma-ix-IGS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,8 +21,8 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="uo9-nO-P6B"/>
-                        <outlet property="delegate" destination="-1" id="6ow-Ks-HT3"/>
+                        <outlet property="dataSource" destination="-1" id="djM-DO-Qdv"/>
+                        <outlet property="delegate" destination="-1" id="r0W-qF-CGg"/>
                     </connections>
                 </tableView>
             </subviews>

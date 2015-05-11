@@ -23,6 +23,9 @@
     
     if (!self.recordsItems)
         self.recordsItems = [NSMutableArray array];
+    
+    tblRecord.delegate=self;
+    tblRecord.dataSource=self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,12 +99,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     if (audioRecorderVC!=nil) {
         [self.recordsItems addObject:audioRecorderVC];
-        [self.tableView reloadData];
+        
+        [tblRecord reloadData];
     }
     
-}
-
-- (IBAction)refresh:(id)sender {
-    [self.tableView reloadData];
 }
 @end
