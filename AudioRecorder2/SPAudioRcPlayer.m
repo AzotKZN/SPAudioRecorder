@@ -75,6 +75,12 @@
     self.annotationTableView.backgroundColor = [UIColor clearColor];
     annotationTableView.allowsSelection = NO;
     [self.annotationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 2.0; //seconds
+    lpgr.delegate = self;
+    [self.annotationTableView addGestureRecognizer:lpgr];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -190,13 +196,23 @@
     
     NSInteger minutes = floor(currentTime/60);
     NSInteger seconds = trunc(currentTime - minutes * 60);
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Добавление аннотации"
-                                                     message:[NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds]
-                                                    delegate:self
-                                           cancelButtonTitle:@"Отмена"
-                                           otherButtonTitles:@"Сохранить!", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert show];
+    NSString *time = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
+    if ([_annotationDict objectForKey:time] == nil) {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Добавление аннотации"
+                                                         message: time
+                                                        delegate:self
+                                               cancelButtonTitle:@"Отмена"
+                                               otherButtonTitles:@"Сохранить!", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [alert show];
+    } else {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Аннотация на данном участке существует"
+                                                         message: time
+                                                        delegate:self
+                                               cancelButtonTitle:@"Нет"
+                                               otherButtonTitles:@"Изменить!", nil];
+        [alert show];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -210,6 +226,20 @@
         [self.annotationDict setObject:annotationText forKey:annotationTime];
 
         [_annotationTableView reloadData];
+    } else {
+        if([title isEqualToString:@"Изменить!"]) {
+            NSString *time = [alertView message];
+            NSString *text = [_annotationDict objectForKey:time];
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Изменение аннотации"
+                                                             message:[NSString stringWithFormat:@"%@", time]
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Отмена"
+                                                   otherButtonTitles:@"Сохранить!", nil];
+            [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+            UITextField* textField = [alert textFieldAtIndex:0];
+            textField.text = text;
+            [alert show];
+        }
     }
 }
 
@@ -290,6 +320,38 @@
                                                 selector:@selector(updateValueSliderAndTime)
                                                 userInfo:nil
                                                  repeats:YES];
+}
+
+- (IBAction)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        
+        CGPoint p = [gestureRecognizer locationInView:self.annotationTableView];
+        
+        NSIndexPath *indexPath = [self.annotationTableView indexPathForRowAtPoint:p];
+        if (indexPath == nil) {
+            NSLog(@"Лонгтап вне строк");
+        } else {
+            UITableViewCell *cell = [self.annotationTableView cellForRowAtIndexPath:indexPath];
+            if (cell.isHighlighted) {
+                NSLog(@"Лонгтап в секции %ld строчке %ld", (long)indexPath.section, (long)indexPath.row);
+                
+                SPAnnotationCell *currentCell = (SPAnnotationCell *)cell;
+                
+                NSString *time = currentCell.currentAnnotationTime.text;
+                NSString *text = currentCell.currentAnnotationText.text;
+                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Изменение аннотации"
+                                                                 message:[NSString stringWithFormat:@"%@", time]
+                                                                delegate:self
+                                                       cancelButtonTitle:@"Отмена"
+                                                       otherButtonTitles:@"Сохранить!", nil];
+                [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+                UITextField* textField = [alert textFieldAtIndex:0];
+                textField.text = text;
+                [alert show];
+            }
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

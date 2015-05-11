@@ -106,6 +106,12 @@
     annotationTableView.allowsSelection = NO;
     [self.annotationTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 2.0; //seconds
+    lpgr.delegate = self;
+    [self.annotationTableView addGestureRecognizer:lpgr];
+    
     NSDate *dateToday =[NSDate date];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"d MMMM yyyy, cccc"];
@@ -278,7 +284,6 @@
         NSString *annotationText = [alertView textFieldAtIndex:0].text;
         NSString *annotationTime = [alertView message];
         [self.annotationDict setObject:annotationText forKey:annotationTime];
-     //ToDo добавить сортировку
         [_annotationTableView reloadData];
     }
 }
@@ -335,6 +340,38 @@
     [cell.contentView addSubview:aLine];
     
     return cell;
+}
+
+- (IBAction)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        
+        CGPoint p = [gestureRecognizer locationInView:self.annotationTableView];
+        
+        NSIndexPath *indexPath = [self.annotationTableView indexPathForRowAtPoint:p];
+        if (indexPath == nil) {
+            NSLog(@"Лонгтап вне строк");
+        } else {
+            UITableViewCell *cell = [self.annotationTableView cellForRowAtIndexPath:indexPath];
+            if (cell.isHighlighted) {
+                NSLog(@"Лонгтап в секции %ld строчке %ld", (long)indexPath.section, (long)indexPath.row);
+                
+                SPAnnotationCell *currentCell = (SPAnnotationCell *)cell;
+
+                NSString *time = currentCell.currentAnnotationTime.text;
+                NSString *text = currentCell.currentAnnotationText.text;
+                    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Изменение аннотации"
+                                                                     message:[NSString stringWithFormat:@"%@", time]
+                                                                    delegate:self
+                                                           cancelButtonTitle:@"Отмена"
+                                                           otherButtonTitles:@"Сохранить!", nil];
+                [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+                UITextField* textField = [alert textFieldAtIndex:0];
+                textField.text = text;
+                [alert show];
+            }
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
