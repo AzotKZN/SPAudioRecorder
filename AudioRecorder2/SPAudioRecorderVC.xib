@@ -11,7 +11,9 @@
                 <outlet property="annotationTableView" destination="hti-58-Laa" id="S11-oB-r7X"/>
                 <outlet property="audioPlot" destination="8Mc-PI-SnE" id="O0R-Wl-mXg"/>
                 <outlet property="backgroundImage" destination="Bw2-hX-sCa" id="Gp7-ch-p3D"/>
+                <outlet property="currentDateLbl" destination="ttd-Ru-v7l" id="47U-xB-pBa"/>
                 <outlet property="currentTime" destination="49i-zO-n1T" id="Thh-29-PPk"/>
+                <outlet property="currentTimeLbl" destination="49i-zO-n1T" id="rnt-5K-cMl"/>
                 <outlet property="doneButton" destination="xm3-zH-dRD" id="J92-5w-Brz"/>
                 <outlet property="playPauseButton" destination="xcZ-Pa-uva" id="KvC-zC-MwP"/>
                 <outlet property="recordButton" destination="lvl-PP-oH1" id="gOD-1q-Tn5"/>
@@ -147,7 +149,7 @@
                     <rect key="frame" x="60" y="48" width="200" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
-                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="microphoneIcon.png" id="7f4-SW-WKb">

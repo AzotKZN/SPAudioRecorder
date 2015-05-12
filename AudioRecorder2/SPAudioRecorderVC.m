@@ -159,6 +159,8 @@
         _recordStatus.hidden = YES;
         _recordLengthLabel.hidden = YES;
         _recordingLengthLabel.hidden = NO;
+        self.currentDateLbl.textColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
+        self.currentTimeLbl.textColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
         //Start timer
         self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(recordingTimerUpdate:) userInfo:nil repeats:YES];
         recordButton.hidden = YES;
@@ -188,6 +190,8 @@
         _recordLengthLabel.hidden = NO;
         _recordStatus.textColor = [UIColor colorWithRed:0.435 green:0.443 blue:0.475 alpha:1.0];
         recordButton.hidden = NO;
+        self.currentDateLbl.textColor = [UIColor colorWithRed:0.569 green:0.569 blue:0.569 alpha:1]; /*#919191*/
+        self.currentTimeLbl.textColor = [UIColor colorWithRed:0.569 green:0.569 blue:0.569 alpha:1]; /*#919191*/
         [self.microphone stopFetchingAudio];
 //    } else {
 //        _recordStatus.text = @"проигрывание";

@@ -24,6 +24,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *recordLengthLabel;
 @property (strong, nonatomic) IBOutlet UILabel *recordLengthBottomLabel;
 @property (strong, nonatomic) IBOutlet UILabel *recordStatus;
+@property (strong, nonatomic) IBOutlet UILabel *currentDateLbl;
+@property (strong, nonatomic) IBOutlet UILabel *currentTimeLbl;
 @property (strong, nonatomic) IBOutlet UIButton *playPauseButton;
 
 
