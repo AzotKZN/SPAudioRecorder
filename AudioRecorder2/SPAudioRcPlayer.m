@@ -87,17 +87,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma mark - Slider seting
+#pragma mark - Slider setting
 -(void)setupAppearance {
     UIImage *minImage = [_notPlayingHistogram resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     UIImage *maxImage = [_playedHistogram resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    UIImage *thumbImage = [UIImage imageNamed:@"sliderPicker.png"];
-    
+    UIImage *thumbImage = [[UIImage imageNamed:@"sliderPicker.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [[UISlider appearance] setMaximumTrackImage:maxImage forState:UIControlStateNormal];
     [[UISlider appearance] setMinimumTrackImage:minImage forState:UIControlStateNormal];
     [[UISlider appearance] setThumbImage:thumbImage forState:UIControlStateNormal];
     
     float frameWidth = self.view.frame.size.width - 60;
+    
     _navigationSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 141, frameWidth, 40)];
     _navigationSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];

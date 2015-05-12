@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		11AD695B19B961AA7BBDBC5B /* libPods-AudioRecorder2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DEF51A837A2F072698F5BD /* libPods-AudioRecorder2.a */; };
+		9208C7531B01D7450032E047 /* sliderPicker-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9208C7521B01D7450032E047 /* sliderPicker-small.png */; };
 		924CA0151AFBDF7400A3E02D /* sliderPicker.png in Resources */ = {isa = PBXBuildFile; fileRef = 924CA0141AFBDF7400A3E02D /* sliderPicker.png */; };
 		92851E171ACA0B8600C6AE96 /* backgroundPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E161ACA0B8600C6AE96 /* backgroundPaper.png */; };
 		92851E191ACA10E000C6AE96 /* microphoneIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92851E181ACA10E000C6AE96 /* microphoneIcon.png */; };
@@ -51,6 +52,7 @@
 		0E06D065670D6731076CBCF9 /* Pods-AudioRecorder2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioRecorder2.release.xcconfig"; path = "Pods/Target Support Files/Pods-AudioRecorder2/Pods-AudioRecorder2.release.xcconfig"; sourceTree = "<group>"; };
 		17E9F0C32D33E1F1AD9EA020 /* Pods-AudioRecorder2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioRecorder2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AudioRecorder2/Pods-AudioRecorder2.debug.xcconfig"; sourceTree = "<group>"; };
 		56DEF51A837A2F072698F5BD /* libPods-AudioRecorder2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AudioRecorder2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9208C7521B01D7450032E047 /* sliderPicker-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sliderPicker-small.png"; sourceTree = "<group>"; };
 		924CA0141AFBDF7400A3E02D /* sliderPicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sliderPicker.png; sourceTree = "<group>"; };
 		92851E161ACA0B8600C6AE96 /* backgroundPaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundPaper.png; sourceTree = "<group>"; };
 		92851E181ACA10E000C6AE96 /* microphoneIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microphoneIcon.png; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				92851E331ACC122C00C6AE96 /* playButton.png */,
 				92851E381ACC133F00C6AE96 /* recordButton.png */,
 				92851E3A1ACC222600C6AE96 /* microphoneIconGrey.png */,
+				9208C7521B01D7450032E047 /* sliderPicker-small.png */,
 				924CA0141AFBDF7400A3E02D /* sliderPicker.png */,
 			);
 			name = resourse;
@@ -320,6 +323,7 @@
 				92C004911AB39E8000241F77 /* SPAudioRecorderVC.xib in Resources */,
 				92851E2C1ACACA4100C6AE96 /* SPAnnotationCell.xib in Resources */,
 				924CA0151AFBDF7400A3E02D /* sliderPicker.png in Resources */,
+				9208C7531B01D7450032E047 /* sliderPicker-small.png in Resources */,
 				92851E221ACA9ADB00C6AE96 /* addAnnotationButton.png in Resources */,
 				92C004751AB39E5500241F77 /* Images.xcassets in Resources */,
 				92C004961AB39F0000241F77 /* SAAudioRecorderVC.xib in Resources */,
