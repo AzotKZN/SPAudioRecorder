@@ -52,12 +52,15 @@
     
     self.audioPlotV2.color           = [UIColor colorWithRed:0.412 green:0.412 blue:0.412 alpha:1] /*#696969*/;
     self.audioPlotV2.gain = 4.0;
+    //NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"mp3"];
+    //NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+    //_currentRecord.recordURL = soundFileURL;
+    self.audioFile = [EZAudioFile audioFileWithURL:_currentRecord.recordURL andDelegate:self];
     
-    self.audioFile = [EZAudioFile audioFileWithURL:_currentRecord.recordURL
-                                       andDelegate:self];
     [self createWave];
     
     player = [[AVAudioPlayer alloc] initWithContentsOfURL:_currentRecord.recordURL error:nil];
+
     player.delegate = self;
 
     NSTimeInterval currentTime =player.duration;
@@ -140,10 +143,11 @@
     NSInteger seconds = trunc(currentTime - minutes * 60);
     _playTimer.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
     
-    _navigationSlider.value = player.currentTime;
+    _navigationSlider.value = currentTime;
+    NSLog(@"%f", currentTime);
     float xLabelPosition = [self xPositionFromSliderValue:self.navigationSlider];
     float yLabelPosition = _sliderCurrentTime.center.y;
-    _sliderCurrentTime.text = _playTimer.text;
+    _sliderCurrentTime.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];;
     _sliderCurrentTime.center = CGPointMake(xLabelPosition+18, yLabelPosition);
 }
 
@@ -162,7 +166,7 @@
     [player setCurrentTime:_navigationSlider.value];
     [player prepareToPlay];
     [player play];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01f
                                                       target:self
                                                     selector:@selector(updateValueSliderAndTime)
                                                     userInfo:nil
@@ -172,7 +176,7 @@
     {
     [player stop];
     [player setCurrentTime:_navigationSlider.value];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01f
                                                       target:self
                                                     selector:@selector(updateValueSliderAndTime)
                                                     userInfo:nil
