@@ -25,6 +25,8 @@
 
 @implementation SPAudioRcPlayer
 @synthesize audioPlot = _audioPlot;
+@synthesize annotationTableView = _annotationTableView;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -70,6 +72,7 @@
     _recordDuration.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
     
     _annotationDict = _currentRecord.recordAnnotation;
+    _graphAnnotationDict = [[NSMutableDictionary alloc] init];
     [_annotationTableView reloadData];
     
     _recordDate.text = _currentRecord.recordDate;
@@ -105,7 +108,11 @@
     _navigationSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
     _navigationSlider.maximumValue = player.duration;
+    
     [self.view addSubview:_navigationSlider];
+    for (NSString* key in _annotationDict) {
+        [self addGraphAnnotation:key];
+    }
 }
 
 - (IBAction)playTapped:(id)sender {
@@ -144,20 +151,12 @@
     _playTimer.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
     
     _navigationSlider.value = currentTime;
-    NSLog(@"%f", currentTime);
+    //NSLog(@"%f", currentTime);
     float xLabelPosition = [self xPositionFromSliderValue:self.navigationSlider];
     float yLabelPosition = _sliderCurrentTime.center.y;
     _sliderCurrentTime.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];;
     _sliderCurrentTime.center = CGPointMake(xLabelPosition+18, yLabelPosition);
 }
-
-//- (void)updateSlider {
-//    _navigationSlider.value = player.currentTime;
-//    float xLabelPosition = [self xPositionFromSliderValue:self.navigationSlider];
-//    float yLabelPosition = _sliderCurrentTime.center.y;
-//    _sliderCurrentTime.text = _playTimer.text;
-//    _sliderCurrentTime.center = CGPointMake(xLabelPosition+18, yLabelPosition);
-//    }
 
 - (IBAction)sliderChanged:(UISlider *)sender {
     // Fast skip the music when user scroll the UISlider
@@ -194,8 +193,30 @@
     return sliderValueToPixels;
 }
 
+- (void)addGraphAnnotation:(NSString *)currentAnnotationTime {
+    
+    float fullTime = player.duration;
+    float sliderWidth = self.view.frame.size.width - 60;
+    NSArray *tempArray = [currentAnnotationTime componentsSeparatedByString:@":"];
+    
+    int annotationTime = [tempArray[0] integerValue] * 60 + [tempArray[1] integerValue];
+    
+    float xValue = sliderWidth/fullTime*annotationTime;
+    UIImageView *imageHolder = [[UIImageView alloc] initWithFrame:CGRectMake(xValue, 17, 6, 6)];
+    UIImage *image = [UIImage imageNamed:@"cellPoint.png"];
+    imageHolder.image = image;
+    
+    [imageHolder setTag:([tempArray[0] integerValue] + [tempArray[1] integerValue])];
+    
+    [self.navigationSlider addSubview:imageHolder];
+    [self.navigationSlider setNeedsDisplay];
+    
+}
+
 #pragma mark - Add annotation
 - (IBAction)addAnnotation:(id)sender {
+   // [self generateArrayAnnotation];
+
     NSTimeInterval currentTime = player.currentTime;
     
     NSInteger minutes = floor(currentTime/60);
@@ -247,6 +268,26 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *dictonarySortAllKeys =  [[_annotationDict allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_annotationDict removeObjectForKey:dictonarySortAllKeys[indexPath.row]];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                         withRowAnimation:UITableViewRowAnimationFade];
+        
+        NSArray *tempArray = [dictonarySortAllKeys[indexPath.row] componentsSeparatedByString:@":"];
+        
+        UIView *removeView;
+        while((removeView = [self.view viewWithTag:([tempArray[0] integerValue] + [tempArray[1] integerValue])]) != nil) {
+            [removeView removeFromSuperview];
+        }
+        
+    }
+}
+
 
 #pragma mark - Table view data source
 
@@ -263,7 +304,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
     //поиск ячейки
     SPAnnotationCell *cell = (SPAnnotationCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -275,6 +315,9 @@
     NSArray *dictonarySortAllKeys =  [[_annotationDict allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
     cell.currentAnnotationTime.text = dictonarySortAllKeys[indexPath.row];
     cell.currentAnnotationText.text = [_annotationDict objectForKey:dictonarySortAllKeys[indexPath.row]];
+    
+    [self addGraphAnnotation:dictonarySortAllKeys[indexPath.row]];
+
     
     cell.backgroundColor = [UIColor clearColor];
     
@@ -295,22 +338,19 @@
                                       attributes:attributes
                                          context:nil];
     
-    
     UIImageView *aLine = [[UIImageView alloc] initWithFrame:CGRectMake(10, rect.size.height + 30, screenWidth, 3)];
     [aLine setImage:[UIImage imageNamed:@"dottedLine.png"]];
     [cell.contentView addSubview:aLine];
 
-    
     return cell;
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *dictonarySortAllKeys =  [[_annotationDict allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
 
     NSString *currentAnnotationTime = dictonarySortAllKeys[indexPath.row];
     NSInteger *tempIntTime = [self timeConvertToSeconds:currentAnnotationTime];
-    float currentAnnTime = [[NSNumber numberWithInt: tempIntTime] floatValue];
+    float currentAnnTime = [[NSNumber numberWithInt:tempIntTime] floatValue];
     
     [player stop];
     [player setCurrentTime:currentAnnTime];
@@ -373,19 +413,6 @@
     return rect.size.height + 30;
 }
 
-- (void)tableView:(UITableView *)tableView
-commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSArray *dictonarySortAllKeys =  [[_annotationDict allKeys] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_annotationDict removeObjectForKey:dictonarySortAllKeys[indexPath.row]];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                         withRowAnimation:UITableViewRowAnimationFade];
-    }
-}
-
-
 - (NSInteger *)timeConvertToSeconds:(NSString *)currentAnnotationTime {
     NSArray *subStrings = [currentAnnotationTime componentsSeparatedByString:@":"];
     NSString *minutes = [subStrings objectAtIndex:0];
@@ -395,6 +422,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     
     return secondsOfStart;
 }
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (self.isMovingFromParentViewController || self.isBeingDismissed) {
@@ -408,6 +436,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         [itemArray replaceObjectAtIndex:_recordItemIndex withObject:data];
     }
 }
+
 //рисуем гистограмму
 - (void) createWave {
     [self.audioFile getWaveformDataWithCompletionBlock:^(float *waveformData, UInt32 length) {
@@ -421,10 +450,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         _playedHistogram = [self imageWithView:_audioPlotV2];
 
         [self setupAppearance];
-
     }];
-    
 }
+
 //делаем скриншот определенной области
 - (UIImage *) imageWithView:(UIView *)view
 {

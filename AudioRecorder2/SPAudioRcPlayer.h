@@ -28,6 +28,7 @@
 @property (nonatomic, strong) NSMutableDictionary *annotationDict;
 @property (strong, nonatomic) IBOutlet UITableView *annotationTableView;
 @property (assign, nonatomic) int *recordItemIndex;
+@property (nonatomic, strong) NSMutableDictionary* graphAnnotationDict;
 
 @property (strong, nonatomic) IBOutlet UIButton *playPauseButton;
 @property (strong, nonatomic)  IBOutlet UILabel *playTimer;
@@ -45,6 +46,8 @@
 
 @property (nonatomic, strong) UIImage *notPlayingHistogram;
 @property (nonatomic, strong) UIImage *playedHistogram;
+
+- (void)addGraphAnnotation:(NSString *)currentAnnotationTime;
 @end
 
 

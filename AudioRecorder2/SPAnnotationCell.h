@@ -11,5 +11,4 @@
 @interface SPAnnotationCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *currentAnnotationTime;
 @property (weak, nonatomic) IBOutlet UILabel *currentAnnotationText;
-+ (CGFloat) heightForText:(NSString*) text;
 @end
