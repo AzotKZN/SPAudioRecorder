@@ -247,10 +247,13 @@
     if([title isEqualToString:@"Сохранить!"])
     {
         NSString *annotationText = [alertView textFieldAtIndex:0].text;
+        annotationText = [annotationText stringByTrimmingCharactersInSet:
+                          [NSCharacterSet whitespaceCharacterSet]];
         NSString *annotationTime = [alertView message];
-        [self.annotationDict setObject:annotationText forKey:annotationTime];
-
-        [_annotationTableView reloadData];
+        if (![annotationText isEqual: @""]) {
+            [self.annotationDict setObject:annotationText forKey:annotationTime];
+            [_annotationTableView reloadData];
+        }
     } else {
         if([title isEqualToString:@"Изменить!"]) {
             NSString *time = [alertView message];
