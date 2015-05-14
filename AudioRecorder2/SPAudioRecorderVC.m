@@ -124,6 +124,7 @@
     
     self.annotationDict
     = [[NSMutableDictionary alloc] init];
+    [self recordTapped:self];
 }
 
 - (void)didReceiveMemoryWarning {
