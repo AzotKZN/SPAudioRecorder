@@ -39,8 +39,8 @@
 
 @property (weak, nonatomic) id<SPAudioRcPlayerVCDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlot;
-@property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlotV2;
+@property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
+@property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlotV2;
 
 @property (weak, nonatomic) IBOutlet UILabel *sliderCurrentTime;
 

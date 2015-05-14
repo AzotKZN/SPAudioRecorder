@@ -87,6 +87,13 @@
     lpgr.minimumPressDuration = 2.0; //seconds
     lpgr.delegate = self;
     [self.annotationTableView addGestureRecognizer:lpgr];
+    
+    _sliderCurrentTime.userInteractionEnabled = YES;
+    
+    UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc]
+                                        initWithTarget:self
+                                        action:@selector(labelDragged:)];
+    [_sliderCurrentTime addGestureRecognizer:gesture];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -107,7 +114,16 @@
     _navigationSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 141, frameWidth, 40)];
     _navigationSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
+    //[_navigationSlider addSubview:_sliderCurrentTime];
     _navigationSlider.maximumValue = player.duration;
+    
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
+                                                  target:self
+                                                selector:@selector(updateValueSliderAndTime)
+                                                userInfo:nil
+                                                 repeats:YES];
+    
     
     [self.view addSubview:_navigationSlider];
     for (NSString* key in _annotationDict) {
@@ -151,7 +167,7 @@
     _playTimer.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
     
     _navigationSlider.value = currentTime;
-    //NSLog(@"%f", currentTime);
+
     float xLabelPosition = [self xPositionFromSliderValue:self.navigationSlider];
     float yLabelPosition = _sliderCurrentTime.center.y;
     _sliderCurrentTime.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];;
@@ -341,7 +357,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                                       attributes:attributes
                                          context:nil];
     
-    UIImageView *aLine = [[UIImageView alloc] initWithFrame:CGRectMake(10, rect.size.height + 30, screenWidth, 3)];
+    UIImageView *aLine = [[UIImageView alloc] initWithFrame:CGRectMake(10, rect.size.height + 27, screenWidth, 3)];
     [aLine setImage:[UIImage imageNamed:@"dottedLine.png"]];
     [cell.contentView addSubview:aLine];
 
@@ -369,6 +385,27 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                                                  repeats:YES];
 }
 
+- (void)labelDragged:(UIPanGestureRecognizer *)gesture
+{
+    UILabel *label = (UILabel *)gesture.view;
+    CGPoint translation = [gesture translationInView:label];
+    
+    // move label
+    //label.center = CGPointMake(label.center.x + translation.x,label.center.y);
+    
+    float fullTime = player.duration;
+    float sliderWidth = self.view.frame.size.width - 60;
+    
+    float xValue = translation.x/(sliderWidth/fullTime);
+    
+    _navigationSlider.value = _navigationSlider.value+xValue;// + translation.x;
+    label.center = CGPointMake(label.center.x + translation.x, label.center.y);
+    // reset translation
+    [gesture setTranslation:CGPointZero inView:label];
+    NSLog(@"%f", label.center);
+    player.currentTime = _navigationSlider.value;
+    //[NSLog(@"%f", translation.x)];
+}
 - (IBAction)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
