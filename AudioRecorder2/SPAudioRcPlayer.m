@@ -109,9 +109,9 @@
     [[UISlider appearance] setMinimumTrackImage:minImage forState:UIControlStateNormal];
     [[UISlider appearance] setThumbImage:thumbImage forState:UIControlStateNormal];
     
-    float frameWidth = self.view.frame.size.width - 60;
+    float frameWidth = self.view.frame.size.width - 70;
     
-    _navigationSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 141, frameWidth, 40)];
+    _navigationSlider = [[UISlider alloc] initWithFrame:CGRectMake(20, 141, frameWidth, 40)];
     _navigationSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
     //[_navigationSlider addSubview:_sliderCurrentTime];
@@ -212,7 +212,7 @@
 - (void)addGraphAnnotation:(NSString *)currentAnnotationTime {
     
     float fullTime = player.duration;
-    float sliderWidth = self.view.frame.size.width - 60;
+    float sliderWidth = self.view.frame.size.width - 70;
     NSArray *tempArray = [currentAnnotationTime componentsSeparatedByString:@":"];
     
     int annotationTime = [tempArray[0] integerValue] * 60 + [tempArray[1] integerValue];
@@ -394,7 +394,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     //label.center = CGPointMake(label.center.x + translation.x,label.center.y);
     
     float fullTime = player.duration;
-    float sliderWidth = self.view.frame.size.width - 60;
+    float sliderWidth = self.view.frame.size.width - 70;
     
     float xValue = translation.x/(sliderWidth/fullTime);
     
