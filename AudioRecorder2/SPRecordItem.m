@@ -18,7 +18,8 @@
         self.recordAnnotation = [item objectForKey:@"annotation"];
         self.recordDate = [item objectForKey:@"recordDate"];
         self.recordTime = [item objectForKey:@"recordTime"];
-
+        self.backImage =  [item objectForKey:@"backImage"];
+        self.frontImage =  [item objectForKey:@"frontImage"];
     }
     
     return self;

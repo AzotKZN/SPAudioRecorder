@@ -102,8 +102,10 @@
 }
 #pragma mark - Slider setting
 -(void)setupAppearance {
-    UIImage *minImage = [_notPlayingHistogram resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    UIImage *maxImage = [_playedHistogram resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    
+    UIImage *minImage = [UIImage imageWithContentsOfFile:_currentRecord.backImage];
+    UIImage *maxImage = [UIImage imageWithContentsOfFile:_currentRecord.frontImage];
+
     UIImage *thumbImage = [[UIImage imageNamed:@"sliderPicker.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [[UISlider appearance] setMaximumTrackImage:maxImage forState:UIControlStateNormal];
     [[UISlider appearance] setMinimumTrackImage:minImage forState:UIControlStateNormal];
@@ -117,15 +119,15 @@
     //[_navigationSlider addSubview:_sliderCurrentTime];
     _navigationSlider.maximumValue = player.duration;
     
-    
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01
                                                   target:self
                                                 selector:@selector(updateValueSliderAndTime)
                                                 userInfo:nil
                                                  repeats:YES];
     
-    
+
     [self.view addSubview:_navigationSlider];
+    
     for (NSString* key in _annotationDict) {
         [self addGraphAnnotation:key];
     }

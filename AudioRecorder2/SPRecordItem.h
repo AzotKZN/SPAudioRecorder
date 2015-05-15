@@ -13,6 +13,8 @@
 @property (nonatomic, strong) NSMutableDictionary *recordAnnotation;
 @property (nonatomic, strong) NSString *recordDate;
 @property (nonatomic, strong) NSString *recordTime;
+@property (nonatomic, strong) NSURL *backImage;
+@property (nonatomic, strong) NSURL *frontImage;
 
 - (id)initWithName:(NSDictionary*)recordURL;
 

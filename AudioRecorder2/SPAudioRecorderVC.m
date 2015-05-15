@@ -23,6 +23,7 @@
 @property (strong, nonatomic) IBOutlet NSURL *outputFileURL;
 @property (strong, nonatomic) IBOutlet UILabel *recordingLengthLabel;
 @property (strong, nonatomic) IBOutlet UILabel *recordingStatusLabel;
+@property (nonatomic,strong) EZAudioFile *audioFile;
 
 
 @end
@@ -216,21 +217,100 @@
     
     self.recordURL = recorder.url;
 
-    NSMutableDictionary *itemData = [NSMutableDictionary new];
-    [itemData setObject:_recordURL forKey:@"URL"];
-    [itemData setObject:_annotationDict forKey:@"annotation"];
-    [itemData setObject:currentTime.text forKey:@"recordTime"];
-    [itemData setObject:todayDate.text forKey:@"recordDate"];
+    
+    self.audioPlotV1.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+    self.audioPlotV1.opaque = NO;
+    
+    self.audioPlotV1.plotType        = EZPlotTypeBuffer;
+    // Fill
+    self.audioPlotV1.shouldFill      = YES;
+    // Mirror
+    self.audioPlotV1.shouldMirror    = YES;
+    
+    self.audioPlotV1.color           = [UIColor colorWithRed:1.00 green:0.00 blue:0.00 alpha:1.0];
+    self.audioPlotV1.gain = 4.0;
+    //V2
+    self.audioPlotV2.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+    self.audioPlotV2.opaque = NO;
+    
+    self.audioPlotV2.plotType        = EZPlotTypeBuffer;
+    // Fill
+    self.audioPlotV2.shouldFill      = YES;
+    // Mirror
+    self.audioPlotV2.shouldMirror    = YES;
+    
+    self.audioPlotV2.color           = [UIColor colorWithRed:0.412 green:0.412 blue:0.412 alpha:1] /*#696969*/;
+    self.audioPlotV2.gain = 4.0;
 
-    SPRecordItem* data = [[SPRecordItem alloc] initWithName:itemData];
-    [self.recordsItemsArray addObject:data];
+    self.audioFile = [EZAudioFile audioFileWithURL:_recordURL andDelegate:self];
 
-    [self.delegate audioRecorderVCDidFinish:data];
+    [self createWave];
+    
 }
 
 - (IBAction)cancelTapped:(id)sender {
     [self.delegate audioRecorderVCDidFinish:nil];
 }
+
+//рисуем гистограмму
+- (void) createWave {
+    
+    [self.audioFile getWaveformDataWithCompletionBlock:^(float *waveformData, UInt32 length) {
+        self.audioPlotV1.plotType        = EZPlotTypeBuffer;
+        self.audioPlotV2.plotType        = EZPlotTypeBuffer;
+        
+        [self.audioPlotV1 updateBuffer:waveformData withBufferSize:length];
+        [self.audioPlotV2 updateBuffer:waveformData withBufferSize:length];
+        
+        UIImage* plotV2 =[self imageWithView:_audioPlotV2];
+        UIImage* plotV1 = [self imageWithView:_audioPlotV1];
+
+        NSMutableDictionary *itemData = [NSMutableDictionary new];
+        [itemData setObject:_recordURL forKey:@"URL"];
+        [itemData setObject:_annotationDict forKey:@"annotation"];
+        [itemData setObject:currentTime.text forKey:@"recordTime"];
+        [itemData setObject:todayDate.text forKey:@"recordDate"];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                             NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *uuidString = [[NSProcessInfo processInfo] globallyUniqueString];
+
+        if (plotV1 != nil)
+        {
+            NSString* path = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@backImage.png", uuidString]];
+            NSData* data = UIImagePNGRepresentation(plotV1);
+            [data writeToFile:path atomically:YES];
+            [itemData setObject:path forKey:@"backImage"];
+        }
+        
+        if (plotV2 != nil)
+        {
+            NSString* path = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@frontImage.png", uuidString]];
+            NSData* data = UIImagePNGRepresentation(plotV2);
+            [data writeToFile:path atomically:YES];
+            [itemData setObject:path forKey:@"frontImage"];
+        }
+        
+        SPRecordItem* data = [[SPRecordItem alloc] initWithName:itemData];
+        [self.recordsItemsArray addObject:data];
+        
+        [self.delegate audioRecorderVCDidFinish:data];
+    }];
+}
+
+//делаем скриншот определенной области
+- (UIImage *) imageWithView:(UIView *)view
+{
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return img;
+}
+
 
 #pragma mark - AVAudioRecorderDelegate
 

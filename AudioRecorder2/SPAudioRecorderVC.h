@@ -39,7 +39,9 @@
 
 @property (nonatomic, strong) NSMutableDictionary *annotationDict;
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
-@property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
+@property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlot;
+@property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlotV1;
+@property (weak, nonatomic) IBOutlet EZAudioPlot *audioPlotV2;
 
 @property (strong, nonatomic) IBOutlet UIButton *doneButton;
 
