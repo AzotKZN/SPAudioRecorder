@@ -68,7 +68,7 @@
 
     NSInteger minutes = floor(currentTime/60);
     NSInteger seconds = trunc(currentTime - minutes * 60);
-    _recordDuration.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
+    _recordDuration.text = [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
     
     _annotationDict = _currentRecord.recordAnnotation;
     _graphAnnotationDict = [[NSMutableDictionary alloc] init];
@@ -92,6 +92,7 @@
     UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc]
                                         initWithTarget:self
                                         action:@selector(labelDragged:)];
+    
     [_sliderCurrentTime addGestureRecognizer:gesture];
     [self setupAppearance];
 }
@@ -128,6 +129,10 @@
                                                  repeats:YES];
 
     [self.view addSubview:_navigationSlider];
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleSingleTap:)];
+    [self.navigationSlider addGestureRecognizer:singleFingerTap];
 
     for (NSString* key in _annotationDict) {
         [self addGraphAnnotation:key];
@@ -167,13 +172,13 @@
     
     NSInteger minutes = floor(currentTime/60);
     NSInteger seconds = trunc(currentTime - minutes * 60);
-    _playTimer.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
+    _playTimer.text = [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
     
     _navigationSlider.value = currentTime;
 
     float xLabelPosition = [self xPositionFromSliderValue:self.navigationSlider];
     float yLabelPosition = _sliderCurrentTime.center.y;
-    _sliderCurrentTime.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];;
+    _sliderCurrentTime.text = [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];;
     _sliderCurrentTime.center = CGPointMake(xLabelPosition+18, yLabelPosition);
 }
 
@@ -409,6 +414,23 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     player.currentTime = _navigationSlider.value;
     //[NSLog(@"%f", translation.x)];
 }
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+    
+    float fullTime = player.duration;
+    float sliderWidth = self.view.frame.size.width - 60;
+    
+    float xValue = round(location.x/(sliderWidth/fullTime));
+    
+    _navigationSlider.value = xValue;
+    player.currentTime = xValue;
+    NSLog(@"%f", location.x);
+    NSLog(@"%f", xValue);
+    NSLog(@"%f", _navigationSlider.value);
+}
+
+
 - (IBAction)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {

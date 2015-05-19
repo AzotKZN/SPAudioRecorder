@@ -169,17 +169,19 @@
         _playPauseButton.hidden = NO;
         
         [_doneButton setEnabled:YES];
+        NSLog(@"%f", recorder.currentTime);
+        [UIApplication sharedApplication].idleTimerDisabled = YES; //Запрет на откл устройства
     }
     
 }
 
 - (IBAction)pauseTapped:(id)sender {
-    if (player.playing) {
-        [player stop];
-        _playPauseButton.hidden = NO;
-    }
-    
-    if (recorder.recording) {
+//    if (player.playing) {
+//        [player stop];
+//        _playPauseButton.hidden = NO;
+//    }
+//    
+//    if (recorder.recording) {
         // Pause recording
         [recorder pause];
 //        UIImage *playBtnImg = [UIImage imageNamed:@"playButton.png"];
@@ -195,6 +197,9 @@
         self.currentDateLbl.textColor = [UIColor colorWithRed:0.569 green:0.569 blue:0.569 alpha:1]; /*#919191*/
         self.currentTimeLbl.textColor = [UIColor colorWithRed:0.569 green:0.569 blue:0.569 alpha:1]; /*#919191*/
         [self.microphone stopFetchingAudio];
+        NSLog(@"%f", recorder.currentTime);
+    [UIApplication sharedApplication].idleTimerDisabled = NO; //Запрет на откл устройства
+
 //    } else {
 //        _recordStatus.text = @"проигрывание";
 //        recordButton.hidden = YES;
@@ -202,7 +207,7 @@
 //        [_playPauseButton setImage:pauseBtnImg forState:UIControlStateNormal];
 //        [player play];
         
-             }
+//             }
     
 }
 
@@ -216,6 +221,7 @@
     [self.recordingTimer invalidate];
     
     self.recordURL = recorder.url;
+    NSLog(@"%f", recorder.currentTime);
 
     
     self.audioPlotV1.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
@@ -341,23 +347,35 @@
     NSInteger minutes = floor(currentTime/60);
     NSInteger seconds = trunc(currentTime - minutes * 60);
 
-    self.recordLengthLabel.text = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
+    self.recordLengthLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
     self.recordLengthBottomLabel.text = _recordLengthLabel.text;
     self.recordingLengthLabel.text = _recordLengthLabel.text;
 }
 #pragma mark - Add annotation
 - (IBAction)addAnnotation:(id)sender {
+    // [self generateArrayAnnotation];
+    
     NSTimeInterval currentTime = recorder.currentTime;
     
     NSInteger minutes = floor(currentTime/60);
     NSInteger seconds = trunc(currentTime - minutes * 60);
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Добавление аннотации"
-                                                     message:[NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds]
-                                                    delegate:self
-                                                    cancelButtonTitle:@"Отмена"
-                                                    otherButtonTitles:@"Сохранить!", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert show];
+    NSString *time = [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
+    if ([_annotationDict objectForKey:time] == nil) {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Добавление аннотации"
+                                                         message: time
+                                                        delegate:self
+                                               cancelButtonTitle:@"Отмена"
+                                               otherButtonTitles:@"Сохранить!", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [alert show];
+    } else {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Аннотация на данном участке существует"
+                                                         message: time
+                                                        delegate:self
+                                               cancelButtonTitle:@"Нет"
+                                               otherButtonTitles:@"Изменить!", nil];
+        [alert show];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -368,16 +386,28 @@
     {
         NSString *annotationText = [alertView textFieldAtIndex:0].text;
         annotationText = [annotationText stringByTrimmingCharactersInSet:
-                                   [NSCharacterSet whitespaceCharacterSet]];
+                          [NSCharacterSet whitespaceCharacterSet]];
         NSString *annotationTime = [alertView message];
         if (![annotationText isEqual: @""]) {
             [self.annotationDict setObject:annotationText forKey:annotationTime];
             [_annotationTableView reloadData];
         }
-        
+    } else {
+        if([title isEqualToString:@"Изменить!"]) {
+            NSString *time = [alertView message];
+            NSString *text = [_annotationDict objectForKey:time];
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Изменение аннотации"
+                                                             message:[NSString stringWithFormat:@"%@", time]
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Отмена"
+                                                   otherButtonTitles:@"Сохранить!", nil];
+            [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+            UITextField* textField = [alert textFieldAtIndex:0];
+            textField.text = text;
+            [alert show];
+        }
     }
 }
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
