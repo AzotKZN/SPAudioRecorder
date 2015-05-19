@@ -240,7 +240,7 @@
     
     NSInteger minutes = floor(currentTime/60);
     NSInteger seconds = trunc(currentTime - minutes * 60);
-    NSString *time = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
+    NSString *time = [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
     if ([_annotationDict objectForKey:time] == nil) {
         UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Добавление аннотации"
                                                          message: time

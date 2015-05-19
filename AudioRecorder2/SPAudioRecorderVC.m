@@ -352,7 +352,7 @@
     NSInteger minutes = floor(currentTime/60);
     NSInteger seconds = trunc(currentTime - minutes * 60);
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Добавление аннотации"
-                                                     message:[NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds]
+                                                     message:[NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds]
                                                     delegate:self
                                                     cancelButtonTitle:@"Отмена"
                                                     otherButtonTitles:@"Сохранить!", nil];
