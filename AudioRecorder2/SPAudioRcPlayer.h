@@ -39,8 +39,8 @@
 
 @property (weak, nonatomic) id<SPAudioRcPlayerVCDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
-@property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlotV2;
+//@property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
+//@property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlotV2;
 
 @property (weak, nonatomic) IBOutlet UILabel *sliderCurrentTime;
 
@@ -48,6 +48,8 @@
 @property (nonatomic, strong) UIImage *playedHistogram;
 
 - (void)addGraphAnnotation:(NSString *)currentAnnotationTime;
+@property (strong, nonatomic) IBOutlet UIView *histogramView;
+
 @end
 
 

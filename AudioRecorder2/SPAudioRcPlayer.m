@@ -10,13 +10,13 @@
 #import "SAAudioRecorderVC.h"
 #import "SPAnnotationCell.h"
 #import <QuartzCore/QuartzCore.h>
-@interface SPAudioRcPlayer (){
+@interface SPAudioRcPlayer () <AVAudioPlayerDelegate, UIGestureRecognizerDelegate>{
     AVAudioPlayer *player;
 }
 
 @property (nonatomic, strong) NSTimer *timer;
 
-@property (nonatomic,strong) EZAudioFile *audioFile;
+//@property (nonatomic,strong) EZAudioFile *audioFile;
 
 @property (nonatomic,strong) UISlider *navigationSlider;
 
@@ -24,43 +24,42 @@
 
 
 @implementation SPAudioRcPlayer
-@synthesize audioPlot = _audioPlot;
+//@synthesize audioPlot = _audioPlot;
 @synthesize annotationTableView = _annotationTableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Waveform color
-    self.audioPlot.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
-    self.audioPlot.opaque = NO;
-
-    self.audioPlot.plotType        = EZPlotTypeBuffer;
-    // Fill
-    self.audioPlot.shouldFill      = YES;
-    // Mirror
-    self.audioPlot.shouldMirror    = YES;
-    
-    self.audioPlot.color           = [UIColor colorWithRed:0 green:0 blue:0.604 alpha:1];
-    self.audioPlot.gain = 4.0;
-    //V2
-    self.audioPlotV2.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
-    self.audioPlotV2.opaque = NO;
-    
-    self.audioPlotV2.plotType        = EZPlotTypeBuffer;
-    // Fill
-    self.audioPlotV2.shouldFill      = YES;
-    // Mirror
-    self.audioPlotV2.shouldMirror    = YES;
-    
-    self.audioPlotV2.color           = [UIColor colorWithRed:0.412 green:0.412 blue:0.412 alpha:1] /*#696969*/;
-    self.audioPlotV2.gain = 4.0;
+//    self.audioPlot.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+//    self.audioPlot.opaque = NO;
+//
+//    self.audioPlot.plotType        = EZPlotTypeBuffer;
+//    // Fill
+//    self.audioPlot.shouldFill      = YES;
+//    // Mirror
+//    self.audioPlot.shouldMirror    = YES;
+//    
+//    self.audioPlot.color           = [UIColor colorWithRed:0 green:0 blue:0.604 alpha:1];
+//    self.audioPlot.gain = 4.0;
+//    //V2
+//    self.audioPlotV2.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+//    self.audioPlotV2.opaque = NO;
+//    
+//    self.audioPlotV2.plotType        = EZPlotTypeBuffer;
+//    // Fill
+//    self.audioPlotV2.shouldFill      = YES;
+//    // Mirror
+//    self.audioPlotV2.shouldMirror    = YES;
+//    
+//    self.audioPlotV2.color           = [UIColor colorWithRed:0.412 green:0.412 blue:0.412 alpha:1] /*#696969*/;
+//    self.audioPlotV2.gain = 4.0;
     //NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"mp3"];
     //NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
     //_currentRecord.recordURL = soundFileURL;
-    self.audioFile = [EZAudioFile audioFileWithURL:_currentRecord.recordURL andDelegate:self];
+    //self.audioFile = [EZAudioFile audioFileWithURL:_currentRecord.recordURL andDelegate:self];
     
-    [self createWave];
-    
+    //[self createWave];
     player = [[AVAudioPlayer alloc] initWithContentsOfURL:_currentRecord.recordURL error:nil];
 
     player.delegate = self;
@@ -94,6 +93,7 @@
                                         initWithTarget:self
                                         action:@selector(labelDragged:)];
     [_sliderCurrentTime addGestureRecognizer:gesture];
+    [self setupAppearance];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,19 +103,21 @@
 #pragma mark - Slider setting
 -(void)setupAppearance {
     
-    UIImage *minImage = [UIImage imageWithContentsOfFile:_currentRecord.backImage];
-    UIImage *maxImage = [UIImage imageWithContentsOfFile:_currentRecord.frontImage];
-
+    UIImage *minImage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@",_currentRecord.backImage]];
+    UIImage *maxImage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@",_currentRecord.frontImage]];
+    minImage = [minImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+    maxImage = [maxImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     UIImage *thumbImage = [[UIImage imageNamed:@"sliderPicker.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [[UISlider appearance] setMaximumTrackImage:maxImage forState:UIControlStateNormal];
     [[UISlider appearance] setMinimumTrackImage:minImage forState:UIControlStateNormal];
     [[UISlider appearance] setThumbImage:thumbImage forState:UIControlStateNormal];
     
-    float frameWidth = self.view.frame.size.width - 70;
-    
-    _navigationSlider = [[UISlider alloc] initWithFrame:CGRectMake(20, 141, frameWidth, 40)];
+    float frameWidth = self.view.frame.size.width - 60;
+    _navigationSlider = [[UISlider alloc] initWithFrame:CGRectMake(20, 128, frameWidth, 40)];
+
     _navigationSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [_navigationSlider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
+
     //[_navigationSlider addSubview:_sliderCurrentTime];
     _navigationSlider.maximumValue = player.duration;
     
@@ -124,10 +126,9 @@
                                                 selector:@selector(updateValueSliderAndTime)
                                                 userInfo:nil
                                                  repeats:YES];
-    
 
     [self.view addSubview:_navigationSlider];
-    
+
     for (NSString* key in _annotationDict) {
         [self addGraphAnnotation:key];
     }
@@ -214,7 +215,7 @@
 - (void)addGraphAnnotation:(NSString *)currentAnnotationTime {
     
     float fullTime = player.duration;
-    float sliderWidth = self.view.frame.size.width - 70;
+    float sliderWidth = self.view.frame.size.width - 60;
     NSArray *tempArray = [currentAnnotationTime componentsSeparatedByString:@":"];
     
     int annotationTime = [tempArray[0] integerValue] * 60 + [tempArray[1] integerValue];
@@ -371,7 +372,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
     NSString *currentAnnotationTime = dictonarySortAllKeys[indexPath.row];
     NSInteger *tempIntTime = [self timeConvertToSeconds:currentAnnotationTime];
-    float currentAnnTime = [[NSNumber numberWithInt:tempIntTime] floatValue];
+    float currentAnnTime = [[NSNumber numberWithInt:*tempIntTime] floatValue];
     
     [player stop];
     [player setCurrentTime:currentAnnTime];
@@ -396,7 +397,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     //label.center = CGPointMake(label.center.x + translation.x,label.center.y);
     
     float fullTime = player.duration;
-    float sliderWidth = self.view.frame.size.width - 70;
+    float sliderWidth = self.view.frame.size.width - 60;
     
     float xValue = translation.x/(sliderWidth/fullTime);
     
@@ -404,7 +405,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     label.center = CGPointMake(label.center.x + translation.x, label.center.y);
     // reset translation
     [gesture setTranslation:CGPointZero inView:label];
-    NSLog(@"%f", label.center);
+    //NSLog(@"%f", label.center);
     player.currentTime = _navigationSlider.value;
     //[NSLog(@"%f", translation.x)];
 }
@@ -460,9 +461,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSString *minutes = [subStrings objectAtIndex:0];
     NSString *seconds = [subStrings objectAtIndex:1];
     
-    NSInteger *secondsOfStart = [minutes integerValue]*60 + [seconds integerValue];
+    int secondsOfStart = [minutes integerValue]*60 + [seconds integerValue];
     
-    return secondsOfStart;
+    
+    
+    return &secondsOfStart;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -480,31 +483,34 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 //рисуем гистограмму
-- (void) createWave {
-    [self.audioFile getWaveformDataWithCompletionBlock:^(float *waveformData, UInt32 length) {
-        self.audioPlot.plotType        = EZPlotTypeBuffer;
-        self.audioPlotV2.plotType        = EZPlotTypeBuffer;
-
-        [self.audioPlot updateBuffer:waveformData withBufferSize:length];
-        [self.audioPlotV2 updateBuffer:waveformData withBufferSize:length];
-
-        _notPlayingHistogram = [self imageWithView:_audioPlot];
-        _playedHistogram = [self imageWithView:_audioPlotV2];
-
-        [self setupAppearance];
-    }];
-}
+//- (void) createWave {
+//    [self.audioFile getWaveformDataWithCompletionBlock:^(float *waveformData, UInt32 length) {
+//        self.audioPlot.plotType        = EZPlotTypeBuffer;
+//        self.audioPlotV2.plotType        = EZPlotTypeBuffer;
+//
+//        [self.audioPlot updateBuffer:waveformData withBufferSize:length];
+//        [self.audioPlotV2 updateBuffer:waveformData withBufferSize:length];
+//
+//        _notPlayingHistogram = [self imageWithView:_audioPlot];
+//        _playedHistogram = [self imageWithView:_audioPlotV2];
+//
+//        [self setupAppearance];
+//    }];
+//}
 
 //делаем скриншот определенной области
-- (UIImage *) imageWithView:(UIView *)view
-{
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
-    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return img;
+//- (UIImage *) imageWithView:(UIView *)view
+//{
+//    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0);
+//    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    
+//    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+//    
+//    UIGraphicsEndImageContext();
+//    
+//    return img;
+//}
+- (IBAction)tempExitAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

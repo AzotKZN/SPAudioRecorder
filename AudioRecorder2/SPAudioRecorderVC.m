@@ -227,7 +227,7 @@
     // Mirror
     self.audioPlotV1.shouldMirror    = YES;
     
-    self.audioPlotV1.color           = [UIColor colorWithRed:1.00 green:0.00 blue:0.00 alpha:1.0];
+    self.audioPlotV1.color           = [UIColor colorWithRed:0.30 green:0.30 blue:0.78 alpha:1.0];//[UIColor colorWithRed:1.00 green:0.00 blue:0.00 alpha:1.0];
     self.audioPlotV1.gain = 4.0;
     //V2
     self.audioPlotV2.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];

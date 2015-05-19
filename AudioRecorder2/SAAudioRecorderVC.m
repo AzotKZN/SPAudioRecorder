@@ -90,8 +90,9 @@
     
     playerView.delegate = self;
     
-    [self.navigationController pushViewController:playerView animated:YES];
+    [self presentViewController:playerView animated:YES completion:nil];
 
+    //[self.navigationController popToViewController:playerView animated:YES];// pushViewController:playerView animated:YES];
 }
 
 - (void)audioRecorderVCDidFinish:(SPAudioRecorderVC *)audioRecorderVC {
