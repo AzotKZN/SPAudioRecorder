@@ -380,6 +380,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     float currentAnnTime = [[NSNumber numberWithInt:*tempIntTime] floatValue];
     
     [player stop];
+    player.currentTime = currentAnnTime;
     [player setCurrentTime:currentAnnTime];
     [player prepareToPlay];
     [player play];
@@ -410,9 +411,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     label.center = CGPointMake(label.center.x + translation.x, label.center.y);
     // reset translation
     [gesture setTranslation:CGPointZero inView:label];
-    //NSLog(@"%f", label.center);
     player.currentTime = _navigationSlider.value;
-    //[NSLog(@"%f", translation.x)];
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
@@ -425,9 +424,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     
     _navigationSlider.value = xValue;
     player.currentTime = xValue;
-    NSLog(@"%f", location.x);
-    NSLog(@"%f", xValue);
-    NSLog(@"%f", _navigationSlider.value);
 }
 
 
@@ -484,9 +480,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSString *seconds = [subStrings objectAtIndex:1];
     
     int secondsOfStart = [minutes integerValue]*60 + [seconds integerValue];
-    
-    
-    
+
     return &secondsOfStart;
 }
 

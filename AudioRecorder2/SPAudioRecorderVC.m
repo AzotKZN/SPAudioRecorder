@@ -212,45 +212,57 @@
 }
 
 - (IBAction)doneTapped:(id)sender {
-    [recorder stop];
-    [self.microphone stopFetchingAudio];
-
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setActive:NO error:nil];
-    [recordButton setHidden:YES];
-    [self.recordingTimer invalidate];
+    [self pauseTapped:self];
+    if (recorder.currentTime > 5.0) {
+        [recorder stop];
+        _doneButton.enabled = NO;
+        
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setActive:NO error:nil];
+        [recordButton setHidden:YES];
+        [self.recordingTimer invalidate];
+        
+        self.recordURL = recorder.url;
+        NSLog(@"%f", recorder.currentTime);
+        
+        
+        self.audioPlotV1.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+        self.audioPlotV1.opaque = NO;
+        
+        self.audioPlotV1.plotType        = EZPlotTypeBuffer;
+        // Fill
+        self.audioPlotV1.shouldFill      = YES;
+        // Mirror
+        self.audioPlotV1.shouldMirror    = YES;
+        
+        self.audioPlotV1.color           = [UIColor colorWithRed:0.30 green:0.30 blue:0.78 alpha:1.0];//[UIColor colorWithRed:1.00 green:0.00 blue:0.00 alpha:1.0];
+        self.audioPlotV1.gain = 4.0;
+        //V2
+        self.audioPlotV2.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+        self.audioPlotV2.opaque = NO;
+        
+        self.audioPlotV2.plotType        = EZPlotTypeBuffer;
+        // Fill
+        self.audioPlotV2.shouldFill      = YES;
+        // Mirror
+        self.audioPlotV2.shouldMirror    = YES;
+        
+        self.audioPlotV2.color           = [UIColor colorWithRed:0.412 green:0.412 blue:0.412 alpha:1] /*#696969*/;
+        self.audioPlotV2.gain = 4.0;
+        
+        self.audioFile = [EZAudioFile audioFileWithURL:_recordURL andDelegate:self];
+        
+        [self createWave];
+    } else
+    {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Запись слишком короткая"
+                                                         message: @"Создайте запись длинее 5 секунд"
+                                                        delegate:self
+                                               cancelButtonTitle:@"Ок"
+                                               otherButtonTitles:nil, nil];
+        [alert show];
+    }
     
-    self.recordURL = recorder.url;
-    NSLog(@"%f", recorder.currentTime);
-
-    
-    self.audioPlotV1.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
-    self.audioPlotV1.opaque = NO;
-    
-    self.audioPlotV1.plotType        = EZPlotTypeBuffer;
-    // Fill
-    self.audioPlotV1.shouldFill      = YES;
-    // Mirror
-    self.audioPlotV1.shouldMirror    = YES;
-    
-    self.audioPlotV1.color           = [UIColor colorWithRed:0.30 green:0.30 blue:0.78 alpha:1.0];//[UIColor colorWithRed:1.00 green:0.00 blue:0.00 alpha:1.0];
-    self.audioPlotV1.gain = 4.0;
-    //V2
-    self.audioPlotV2.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
-    self.audioPlotV2.opaque = NO;
-    
-    self.audioPlotV2.plotType        = EZPlotTypeBuffer;
-    // Fill
-    self.audioPlotV2.shouldFill      = YES;
-    // Mirror
-    self.audioPlotV2.shouldMirror    = YES;
-    
-    self.audioPlotV2.color           = [UIColor colorWithRed:0.412 green:0.412 blue:0.412 alpha:1] /*#696969*/;
-    self.audioPlotV2.gain = 4.0;
-
-    self.audioFile = [EZAudioFile audioFileWithURL:_recordURL andDelegate:self];
-
-    [self createWave];
     
 }
 
