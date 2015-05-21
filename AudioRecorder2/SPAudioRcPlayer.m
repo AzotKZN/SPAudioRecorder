@@ -380,6 +380,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     float currentAnnTime = [[NSNumber numberWithInt:*tempIntTime] floatValue];
     
     [player stop];
+    _navigationSlider.value = currentAnnTime;
     player.currentTime = currentAnnTime;
     [player setCurrentTime:currentAnnTime];
     [player prepareToPlay];
